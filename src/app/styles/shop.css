@@ -1,0 +1,49 @@
+#shop {
+
+}
+
+#shop .ad {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    padding: 145px 25px 25px 25px;
+
+    background-color: #A161B3;
+}
+
+#shop .ad .info-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 400px;
+}
+
+#shop .ad .info-panel .title {
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+#shop .ad .info-panel .text {
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 30px;
+
+    margin-bottom: 20px;
+}
+
+#shop .ad .info-panel .button-filled {
+    color: #383838;
+    background-color: white;
+}
+
+#shop .ad .image {
+    height: 200px;
+
+    margin-left: 50px;
+}

@@ -1,0 +1,33 @@
+#payment {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#payment .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 50px 100px;
+}
+
+#payment .content .title {
+    color: #383838;
+    font-size: 40px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+#payment .content .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+
+    width: 70%;
+
+    margin-bottom: 30px;
+}

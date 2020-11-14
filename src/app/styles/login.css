@@ -1,0 +1,84 @@
+#login {
+    width: 100%;
+}
+
+#login .content {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#login .content .left-panel {
+    width: 650px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #A161B3;
+}
+
+#login .content .left-panel .icon {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+#login .content .right-panel {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 50px;
+    padding-bottom: 100px;
+
+    background-color: #F5F5F5;
+    background-color: white;
+}
+
+#login .content .right-panel .title {
+    color: #383838;
+    font-size: 40px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+#login .content .right-panel .text {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27px;
+
+    width: 75%;
+
+    margin-bottom: 50px;
+}
+
+#login .content .right-panel .field {
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+
+    padding: 8px;
+
+    margin-bottom: 10px;
+
+    width: 350px;
+
+    border: 1px solid lightgray;
+    outline: none;
+}
+
+#login .content .right-panel .button-filled {
+    width: 170px;
+    margin-top: 50px;
+}
+
+#login .content .right-panel .button-outline {
+    width: 170px;
+    margin-top: 10px;
+}

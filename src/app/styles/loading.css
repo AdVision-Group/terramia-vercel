@@ -1,0 +1,25 @@
+.loading {
+    width: 40px;
+    height: 40px;
+
+    margin: 30px 0px;
+
+    border-radius: 50%;
+
+    border: 7px solid #f3f3f3;
+    border-top: 7px solid #A161B3;
+    border-left: 7px solid #A161B3;
+
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1500ms linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

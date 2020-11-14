@@ -15,6 +15,14 @@ body {
     overflow-x: hidden;
 }
 
+input, textarea, button, select, a, div {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.scroll-disabler {
+    overflow-y: hidden;
+}
+
 .screen {
     width: 100%;
 }
@@ -35,6 +43,8 @@ body {
     color: white;
     font-size: 15px;
     font-weight: 700;
+    text-align: center;
+    text-decoration: none;
 
     padding: 10px 25px;
 
@@ -43,12 +53,20 @@ body {
     cursor: pointer;
 
     background-color: #A161B3;
+
+    transition: all 200ms;
+}
+
+.button-filled:hover {
+    background-color: #b777c9;
 }
 
 .button-outline {
     color: #A161B3;
     font-size: 15px;
     font-weight: 700;
+    text-align: center;
+    text-decoration: none;
 
     padding: 10px 25px;
 

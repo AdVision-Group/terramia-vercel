@@ -1,7 +1,7 @@
 import React from "react";
 
 // default API URL
-export const API_URL = "http://localhost:8080";
+export const API_URL = "http://141.136.35.33:8080";
 
 // returns TRUE if the user is logged, otherwise FALSE
 export function isLogged() {

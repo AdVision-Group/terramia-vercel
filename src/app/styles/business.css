@@ -6,163 +6,225 @@
     align-items: center;
 }
 
-#business .title-panel {
-    width: 100%;
-    
+#business .content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-    padding: 75px;
+    width: 100%;
+    max-width: 1600px;
 
-    background:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url("../assets/item-1.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#business .title-panel .title {
-    color: white;
-    font-size: 50px;
-    font-weight: 700;
-    text-align: center;
-}
-
-@media (min-width: 1600px) {
-    #business .content {
-        display: flex;
-        flex-direction: column;
-    
-        width: 1600px;
-    
-        padding: 50px 150px;
-        margin-bottom: 50px;
-    }
-}
-
-@media (max-width: 1600px) {
-    #business .content {
-        display: flex;
-        flex-direction: column;
-
-        width: 100%;
-
-        padding: 50px 150px;
-        margin-bottom: 50px;
-    }
-}
-
-@media (max-width: 1300px) {
-    #business .content {
-        padding: 50px 50px;
-    }
+    padding: 50px;
 }
 
 @media (max-width: 800px) {
     #business .content {
-        padding: 10px 20px 0px 20px;
-
-        margin-bottom: 0px;
+        padding: 20px;
     }
 }
 
-#business .content .heading {
-    color: black;
-    font-size: 23px;
-    font-weight: 700;
-
-    margin: 20px 0px;
-}
-
-#business .content .text {
-    color: black;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 30px;
-
-    margin-bottom: 10px;
-}
-
-#business .content .image {
-    width: 60%;
-    max-width: 700px;
-
-    margin: 20px 0px 40px 0px;
-}
-
-@media (max-width: 800px) {
-    #business .content .image {
-        width: 100%;
-
-        margin: 20px 0px 40px 0px;
-    }
-}
-
-#business .content .contact-panel {
-    display: flex;
-    flex-direction: row;
+#business .content .section {
     width: 100%;
 
-    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    z-index: 2;
+    margin-bottom: 30px;
+
+    border: none;
 }
 
-@media (max-width: 600px) {
-    #business .content .contact-panel {
-        flex-direction: column;
-
+@media (max-width: 800px) {
+    #business .content .section {
         margin-top: 30px;
     }
 }
 
-#business .content .contact-panel .item {
+#business .content .divider {
+    width: 50px;
+}
+
+#business .content .section .image-panel {
+    width: 400px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-right: 60px;
+    justify-content: center;
 }
 
-@media (max-width: 800px) {
-    #business .content .contact-panel .item {
-        flex: 1;
-
-        margin: 0px;
+@media (max-width: 1200px) {
+    #business .content .section .image-panel {
+        width: 300px;
     }
 }
 
-@media (max-width: 800px) {
-    #business .content .contact-panel .item {
-        flex: 1;
+@media (max-width: 1000px) {
+    #business .content .section .image-panel {
+        display: none;
+    }
 
-        margin: 0px;
-        margin-bottom: 40px;
+    #business .content .divider {
+        display: none;
     }
 }
 
-#business .content .contact-panel .item .photo {
-    width: 150px;
+#business .content .section .image-panel .image {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+#business .content .section .text-panel {
+    flex: 1;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+@media (max-width: 800px) {
+    #business .content .section .text-panel {
+        padding: 10px;
+    }
+}
+
+#business .content .section .text-panel .bubble {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 25px;
+
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 20px -10px gray;
+    background-color: white;
+}
+
+#business .content .section .text-panel .bubble .number {
+    color: #A161B3;
+    font-size: 80px;
+    font-weight: 900;
+
+    margin-top: -80px;
+}
+
+#business .content .section .text-panel .bubble .title {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 700;
 
     margin-bottom: 20px;
 }
 
+#business .content .section .text-panel .bubble .text {
+    color: #383838;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+
+    width: 100%;
+
+    margin-bottom: 0px;
+}
+
+#business .content .section .text-panel .bubble .button-filled {
+    margin-top: 30px;
+}
+
+#business .content .motto-text {
+    align-self: center;
+    width: 60%;
+
+    color: #383838;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: center;
+
+    margin-top: 60px;
+}
+
 @media (max-width: 800px) {
-    #business .content .contact-panel .item .photo {
-        width: 70%;
-    
-        margin-bottom: 20px;
+    #business .content .motto-text {
+        width: 100%;
     }
 }
 
-#business .content .contact-panel .item .name {
-    color: black;
-    font-size: 20px;
+#business .content .motto-text .link {
     font-weight: 700;
-    text-align: center;
+    color: #A161B3;
+    text-decoration: none;
 }
 
-#business .content .contact-panel .item .phone {
+#business .content .contact-panel {
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 30px;
+}
+
+#business .content .contact-panel .links {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 600px) {
+    #business .content .contact-panel .links {
+        flex-direction: column;
+        align-items: center;
+
+        margin-bottom: 15px;
+    }
+}
+
+#business .content .contact-panel .links .link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 20px;
+}
+
+#business .content .contact-panel .links .link .name {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 700;
+
+    margin-top: 15px;
+}
+
+#business .content .contact-panel .links .link .phone {
     color: #A161B3;
-    font-size: 20px;
-    font-weight: 400;
-    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+#business .content .contact-panel .photo {
+    width: 350px;
+}
+
+@media (max-width: 600px) {
+    #business .content .contact-panel .links .link .name {
+        font-size: 20px;
+
+        margin-top: 0px;
+    }
+    
+    #business .content .contact-panel .links .link .phone {
+        font-size: 20px;
+    }
+
+    #business .content .contact-panel .photo {
+        width: 100%;
+    }
 }

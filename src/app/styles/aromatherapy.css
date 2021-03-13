@@ -1,27 +1,9 @@
 #aromatherapy {
     width: 100%;
-}
 
-#aromatherapy .title-panel {
-    width: 100%;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-
-    padding: 75px;
-
-    background:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url("../assets/item-1.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-#aromatherapy .title-panel .title {
-    color: white;
-    font-size: 50px;
-    font-weight: 700;
-    text-align: center;
 }
 
 #aromatherapy .content {
@@ -29,143 +11,678 @@
     flex-direction: column;
 
     width: 100%;
+    max-width: 1600px;
 
-    padding: 75px;
+    padding: 0px 100px 50px 100px;
+}
+
+@media (max-width: 1300px) {
+    #aromatherapy .content {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content {
+        padding: 50px 20px;
+    }
+}
+
+.section-1 {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 100px;
+    padding-top: 100px;
+}
+
+@media (max-width: 1300px) {
+    .section-1 {
+        padding-top: 50px;
+    }
 }
 
 #aromatherapy .content .title {
-    color: black;
+    color: #383838;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
+
+    align-self: center;
+
+    margin-bottom: 20px;
 }
 
-#aromatherapy .content .description {
-    color: rgba(0, 0, 0, 0.6);
+@media (max-width: 800px) {
+    #aromatherapy .content .title {
+        font-size: 30px;
+    }
+}
+
+#aromatherapy .content .section-1 .description {
+    color: rgba(0, 0, 0, 0.5);
     font-size: 20px;
     font-weight: 400;
-    line-height: 35px;
-
-    margin-top: 15px;
-}
-
-.left {
-    text-align: left;
-    align-self: flex-start;
-}
-
-.right {
-    align-self: flex-end;
-}
-
-.center {
     text-align: center;
+    line-height: 30px;
+
     align-self: center;
+
+    width: 70%;
 }
 
-.half {
-    width: 50%;
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-1 .description {
+        width: 85%;
+    }
 }
 
-#aromatherapy .content .list {
+@media (max-width: 800px) {
+    #aromatherapy .content .section-1 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-1 .list {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 
-    width: 100%;
-
-    margin: 50px 0px;
+    margin: 75px 0px 0px 0px;
 }
 
-#aromatherapy .content .list .item {
-    width: 30%;
-
+#aromatherapy .content .section-1 .list .item {
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    width: 300px;
+
+    margin: 0px 20px;
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-1 .list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #aromatherapy .content .section-1 .list .item {
+        margin: 0px 0px 50px 0px;
+    }
+}
+
+#aromatherapy .content .section-1 .list .item ion-icon {
+    width: 70px;
+    height: 70px;
+
+    color: white;
+
     padding: 30px;
+    margin-bottom: 20px;
+
+    border-radius: 50%;
 }
 
-.shadow {
-    box-shadow: 0px 0px 20px -15px black;
+@media (max-width: 800px) {
+    #aromatherapy .content .section-1 .list .item ion-icon {
+        width: 50px;
+        height: 50px;
+    }
 }
 
-#aromatherapy .content .list .item .heading {
-    font-size: 30px;
+#aromatherapy .content .section-1 .list .item .title {
+    color: #383838;
+    font-size: 25px;
     font-weight: 700;
     text-align: center;
 
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
-#aromatherapy .content .list .item .text {
-    font-size: 18px;
+#aromatherapy .content .section-1 .list .item .text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
     font-weight: 400;
     text-align: center;
+    line-height: 26px;
+
+    width: 100%;
 }
 
-#aromatherapy .content .list .item .image {
-    width: 60%;
-}
-
-.white {
-    color: white;
-}
-
-.black {
-    color: black;
-}
-
-.green {
-    background-color: #608B51;
-}
-
-.yellow {
-    background-color: #F2D42D;
-}
-
-.purple {
-    background-color: #E278A6;
-}
-
-#aromatherapy .content .pluses {
+.section-2 {
     display: flex;
     flex-direction: column;
 
-    margin: 80px 0px 50px 0px;
+    margin-bottom: 100px;
 }
 
-#aromatherapy .content .pluses .item {
+#aromatherapy .content .section-2 .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+
+    align-self: center;
+
+    width: 70%;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-2 .description {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-2 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-2 .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 75px 0px 0px 0px;
+}
+
+#aromatherapy .content .section-2 .list .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 32%;
+    height: 230px;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-2 .list {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #aromatherapy .content .section-2 .list .item {
+        width: 100%;
+        height: auto;
+    
+        padding: 60px 30px;
+
+        margin-bottom: 20px;
+    }
+}
+
+#aromatherapy-image-1 {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url("../assets/image-lemon.jpeg");
+}
+
+#aromatherapy-image-2 {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url("../assets/image-peppermint.jpeg");
+}
+
+#aromatherapy-image-3 {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)), url("../assets/image-lavender.jpeg");
+}
+
+#aromatherapy .content .section-2 .list .item .heading {
+    color: white;
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.section-3 {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 100px;
+}
+
+#aromatherapy .content .section-3 .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+
+    align-self: center;
+
+    width: 70%;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-3 .description {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-3 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-3 .panel {
+    display: flex;
+    flex-direction: row;
+}
+
+#aromatherapy .content .section-3 .panel .image-panel {
+    width: 400px;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-3 .panel .image-panel {
+        width: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-3 .panel .image-panel {
+        display: none;
+    }
+}
+
+#aromatherapy .content .section-3 .panel .image-panel .image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#aromatherapy .content .section-3 .panel .box-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    flex: 1;
+}
+
+#aromatherapy .content .section-3 .panel .box-panel .box {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+
     width: 70%;
 
-    margin-bottom: 60px;
-    padding: 50px 30px 30px 30px;
+    margin: 20px;
+    padding: 20px;
 
-    position: relative;
-
-    background-color: #BC8DC9;
+    border-radius: 10px;
+    
+    background-color: rgb(207, 177, 216);
 }
 
-#aromatherapy .content .pluses .item .number {
-    color: #A161B3;
-    font-size: 100px;
-    font-weight: 900;
+@media (max-width: 900px) {
+    #aromatherapy .content .section-3 .panel .box-panel .box {
+        width: 80%;
 
-    position: absolute;
-    left: 30px;
-    top: -70px;
+        margin: 10px;
+    }
 }
 
-#aromatherapy .content .pluses .item .heading {
+#aromatherapy .content .section-3 .panel .box-panel .box .heading {
     color: white;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: 700;
 
     margin-bottom: 10px;
 }
 
-#aromatherapy .content .pluses .item .text {
+#aromatherapy .content .section-3 .panel .box-panel .box .text {
     color: white;
     font-size: 16px;
     font-weight: 400;
+    line-height: 26px;
+}
+
+.section-4 {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 100px;
+}
+
+#aromatherapy .content .section-4 .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+
+    align-self: center;
+
+    width: 70%;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-4 .description {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-4 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-4 .list {
+    display: flex;
+    flex-direction: row;
+
+    margin: 75px 0px 0px 0px;
+}
+
+#aromatherapy .content .section-4 .list .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1;
+}
+
+@media (max-width: 1000px) {
+    #aromatherapy .content .section-4 .list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #aromatherapy .content .section-4 .list .item {
+        margin-bottom: 30px;
+    }
+}
+
+#aromatherapy .content .section-4 .list .item .image {
+    width: 180px;
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-4 .list .item .image {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #aromatherapy .content .section-4 .list .item .image {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+#aromatherapy .content .section-4 .list .item .title {
+    color: #383838;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+
+    width: 100%;
+}
+
+.section-5 {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 100px;
+}
+
+#aromatherapy .content .section-5 .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+
+    align-self: center;
+
+    width: 70%;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-5 .description {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-5 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-5 .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin: 75px 0px 0px 0px;
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-5 .list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#aromatherapy .content .section-5 .list .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 250px;
+
+    margin: 0px 20px;
+    padding: 30px;
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-5 .list .item {
+        margin: 0px;
+    }
+}
+
+#aromatherapy .content .section-5 .list .item ion-icon {
+    width: 70px;
+    height: 70px;
+
+    color: white;
+
+    padding: 30px;
+    margin-bottom: 20px;
+
+    border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-5 .list .item ion-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+#aromatherapy .content .section-5 .list .item .heading {
+    color: #383838;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+
+    margin-bottom: 5px;
+}
+
+#aromatherapy .content .section-5 .list .item .text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.section-6 {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 100px;
+}
+
+#aromatherapy .content .section-6 .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+
+    align-self: center;
+
+    width: 70%;
+}
+
+@media (max-width: 1200px) {
+    #aromatherapy .content .section-6 .description {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-6 .description {
+        width: 100%;
+    }
+}
+
+#aromatherapy .content .section-6 .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin: 75px 0px 0px 0px;
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-6 .list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#aromatherapy .content .section-6 .list .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 250px;
+
+    margin: 0px 20px;
+    padding: 30px;
+}
+
+@media (max-width: 900px) {
+    #aromatherapy .content .section-6 .list .item {
+        margin: 0px;
+    }
+}
+
+#aromatherapy .content .section-6 .list .item .image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+
+    margin-bottom: 20px;
+
+    border-radius: 50%;
+}
+
+#aromatherapy .content .section-6 .list .item .title {
+    color: #383838;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+
+    width: 100%;
+
+    margin-bottom: 10px;
+}
+
+.section-7 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: 50px;
+}
+
+#aromatherapy .content .section-7 .title {
+    align-self: flex-start;
+
+    margin-bottom: 40px;
+}
+
+#aromatherapy .content .section-7 .list {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 60px;
+}
+
+#aromatherapy .content .section-7 .list .item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    color: #383838;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+#aromatherapy .content .section-7 .list .bullet {
+    display: block;
+
+    width: 10px;
+    height: 10px;
+
+    margin: 0px 20px 0px 0px;
+
+    border-radius: 50%;
+
+    background-color: #A161B3;
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-7 .list .bullet {
+        margin: 0px 10px 0px 0px;
+    }
+}
+
+#aromatherapy .content .section-7 .motto {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+@media (max-width: 800px) {
+    #aromatherapy .content .section-7 .motto {
+        color: #383838;
+        font-size: 20px;
+        font-weight: 400;
+
+        text-align: center;
+    }
 }

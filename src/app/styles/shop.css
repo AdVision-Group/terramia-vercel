@@ -1,25 +1,44 @@
 #shop {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-#shop .upper-panel {
-    padding: 50px 100px;
+#shop .content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    width: 100%;
+    max-width: 1800px;
+}
+
+#shop .content .product-panel {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    flex: 1;
+}
+
+#shop .content .product-panel .upper-panel {
+    padding: 50px;
 }
 
 @media (max-width: 1300px) {
-    #shop .upper-panel {
-        padding: 50px;
+    #shop .content .product-panel .upper-panel {
+        padding: 30px;
     }
 }
 
 @media (max-width: 800px) {
-    #shop .upper-panel {
-        padding: 50px 20px;
+    #shop .content .product-panel .upper-panel {
+        padding: 20px;
     }
 }
 
-#shop .upper-panel .title {
+#shop .content .product-panel .upper-panel .title {
     color: #383838;
     font-size: 40px;
     font-weight: 700;
@@ -27,7 +46,13 @@
     margin-bottom: 20px;
 }
 
-#shop .upper-panel .text {
+@media (max-width: 800px) {
+    #shop .content .product-panel .upper-panel .title {
+        font-size: 30px;
+    }
+}
+
+#shop .content .product-panel .upper-panel .text {
     color: rgba(0, 0, 0, 0.5);
     font-size: 18px;
     font-weight: 400;
@@ -37,36 +62,36 @@
 }
 
 @media (max-width: 1000px) {
-    #shop .upper-panel .text {
+    #shop .content .product-panel .upper-panel .text {
         width: 100%;
     }
 }
 
-#shop .filters {
+#shop .content .product-panel .filters {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    padding: 0px 100px;
+    padding: 0px 50px;
 }
 
 @media (max-width: 1300px) {
-    #shop .filters {
+    #shop .content .product-panel .filters {
         display: flex;
         flex-direction: row;
         align-items: center;
 
-        padding: 0px 50px;
+        padding: 0px 30px;
     }
 }
 
 @media (max-width: 800px) {
-    #shop .filters {
+    #shop .content .product-panel .filters {
         padding: 0px 20px;
     }
 }
 
-#shop .filters .field {
+#shop .content .product-panel .filters .field {
     color: #383838;
     font-size: 15px;
     font-weight: 400;
@@ -81,53 +106,112 @@
     outline: none;
 }
 
-#shop .filters .field .button-filled {
+@media (max-width: 800px) {
+    #shop .content .product-panel .filters .field {
+        width: 100%;
+
+        margin: 0px;
+    }
+}
+
+#shop .content .product-panel .filters .button-filled {
     align-self: center;
 }
 
-#shop .products {
+@media (max-width: 800px) {
+    #shop .content .product-panel .filters .button-filled {
+        margin-left: 20px;
+    }
+}
+
+.button-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    display: none;
+
+    color: #383838;
+    font-size: 18px;
+
+    flex: 1;
+
+    padding: 10px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.button-filters ion-icon {
+    width: 25px;
+    height: 25px;
+
+    margin-right: 10px;
+}
+
+@media (max-width: 1000px) {
+    .button-filters {
+        display: flex;
+
+        margin: 20px 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    .button-filters {
+        margin: 20px;
+    }
+}
+
+#shop .content .product-panel .products {
     width: 100%;
 
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 60px 80px;
 
-    padding: 50px 100px;
+    padding: 50px;
 
     margin-bottom: 30px;
 }
 
 @media (max-width: 1300px) {
-    #shop .products {
-        gap: 60px 40px;
+    #shop .content .product-panel .products {
+        gap: 60px 20px;
 
-        padding: 50px;
+        padding: 50px 30px;
     }
 }
 
-@media (max-width: 1000px) {
-    #shop .products {
+@media (max-width: 1200px) {
+    #shop .content .product-panel .products {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 800px) {
-    #shop .products {
+    #shop .content .product-panel .products {
         grid-template-columns: repeat(2, 1fr);
         gap: 40px 20px;
 
         padding: 50px 20px;
+        padding-top: 20px;
     }
 }
 
-#shop .products .product {
+#shop .content .product-panel .products .product {
     display: flex;
     flex-direction: column;
 
     text-decoration: none;
+
+    position: relative;
 }
 
-#shop .products .product .image {
+#shop .content .product-panel .products .product .image {
     width: 100%;
     height: 230px;
     object-fit: contain;
@@ -136,15 +220,35 @@
     margin-bottom: 10px;
 
     background-color: rgba(0, 0, 0, 0.03);
+
+    padding: 10px;
+    background-color: transparent;
 }
 
-#shop .products .product .name {
+#shop .content .product-panel .products .product .top-12 {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+
+    width: 50px;
+    height: 50px;
+
+    z-index: 2;
+}
+
+#shop .content .product-panel .products .product .name {
     color: #383838;
     font-size: 20px;
     font-weight: 700;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
-#shop .products .product .description {
+#shop .content .product-panel .products .product .description {
     color: rgba(0, 0, 0, 0.4);
     font-size: 15px;
     font-weight: 400;
@@ -152,12 +256,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
 @media (min-width: 700px) {
-    #shop .products .product .panel {
+    #shop .content .product-panel .products .product .panel {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -166,15 +270,15 @@
         margin-top: 15px;
     }
 
-    #shop .products .product .panel .price {
+    #shop .content .product-panel .products .product .panel .price {
         color: #383838;
-        font-size: 20px;
-        font-weight: 400;
+        font-size: 18px;
+        font-weight: 700;
     }
 }
 
 @media (max-width: 700px) {
-    #shop .products .product .panel {
+    #shop .content .product-panel .products .product .panel {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -182,30 +286,36 @@
         margin-top: 15px;
     }
 
-    #shop .products .product .panel .price {
+    #shop .content .product-panel .products .product .panel .price {
         color: #383838;
         font-size: 20px;
-        font-weight: 400;
+        font-weight: 700;
 
         margin-bottom: 15px;
     }
 }
 
-#shop .products .product .panel .button-filled {
+#shop .content .product-panel .products .product .panel .sold-message {
+    color: #A161B3;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#shop .content .product-panel .products .product .panel .button-filled {
     font-size: 13px;
     font-weight: 400;
     padding: 6px 15px;
 }
 
-#shop .empty-message {
+#shop .content .product-panel .empty-message {
     width: 100%;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 
-    padding: 75px 100px;
+    padding: 75px 50px;
 
     color: #383838;
     font-size: 20px;
@@ -213,7 +323,7 @@
 }
 
 @media (max-width: 800px) {
-    #shop .empty-message {
+    #shop .content .product-panel .empty-message {
         align-items: flex-start;
 
         padding: 50px 20px;

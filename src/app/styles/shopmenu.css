@@ -1,0 +1,111 @@
+#shop-menu {
+    
+}
+
+#shop-menu .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding-bottom: 50px;
+}
+
+@media (max-width: 1000px) {
+    #shop-menu {
+        position: fixed;
+        left: 100vw;
+        top: 0px;
+
+        width: 100%;
+        height: 100vh;
+
+        background-color: white;
+
+        z-index: 1000;
+
+        overflow-y: scroll;
+    }
+
+    #shop-menu .content {
+        width: 100%;
+    }
+}
+
+#shop-menu .heading {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 700;
+
+    margin: 30px 15px 10px 48px;
+}
+
+#shop-menu .menu-item {
+    width: 400px;
+
+    transition: all 300ms;
+
+    overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+    #shop-menu .menu-item {
+        width: 100%;
+    }
+}
+
+#shop-menu .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 100%;
+    height: 42px;
+
+    padding: 10px 15px;
+    padding-left: 25px;
+
+    transition: all 150ms;
+
+    cursor: pointer;
+}
+
+#shop-menu .item:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+#shop-menu .item .selected {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    margin-right: 15px;
+
+    transition: all 100ms;
+
+    background-color: #A161B3;
+}
+
+#shop-menu .item .title {
+    color: #383838;
+    font-size: 17px;
+}
+
+#shop-menu .item ion-icon {
+    color: rgba(0, 0, 0, 0.4);
+
+    width: 16px;
+    height: 16px;
+
+    padding: 5px;
+
+    border-radius: 50%;
+
+    transition: all 150ms;
+}
+
+#shop-menu .button-filled {
+    margin: 40px;
+    margin-bottom: 100px;
+
+    align-self: center;
+}

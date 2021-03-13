@@ -1,9 +1,14 @@
 #product {
     width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #product .content {
     width: 100%;
+    max-width: 1600px;
 
     display: flex;
     flex-direction: row;
@@ -29,10 +34,10 @@
 }
 
 #product .content .image {
-    width: 150px;
+    width: 200px;
     object-fit: contain;
 
-    margin: 0px 100px 0px 50px;
+    margin: 0px 50px 0px 0px;
 }
 
 @media (max-width: 1300px) {
@@ -40,16 +45,16 @@
         width: 150px;
         object-fit: contain;
 
-        margin: 0px 50px;
+        margin: 0px 30px;
     }
 }
 
 @media (max-width: 800px) {
     #product .content .image {
-        width: 150px;
+        width: 100%;
         object-fit: contain;
 
-        margin: 70px 0px 0px 0px;
+        margin: 0px;
     }
 }
 
@@ -61,10 +66,86 @@
     flex: 1;
 }
 
+#product .content .info-panel .top-panel {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 1300px) {
+    #product .content .info-panel .top-panel {
+        flex-direction: column;
+    }
+}
+
+#product .content .info-panel .top-panel .right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    align-self: flex-end;
+
+    flex: 1;
+
+    padding: 20px;
+    padding-bottom: 0px;
+    margin: 0px;
+    margin-left: 100px;
+
+    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #E9FFD9;
+}
+
+@media (max-width: 1300px) {
+    #product .content .info-panel .top-panel .right-panel {
+        margin: 0px;
+        margin: 20px 0px;
+
+        width: 100%;
+
+        align-items: flex-start;
+    }
+}
+
+#product .content .info-panel .top-panel .right-panel .heading {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+#product .content .info-panel .top-panel .right-panel .item {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+
+    margin-bottom: 20px;
+    padding-left: 15px;
+
+    border-left: 4px solid #A161B3;
+}
+
+#product .content .info-panel .top-panel .left-panel {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
 #product .content .info-panel .name {
     color: #383838;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 700;
+}
+
+#product .content .info-panel .label {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
 
     margin-bottom: 20px;
 }
@@ -74,59 +155,90 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 30px;
-}
-
-#product .content .info-panel .pricing {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 80px;
 
     margin-top: 30px;
 }
 
+#product .content .info-panel .admin-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 40px;
+}
+
+#product .content .info-panel .admin-buttons .button-filled { margin: 0px; margin-right: 10px; }
+#product .content .info-panel .admin-buttons .button-outline { margin: 0px; margin-right: 10px; }
+
 @media (max-width: 800px) {
-    #product .content .info-panel .pricing {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px 20px;
-    
-        margin-top: 30px;
+    #product .content .info-panel .admin-buttons {
+        flex-direction: column;
+        align-items: flex-start;
     }
+
+    #product .content .info-panel .admin-buttons .button-filled { margin: 0px; margin-bottom: 10px; }
+#product .content .info-panel .admin-buttons .button-outline { margin: 0px; margin-bottom: 10px; }
 }
 
-#product .content .info-panel .pricing .heading {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    font-weight: 400;
+#product .content .info-panel .top-panel .left-panel .price-panel {
+    display: flex;
+    flex-direction: column;
 }
 
-#product .content .info-panel .pricing .price {
+#product .content .info-panel .top-panel .left-panel .price-panel .heading {
     color: #383838;
-    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    font-weight: 400;
+
+    margin-bottom: 5px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product .content .info-panel .top-panel .left-panel .price-panel .price {
+    color: #383838;
+    font-size: 25px;
     font-weight: 700;
+
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-@media (max-width: 800px) {
-    #product .content .info-panel .pricing .heading {
-        text-align: left;
-    }
-    
-    #product .content .info-panel .pricing .price {
-        text-align: right;
-    }
+#product .content .info-panel .top-panel .left-panel .price-panel .price ion-icon {
+    margin-left: 10px;
+
+    color: #A161B3;
+
+    cursor: pointer;
 }
 
-#product .content .info-panel .controls {
+#product .content .info-panel .top-panel .left-panel .buy-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#product .content .info-panel .top-panel .left-panel .buy-panel .button-filled {
+    margin-right: 20px;
+}
+
+#product .content .info-panel .top-panel .left-panel .controls {
     display: flex;
     flex-direction: row;
     align-items: center;
 
     height: 25px;
 
-    margin: 30px 0px;
+    margin: 10px 0px;
 }
 
-#product .content .info-panel .controls .button {
+#product .content .info-panel .top-panel .left-panel .controls .button {
     width: 25px;
     height: 25px;
 
@@ -144,11 +256,11 @@
     background-color: rgba(0, 0, 0, 0.12);
 }
 
-#product .content .info-panel .controls .button:hover {
+#product .content .info-panel .top-panel .left-panel .controls .button:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#product .content .info-panel .controls .amount {
+#product .content .info-panel .top-panel .left-panel .controls .amount {
     color: #383838;
     font-size: 15px;
     font-weight: 700;
@@ -161,4 +273,12 @@
     align-items: center;
 
     background-color: rgba(0, 0, 0, 0.07);
+}
+
+#product .content .info-panel .top-panel .left-panel .sold-message {
+    color: #A161B3;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
 }

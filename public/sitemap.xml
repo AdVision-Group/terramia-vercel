@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://www.terramia.sk/</loc> </url>
+<url> <loc>https://www.terramia.sk/</loc> </url>
+<url> <loc>https://www.terramia.sk/autologin/:email/:password</loc> </url>
+<url> <loc>https://www.terramia.sk/e-shop/kategoria/:type/:category</loc> </url>
+<url> <loc>https://www.terramia.sk/e-shop/:link</loc> </url>
+<url> <loc>https://www.terramia.sk/e-shop</loc> </url>
+<url> <loc>https://www.terramia.sk/aromavzdelavanie</loc> </url>
+<url> <loc>https://www.terramia.sk/podnikanie</loc> </url>
+<url> <loc>https://www.terramia.sk/novinky/:link</loc> </url>
+<url> <loc>https://www.terramia.sk/novinky</loc> </url>
+<url> <loc>https://www.terramia.sk/blog/:link</loc> </url>
+<url> <loc>https://www.terramia.sk/blog</loc> </url>
+<url> <loc>https://www.terramia.sk/o-nas</loc> </url>
+<url> <loc>https://www.terramia.sk/kontakt</loc> </url>
+<url> <loc>https://www.terramia.sk/prihlasenie</loc> </url>
+<url> <loc>https://www.terramia.sk/registracia-vzorky-zadarmo</loc> </url>
+<url> <loc>https://www.terramia.sk/registracia-fakturacne-udaje</loc> </url>
+<url> <loc>https://www.terramia.sk/registracia-vytvorit-ucet</loc> </url>
+<url> <loc>https://www.terramia.sk/registracia-suhrn-objednavky</loc> </url>
+<url> <loc>https://www.terramia.sk/profil</loc> </url>
+<url> <loc>https://www.terramia.sk/admin/pridat-produkt</loc> </url>
+<url> <loc>https://www.terramia.sk/admin/objednavky</loc> </url>
+<url> <loc>https://www.terramia.sk/admin/pridat-prispevok</loc> </url>
+<url> <loc>https://www.terramia.sk/admin/upravit-produkt/:id</loc> </url>
+<url> <loc>https://www.terramia.sk/admin/upravit-prispevok/:id</loc> </url>
+<url> <loc>https://www.terramia.sk/kosik</loc> </url>
+<url> <loc>https://www.terramia.sk/fakturacne-udaje</loc> </url>
+<url> <loc>https://www.terramia.sk/platba</loc> </url>
+<url> <loc>https://www.terramia.sk/uspech</loc> </url>
+<url> <loc>https://www.terramia.sk/reset/:secret</loc> </url>
+</urlset>

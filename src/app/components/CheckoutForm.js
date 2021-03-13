@@ -4,6 +4,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { setStorageItem, getStorageItem } from "../config/config";
 import { API_URL } from "../config/config";
 
+import Api from "../config/Api";
+
 import "../styles/checkoutform.css";
 
 export default function CheckoutForm(props) {
@@ -16,8 +18,9 @@ export default function CheckoutForm(props) {
     const stripe = useStripe();
     const elements = useElements();
 
-    useEffect(() => {
-        const orderId = props.orderId
+    /*
+    useEffect(async () => {
+        const oId = await props.createOrder();
 
         // Create PaymentIntent as soon as the page loads
         window.fetch(API_URL + "/api/payments/create", {
@@ -25,7 +28,7 @@ export default function CheckoutForm(props) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ orderId: orderId })
+            body: JSON.stringify({ orderId: oId })
         })
         .then(res => {
             return res.json();
@@ -34,6 +37,26 @@ export default function CheckoutForm(props) {
             setClientSecret(data.clientSecret);
         });
     }, []);
+    */
+
+    const pay = async () => {
+        const oId = await props.createOrder();
+
+        // Create PaymentIntent as soon as the page loads
+        return window.fetch(API_URL + "/api/payments/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ orderId: oId })
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            return data.clientSecret;
+        });
+    }
 
     const cardStyle = {
         style: {
@@ -63,7 +86,10 @@ export default function CheckoutForm(props) {
     const handleSubmit = async ev => {
         ev.preventDefault();
         setProcessing(true);
-        const payload = await stripe.confirmCardPayment(clientSecret, {
+
+        const cs = await pay();
+
+        const payload = await stripe.confirmCardPayment(cs, {
             payment_method: {
                 card: elements.getElement(CardElement)
             }
@@ -83,6 +109,8 @@ export default function CheckoutForm(props) {
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
+            <div style={{ color: "#383838", fontSize: 25, fontWeight: "700", marginBottom: 30 }}>Zadajte svoju kartu</div>
+
             <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
             <button
                 disabled={processing || disabled || succeeded}
@@ -92,7 +120,7 @@ export default function CheckoutForm(props) {
                 {processing ? (
                     <div className="spinner" id="spinner"></div>
                 ) : (
-                    "Pay"
+                    "Zaplatiť"
                 )}
                 </span>
             </button>

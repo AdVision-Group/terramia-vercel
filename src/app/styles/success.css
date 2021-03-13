@@ -13,13 +13,14 @@
     align-items: center;
     justify-content: center;
 
-    padding: 100px 100px;
+    padding: 100px;
 }
 
 #success .content .title {
     color: black;
     font-size: 40px;
     font-weight: 700;
+    text-align: center;
 
     margin-bottom: 20px;
 }
@@ -34,4 +35,24 @@
     width: 50%;
 
     margin-bottom: 60px;
+}
+
+@media (max-width: 1100px) {
+    #success .content {
+        padding: 50px;
+    }
+
+    #success .content .description {
+        width: 100%;
+    }
+}
+
+@media (max-width: 800px) {
+    #success .content {
+        padding: 50px 20px;
+    }
+    
+    #success .content .title {
+        font-size: 32px;
+    }
 }

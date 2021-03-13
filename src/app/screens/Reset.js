@@ -13,12 +13,11 @@ import "../styles/reset.css";
 class Reset extends React.Component {
 
     state = {
-        offset: 0,
-
         newPassword: "",
         repeatNewPassword: "",
 
         popup: false,
+        title: "",
         loading: true
     }
 
@@ -39,14 +38,19 @@ class Reset extends React.Component {
 
             const reset = await Api.resetPassword(newPassword, secret);
 
-            console.log(reset)
-
             if (reset.message === "Password was reset successfully") {
-                //this.props.history.push("/prihlasenie");
-                this.setState({ loading: false })
+                this.props.history.push("/");
             } else {
-                this.setState({ popup: false, loading: true })
+                this.setState({
+                    loading: false,
+                    title: "Heslo je príliš jednoduché. Heslo musí byť dlhé aspoň 8 znakov a obsahovať aspoň jedno veľké písmeno a aspoň jedno číslo."
+                });
             }
+        } else {
+            this.setState({
+                loading: false,
+                title: "Heslá sa nezhodujú"
+            });
         }
     }
 
@@ -56,41 +60,19 @@ class Reset extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
-    }
-    
-    componentDidUpdate() {
-        
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
-    }
-
     render() {
         return(
             <div className="screen" id="reset">
-                <Header />
-
                 {this.state.popup ? (
                     <Popup
-                        title="Heslo bolo zresetované"
-                        onClick={() => {
-                            this.setState({ popup: false })
-                            this.props.history.push("/prihlasenie")
-                        }}
+                        title={this.state.title}
+                        type="info"
+                        onClick={() => this.setState({ popup: false })}
                         loading={this.state.loading}
                     />
                 ) : null}
 
-                <div className="content" style={{ paddingTop: this.state.offset + 50 }}>
+                <div className="content">
                     <div className="title">Resetovať heslo</div>
                     <div className="text">
                         Zresetujte si heslo ku Vášmu účtu, aby ste ho mohli aj naďalej používať. Toto nové heslo bude po resetovaní platné okamžite, neskôr si ho môžete znovu zmeniť v nastaveniach.
@@ -100,8 +82,6 @@ class Reset extends React.Component {
                     <input className="field" onKeyPress={this.handleKeyPress} type="password" value={this.state.repeatNewPassword} placeholder="Zopakovať nové heslo" onChange={(event) => this.setState({ repeatNewPassword: event.target.value})} />
                     <div className="button-filled" onClick={() => this.reset()}>Resetovať heslo</div>
                 </div>
-
-                <Footer />
             </div>
         )
     }

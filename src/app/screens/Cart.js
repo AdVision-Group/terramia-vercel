@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { isLogged, setStorageItem, getStorageItem } from "../config/config";
+import { isLogged, setStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";
 
 import Header from "../components/Header";
@@ -15,7 +15,8 @@ class Cart extends React.Component {
         offset: 0,
 
         cart: [],
-        products: []
+        products: [],
+        totalPoints: 0
     }
 
     constructor() {
@@ -28,6 +29,7 @@ class Cart extends React.Component {
     async loadData() {
         const cart = this.state.cart;
         var products = [];
+        var totalPoints = 0
 
         for (let i = 0; i < cart.length; i++) {
             var product = await Api.getProduct(cart[i]._id);
@@ -37,10 +39,12 @@ class Cart extends React.Component {
                     product: product.product,
                     amount: cart[i].amount
                 });
+
+                totalPoints += product.product.points * cart[i].amount;
             }
         }
 
-        this.setState({ products: products })
+        this.setState({ products: products, totalPoints: totalPoints });
     }
 
     changeAmount(id, action) {
@@ -65,9 +69,6 @@ class Cart extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
-
         this.loadData();
     }
     
@@ -81,58 +82,54 @@ class Cart extends React.Component {
         }
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
-    }
-
     render() {
         const products = this.state.products;
 
         return(
             <div className="screen" id="cart">
-                <Header />
-
-                <div className="content" style={{ paddingTop: this.state.offset + 50 }}>
+                <div className="content">
                     <div className="title">Košík</div>
 
-                    {products.length === 0 ? <div className="empty-message">Košík je prázdny</div> : null}
+                        {products.length === 0 ? <div className="empty-message">Košík je prázdny</div> : null}
 
-                    {products.map((product) => <CartItem product={product} changeAmount={this.changeAmount} /> )}
+                        {products.map((product) => <CartItem product={product} changeAmount={this.changeAmount} /> )}
 
-                    {products.length !== 0 ? <Link className="button-filled" to="/fakturacne-udaje">Pokračovať ku platbe</Link> : <Link className="button-filled" to="/e-shop">Začnite nakupovať</Link>}
+                    <div className="button-panel">
+                        {products.length === 0 ? <Link className="button-filled" to="/e-shop">Začnite nakupovať</Link> : null}
+
+                        {products.length !== 0 ? <Link className="button-outline" to="/e-shop">Pokračovať v nákupe</Link> : null}
+                        {products.length !== 0 ? <Link className="button-filled" to={{ pathname: "/fakturacne-udaje", state: { totalPoints: this.state.totalPoints }}}>Prejsť ku platbe</Link> : null}
+                    </div>
                 </div>
-
-                <Footer />
             </div>
         )
     }
 }
 
 function CartItem(props) {
+    const src = API_URL + "/uploads/" + props.product.product.imagePath;
+
     return(
         <div className="product">
-            <img className="image" src={require("../assets/oil-3.png")} />
+            <img className="image" src={src} />
 
             <div className="info">
-                <div className="name">{props.product.product.name}</div>
-                <div className="description">{props.product.product.description}</div>
+                <h3 className="name">{props.product.product.name}</h3>
+                <p className="description">{props.product.product.description}</p>
 
                 <div style={{ flex: 1 }}></div>
 
-                <div className="controls">
-                    <div className="button" onClick={() => props.changeAmount(props.product.product._id, -1)}>-</div>
-                    <div className="amount">{props.product.amount}</div>
-                    <div className="button" onClick={() => props.changeAmount(props.product.product._id, 1)}>+</div>
+                <div className="bottom-panel">
+                    <div className="controls">
+                        <div className="button" onClick={() => props.changeAmount(props.product.product._id, -1)}>-</div>
+                        <div className="amount">{props.product.amount}</div>
+                        <div className="button" onClick={() => props.changeAmount(props.product.product._id, 1)}>+</div>
+                    </div>
+
+                    <div style={{ flex: 1 }}></div>
+
+                    <div className="price">{(props.product.product.price / 100 * props.product.amount).toFixed(2)}€</div>
                 </div>
-
-                <div style={{ flex: 1 }}></div>
-
-                <div className="price">{props.product.product.price / 100}€</div>
             </div>
         </div>
     )

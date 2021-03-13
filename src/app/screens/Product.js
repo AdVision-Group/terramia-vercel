@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { isLogged, addToCart, API_URL } from "../config/config";
+import { isLogged, addToCart, API_URL, getStorageItem, createURLName } from "../config/config";
 import Api from "../config/Api";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import Banner from "../components/Banner";
 
 import "../styles/product.css";
 
@@ -15,41 +17,94 @@ class Product extends React.Component {
         offset: 0,
 
         product: null,
-        amount: 1
+        amount: 1,
+
+        admin: 0,
+
+        loading: true,
+
+        banner: false
     }
 
     constructor() {
         super();
         
+        this.closeBanner = this.closeBanner.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.loadUser = this.loadUser.bind(this);
+        this.changeAvailability = this.changeAvailability.bind(this);
+        this.delete = this.delete.bind(this);
+    }
+
+    closeBanner() {
+        this.setState({ banner: false });
     }
 
     async loadData() {
-        const product = await Api.getProduct(this.props.match.params.id);
-        this.setState({ product: product.product });
+        this.setState({ loading: true });
+
+        const link = this.props.match.params.link;
+
+        const call = await Api.getProducts({
+            filters: {
+                link: link
+            },
+            sortBy: {}
+        });
+
+        if (call.products) {
+            this.setState({
+                product: call.products[0],
+                loading: false
+            });
+        }
     }
 
-    componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
+    async changeAvailability() {
+        const available = this.state.product.available ? false : true;
+        const token = getStorageItem("token");
 
-        this.loadData()
+        const product = await Api.editProduct(this.state.product._id, {
+            available: available
+        }, token);
+
+        this.loadData();
+    }
+
+    async delete() {
+        const token = getStorageItem("token");
+
+        const call = await Api.editProduct(this.state.product._id, {
+            eshop: false
+        }, token);
+
+        if (call.message === "Product patched successfully") {
+            this.props.history.push("/e-shop");
+        }
+    }
+
+    async loadUser() {
+        const token = getStorageItem("token");
+
+        if (token) {
+            const user = await Api.getUser(token);
+
+            if (user.user) {
+                this.setState({ admin: user.user.admin });
+            }
+        }
+    }
+
+    async componentDidMount() {
+        await this.loadData();
+        await this.loadUser();
     }
 
     componentDidUpdate(prevProps) {
 		if (this.props.location !== prevProps.location) {
 			window.scrollTo(0, 0);
-		}
+        }
 	}
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
-    }
 
     render() {
         const product = this.state.product ? this.state.product : {};
@@ -57,34 +112,74 @@ class Product extends React.Component {
 
         return(
             <div className="screen" id="product">
-                <Header />
-
-                <div className="content" style={{ paddingTop: this.state.offset + 50 }}>
-                    <img className="image" src={src} />
-
-                    <div className="info-panel">
-                        <div className="name">{product.name}</div>
-                        <div className="description">{product.description}</div>
-
-                        <div className="pricing">
-                            <div className="heading">Bežná cena</div>
-                            <div className="price">{product.price / 100}€</div>
-                            <div className="heading">Cena pre člena TerraMia</div>
-                            <div className="price">{product.price / 100}€</div>
-                        </div>
-
-
-                        <div className="controls">
-                            <div className="button" onClick={() => this.state.amount > 1 ? this.setState({ amount: this.state.amount - 1 }) : null}>-</div>
-                            <div className="amount">{this.state.amount}</div>
-                            <div className="button" onClick={() => this.setState({ amount: this.state.amount + 1 })}>+</div>
-                        </div>
-
-                        <div className="button-filled" onClick={() => addToCart(this.state.product._id, this.state.amount, this)}>Pridať do košíka</div>
+                {this.state.loading ? (
+                    <div style={{ width: "100vw", height: "50vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Loading />
                     </div>
-                </div>
+                ) : (
+                    <div className="content">
+                        <img className="image" src={src} />
 
-                <Footer />
+                        <div className="info-panel">
+                            <h3 className="name">{product.name}</h3>
+                            <h4 className="label">{product.label}</h4>
+                            <div className="top-panel">
+                                <div className="left-panel">
+                                    {/*<h3 className="name">{product.name}</h3>
+                                    <h4 className="label">{product.label}</h4>*/}
+
+                                    {product.available ? (
+                                        <div className="price-panel">
+                                            <div className="heading">Naša cena</div>
+                                            <div className="price">{(product.price / 100).toFixed(2)}€</div>
+                                            {this.state.product.type !== 6 ? <div className="heading">Cena pre členov doTERRA</div> : null}
+                                            {this.state.product.type !== 6 ? <div className="price">{(product.price / 100 * 0.75).toFixed(2)}€<ion-icon name="help-circle-outline" onClick={() => this.setState({ banner: true })}></ion-icon></div> : null}
+                                        </div>
+                                    ): null}
+
+                                    {product.available ? (
+                                        <div className="buy-panel">
+                                            <div className="button-filled" onClick={() => addToCart(this.state.product._id, this.state.amount, this)}>Pridať do košíka</div>
+
+                                            <div className="controls">
+                                                <div className="button" onClick={() => this.state.amount > 1 ? this.setState({ amount: this.state.amount - 1 }) : null}>-</div>
+                                                <div className="amount">{this.state.amount}</div>
+                                                <div className="button" onClick={() => this.setState({ amount: this.state.amount + 1 })}>+</div>
+                                            </div>
+                                        </div>
+                                    ) : <div className="sold-message">Vypredané</div> }
+                                </div>
+
+                                <div className="right-panel">
+                                    <div>
+                                        <div className="heading">Tipy na využitie</div>
+                                        {product.tips.map((tip) => <div className="item">{tip}</div>)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p className="description">{product.description}</p>
+
+                            {this.state.admin === 1 ? (
+                                <div className="admin-buttons">
+                                    <Link className="button-filled" to={"/admin/upravit-produkt/" + this.state.product._id}>Upraviť</Link>
+                                    <div className="button-filled" onClick={() => this.delete()}>Vymazať</div>
+                                    <div className="button-outline" onClick={() => this.changeAvailability()}>{product.available ? "Nastaviť na nedostupný" : "Zdostupniť produkt"}</div>
+                                </div>
+                            ) : null}
+                        </div>
+                    </div>
+                )}
+
+                {this.state.banner ? (
+                    <Banner
+                        title="Chcete produkty doTERRA kúpiť s 25% zľavou a získať ďaľšie darčeky?"
+                        text="Otvorte si vlastný účet doTERRA a získavajte pravidelné výhody podľa vášho výberu a nakupujte produkty doTERRA oveľa výhodnejšie!"
+                        button="Otvorenie účtu v doTERRA"
+                        url="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332"
+                        closeBanner={this.closeBanner}
+                    />
+                ) : null}
             </div>
         )
     }

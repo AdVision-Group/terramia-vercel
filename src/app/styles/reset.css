@@ -47,6 +47,12 @@
     margin-bottom: 50px;
 }
 
+@media (max-width: 800px) {
+    #reset .content .text {
+        width: 100%;
+    }
+}
+
 #reset .content .field {
     color: black;
     font-size: 15px;
@@ -60,6 +66,12 @@
 
     border: 1px solid lightgray;
     outline: none;
+}
+
+@media (max-width: 800px) {
+    #reset .content .field {
+        width: 100%;
+    }
 }
 
 #reset .content .button-filled {

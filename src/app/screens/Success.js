@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { isLogged, setStorageItem, getStorageItem } from "../config/config";
+import { isLogged, setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
 import Api from "../config/Api";
 
 import Header from "../components/Header";
@@ -20,37 +20,21 @@ class Success extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
-    }
-    
-    componentDidUpdate() {
-        
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
+        setStorageItem("cart", []);
+        removeStorageItem("doterra");
+        removeStorageItem("temp");
     }
 
     render() {
         return(
             <div className="screen" id="success">
-                <Header />
-
-                <div className="content" style={{ paddingTop: this.state.offset + 100 }}>
+                <div className="content">
                     <div className="title">Ďakujeme Vám za Váš nákup!</div>
-                    <div className="description">
+                    <p className="description">
                         Platba prebehla úspešne, o Vašej objednávke Vás budeme ďalej informovať e-mailom. Ďakujeme Vám za Váš nákup!
-                    </div>
+                    </p>
                     <Link className="button-filled" to="/">Domovská stránka</Link>
                 </div>
-
-                <Footer />
             </div>
         )
     }

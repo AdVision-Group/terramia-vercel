@@ -1,9 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
+import { showCookies } from "./Cookies";
+import { setStorageItem, shop } from "../config/config";
+
+import doc1 from "../documents/gdpr.pdf";
+import doc2 from "../documents/obchodne-podmienky.pdf";
 
 import "../styles/footer.css";
 
-export default function Footer() {
+function Footer(props) {
+
+    function redirect(type, category) {
+        if (props.location.pathname.includes("e-shop")) {
+            props.history.push("/");
+            props.history.push({ pathname: "/e-shop", type: type, category: category})
+        } else {
+            props.history.push({ pathname: "/e-shop", type: type, category: category})
+        }
+    }
+
     return(
         <div id="footer">
             {/*
@@ -22,7 +38,7 @@ export default function Footer() {
                     <div className="column">
                         <div className="title">Navigácia</div>
                         <Link className="info" to="/e-shop">E-shop</Link>
-                        <Link className="info" to="/aromaterapia">Aromaterapia</Link>
+                        <Link className="info" to="/aromavzdelavanie">Aromavzdelávanie</Link>
                         <Link className="info" to="/podnikanie">Podnikanie</Link>
                         <Link className="info" to="/novinky">Novinky</Link>
                         <Link className="info" to="/blog">Blog</Link>
@@ -31,46 +47,40 @@ export default function Footer() {
                     </div>
 
                     <div className="column">
-                        <div className="title">Esenciálne oleje</div>
-                        <div className="info">Aromatické oleje</div>
-                        <div className="info">Ovocné oleje</div>
-                        <div className="info">Bylinkové oleje</div>
-                        <div className="info">Zdravotné oleje</div>
-                        <div className="info">Rekreačné oleje</div>
+                        <div className="title">Produkty</div>
+                        {shop.map((item, index) => <div className="info" onClick={() => redirect(index, 0)}>{item.type}</div>)}
                     </div>
 
                     <div className="column">
                         <div className="title">Kontakt</div>
-                        <div className="info">Bratislavská 18</div>
-                        <div className="info">842 50 Bratislava</div>
+                        <div className="info">Mierová 83</div>
+                        <div className="info">821 05 Bratislava</div>
                         <div className="info">Slovenská republika</div>
-                        <br />
                         <div className="info">info@terramia.sk</div>
-                        <div className="info">+421 902 626 353</div>
+                        <div className="info">+421 903 856 851</div>
                     </div>
 
                     <div className="column">
                         <div className="title">Súkromie</div>
-                        <div className="info">Cookies</div>
-                        <div className="info">Ochrana osobných údajov</div>
-                        <div className="info">Podnikanie</div>
-                    </div>
+                        <a className="info" href={doc1} target="_blank">Ochrana osobných údajov</a>
+                        <a className="info" href={doc2} target="_blank">Obchodné podmienky</a>
+                        <div className="info" style={{ cursor: "pointer" }} onClick={() => {
+                            setStorageItem("cookies", "disabled");
+                            showCookies();
+                        }}>Cookies</div>
 
-                    <div className="column">
-                        <div className="title">Pomoc</div>
-                        <div className="info">Kontakt</div>
-                        <div className="info">Technická podpora</div>
-                        <div className="info">Zákaznícka podpora</div>
                         <br />
-                        <br />
-                        <div className="button-filled">Napíšte nám</div>
+
+                        <Link className="button-filled" to="/kontakt">Napíšte nám</Link>
                     </div>
                 </div>
 
                 <div className="bottom-panel">
-                    <div className="text">© 2020 terramia.sk | Web created by <a href="https://advision.sk" style={{ color: "#A161B3", fontWeight: "bold", textDecoration: "none" }}>AdVision Digital Marketing</a></div>
+                    <div className="text">© 2020 terramia.sk | Designed and created by <a href="https://advision.sk" style={{ color: "#A161B3", fontWeight: "bold", textDecoration: "none" }}>AdVision Digital Marketing</a></div>
                 </div>
             </div>
         </div>
     )
 }
+
+export default withRouter(Footer);

@@ -1,12 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
+import { getStorageItem, removeStorageItem, setStorageItem } from "../config/config";
+import { showCookies } from "../components/Cookies";
 
 import MenuButton from "./MenuButton";
 import Dropdown from "./Dropdown";
 
 import "../styles/header.css";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
 
     state = {
         active: false,
@@ -21,82 +24,80 @@ export default class Header extends React.Component {
     }
 
     setActive(active) {
-        this.setState({ active: active })
+        this.setState({ active: active });
     }
 
     componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight })
+        this.setState({ offset: document.getElementById("header").clientHeight });
+
+        showCookies();
     }
 
     render() {
         return(
             <div id="header">
                 <div className="border-panel">
-                    <div className="border"></div>
+                    <div className="border" />
 
                     <div className="wrapper">
-                        <div className="left-panel">
+                        <div className="logo-panel">
                             <Link to="/"><img className="logo" src={require("../assets/logo.png")} /></Link>
                         </div>
 
-                        <div className="middle-panel">
+                        <div style={{ flex: 1 }} />
+
+                        <div className="info-panel">
                             <div className="contact-panel">
-                                <div className="left-panel">
-                                    <Link to="/"><img className="logo" src={require("../assets/logo.png")} /></Link>
-                                </div>
+                                <div className="item">Email:<a href="mailto: info@terramia.sk" style={{ color: "#A161B3", textDecoration: "none", marginLeft: 8 }}>info@terramia.sk</a></div>
+                                <div className="break"></div>
+                                <div className="item">Telefón:<a href="tel: +421-903-856-851" style={{ color: "#A161B3", textDecoration: "none", marginLeft: 8 }}>+421 903 856 851</a></div>
+                                
+                                <div style={{ flex: 1 }} />
 
-                                <div className="middle-panel">
-                                    <div className="item">Email:<span style={{ color: "#A161B3", marginLeft: 8 }}>info@terramia.sk</span></div>
-                                    <div className="break"></div>
-                                    <div className="item">Telefón:<span style={{ color: "#A161B3", marginLeft: 8 }}>+421 902 626 353</span></div>
-                                    <div className="break"></div>
-                                    <ion-icon name="logo-facebook"></ion-icon>
-                                    <div className="break" style={{ width: 10 }}></div>
-                                    <ion-icon name="logo-instagram"></ion-icon>
-                                </div>
-
-                                <div className="right-panel">
-                                    <Link className="button-filled" to="/registracia-vzorky-zadarmo">Staň sa členom</Link>
-                                </div>
+                                <Link className="button-filled" onClick={getStorageItem("token") ? () => {
+                                    removeStorageItem("token");
+                                    this.props.history.push("/");
+                                } : () => this.props.history.push("/registracia-vzorky-zadarmo")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</Link>
                             </div>
 
                             <div className="menu-panel">
-                                <Link
-                                    onMouseEnter={() => this.setState({ active: true, type: "e-shop" })}
-                                    onMouseLeave={() => this.setState({ active: false })}
-                                    className="item"
-                                    to="/e-shop">
-                                        E-shop
-                                </Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/aromaterapia">Aromaterapia</Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/podnikanie">Podnikanie</Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/novinky">Novinky</Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/blog">Blog</Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/o-nas">O nás</Link>
-                                <span className="divider"></span>
-                                <Link className="item" to="/kontakt">Kontakt</Link>
-                                <span className="divider"></span>
-                                <Link to="/kosik"><ion-icon name="cart"></ion-icon></Link>
-                                <span className="divider"></span>
-                                <Link to="/prihlasenie"><ion-icon name="person"></ion-icon></Link>
+                                <div to="/e-shop" className="item" onClick={() => {
+                                    removeStorageItem("shop-query");
+                                    removeStorageItem("shop-type");
+                                    removeStorageItem("shop-category");
+                                    removeStorageItem("shop-price");
+                                    removeStorageItem("shop-abc");
+                                    removeStorageItem("shop-problem");
+                                    this.props.history.push("/e-shop");
+                                }}>E-shop</div>
+                                <div className="divider" />
+                                <Link to="/aromavzdelavanie" className="item">Aromavzdelávanie</Link>
+                                <div className="divider" />
+                                <Link to="/podnikanie" className="item">Podnikanie</Link>
+                                <div className="divider" />
+                                <div className="item" onClick={() => {
+                                    removeStorageItem("news-type");
+                                    this.props.history.push("/novinky");
+                                }}>Novinky</div>
+                                <div className="divider" />
+                                <Link to="/blog" className="item">Blog</Link>
+                                <div className="divider" />
+                                <Link to="/o-nas" className="item">O nás</Link>
+                                <div className="divider" />
+                                <Link to="/kontakt" className="item">Kontakt</Link>
+                                <div className="divider" />
+                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík</Link>
+                                <div className="divider" />
+                                <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>Prihlásenie</Link>
                             </div>
-                        </div>
-
-                        <div className="right-panel">
-                            <Link className="button-filled" to="/registracia-vzorky-zadarmo">Staň sa členom</Link>
                         </div>
 
                         <MenuButton />
                     </div>
                 </div>
-
-                {/*<Dropdown setActive={this.setActive} active={this.state.active} type={this.state.type} offset={this.state.offset} />*/}
             </div>
         )
     }
 }
+
+export default withRouter(Header);

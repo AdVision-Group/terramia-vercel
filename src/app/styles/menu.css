@@ -1,4 +1,4 @@
-@media (min-width: 970px) {
+@media (min-width: 1320px) {
     #menu-button {
         display: none;
     }
@@ -8,20 +8,22 @@
     }
 }
 
-@media (max-width: 970px) {
+@media (max-width: 1380px) {
     #menu-button {
-        width: 30px;
-        height: 22px;
+        width: 28px;
+        height: 17px;
 
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         justify-content: space-between;
+
+        margin-right: 30px;
     }
 
     #menu-button .line {
         width: 100%;
-        height: 4px;
+        height: 3px;
         border-radius: 10px;
 
         background-color: #383838;
@@ -34,26 +36,27 @@
     #mobile-menu {
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: flex-start;
 
         position: fixed;
-        right: -100vw;
-        top: 0;
+        right: 0px;
+        top: 0px;
 
-        height: 100%;
-        height: -moz-available;
-        height: -webkit-fill-available;
-        height: fill-available;
+        width: 100vw;
+        height: 100vh;
 
-        padding: 30px 30px 30px 60px;
+        padding: 90px 20px 20px 20px;
 
-        transition: right 700ms;
+        transition: all 300ms;
 
         box-shadow: 0px 0px 15px -10px black;
         background-color: white;
 
-        z-index: 9;
+        z-index: 99;
+
+        opacity: 0;
+        display: none;
     }
 
     #mobile-menu .link {
@@ -64,5 +67,17 @@
         text-decoration: none;
 
         padding: 6px;
+    }
+}
+
+@media (max-width: 374px) {
+    #mobile-menu .link {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    #menu-button {
+        margin-right: 20px;
     }
 }

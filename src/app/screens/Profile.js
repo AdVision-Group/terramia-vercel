@@ -32,7 +32,8 @@ class Profile extends React.Component {
         repeatNewPassword: "",
 
         loading: true,
-        popup: false
+        popup: false,
+        message: "Osobné údaje boli úspešne zmenené"
     }
 
     constructor() {
@@ -64,31 +65,35 @@ class Profile extends React.Component {
                 city: user.city,
                 country: user.country
             })
+        } else {
+            removeStorageItem("token");
+            this.props.history.push("/prihlasenie");
         }
     }
 
     logout() {
         removeStorageItem("token");
         window.location.reload()
-        //this.props.history.push("/prihlasenie")
     }
 
     async savePersonalInfo() {
         this.setState({ popup: true, loading: true })
 
+        const { name, email, phone } = this.state;
+
         const token = getStorageItem("token");
 
         const edit = await Api.editUser({
-            name: this.state.name,
-            email: this.state.email,
-            phone: this.state.phone
+            name: name.trim(),
+            email: email.trim(),
+            phone: phone.trim()
         }, token);
 
         if (edit.message === "Records updated successfully") {
-            var user = await Api.getUser(token);
+            const user = await Api.getUser(token);
         
             if (user.message === "User info retrieved successfully") {
-                this.setState({ user: user.user, loading: false })
+                this.setState({ user: user.user, loading: false, message: "Osobné údaje boli úspešne zmenené" });
             }
 
             //window.location.reload();
@@ -100,23 +105,23 @@ class Profile extends React.Component {
     async saveOrderInfo() {
         this.setState({ popup: true, loading: true })
 
+        const { address, psc, city, country } = this.state;
+
         const token = getStorageItem("token");
 
         const edit = await Api.editUser({
-            address: this.state.address,
-            psc: this.state.psc,
-            city: this.state.city,
-            country: this.state.country
+            address: address.trim(),
+            psc: psc.trim(),
+            city: city.trim(),
+            country: country.trim()
         }, token);
 
         if (edit.message === "Records updated successfully") {
-            var user = await Api.getUser(token);
+            const user = await Api.getUser(token);
         
             if (user.message === "User info retrieved successfully") {
-                this.setState({ user: user.user, loading: false })
+                this.setState({ user: user.user, loading: false, message: "Osobné údaje boli úspešne zmenené" })
             }
-
-            //window.location.reload();
         } else {
             this.setState({ popup: false, loading: true })
         }
@@ -125,49 +130,35 @@ class Profile extends React.Component {
     async savePasswordInfo() {
         this.setState({ popup: true, loading: true })
 
+        const { password, newPassword, repeatNewPassword } = this.state
+
         const token = getStorageItem("token");
 
-        if (this.state.newPassword.trim() === this.state.repeatNewPassword.trim()) {
+        if (newPassword.trim() === repeatNewPassword.trim()) {
             const change = await Api.changePassword({
-                oldPassword: this.state.password,
-                password: this.state.newPassword
+                oldPassword: password.trim(),
+                password: newPassword.trim()
             }, token);
 
             if (change.message === "Password changed successfully") {
                 //window.location.reload();
-                this.setState({ loading: false })
+                this.setState({ loading: false, message: "Osobné údaje boli úspešne zmenené" })
             } else {
                 this.setState({ popup: false, loading: true })
             }
+        } else {
+            this.setState({ loading: false, message: "Heslá sa nezhodujú" })
         }
     }
 
     componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
+        const token = getStorageItem("token");
 
-        if (!isLogged()) {
+        if (!token) {
             this.props.history.push("/prihlasenie")
         } else {
             this.init();
         }
-    }
-
-    /*
-    componentDidUpdate(prevProps) {
-        if (!isLogged()) {
-            this.props.history.push("/prihlasenie")
-        }
-    }
-    */
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
     }
 
     render() {
@@ -175,12 +166,10 @@ class Profile extends React.Component {
 
         return(
             <div className="screen" id="profile">
-                <Header />
-
                 {this.state.popup ? (
                     <Popup
                         type="info"
-                        title="Osobné údaje boli úspešne zmenené"
+                        title={this.state.message}
                         onClick={() => {
                             this.setState({ popup: false })
                             window.location.reload()
@@ -189,22 +178,26 @@ class Profile extends React.Component {
                     />
                 ) : null}
 
-                <div className="content" style={{ paddingTop: this.state.offset + 50 }}>
-                    <div className="title-panel">
+                <div className="content">
+                    <div className="header">
                         <div className="title">Môj profil</div>
 
                         <div style={{ flex: 1 }}></div>
 
-                        {user && user.admin === 1 ? <Link className="button-filled" to="/admin" style={{ marginRight: 20 }}>Admin</Link> : null}
-                        <div className="button-filled" onClick={() => this.logout()}>Odhlásiť sa</div>
+                        <div className="button-panel">
+                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
+                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
+                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}
+                            <div className="button-filled" onClick={() => this.logout()}>Odhlásiť sa</div>
+                        </div>
                     </div>
 
                     {!this.state.user ? <Loading /> : (
                     <div className="content" style={{ padding: 0 }}>
                         <div className="section">Detaily o účte</div>
-                        <div className="text">
+                        <p className="text">
                             Tu sú detaily o Vašom účte. V prípade zmeny fakturačných údajov pri objednávke si ich môžete zmeniť upravením údajov uvedených nižšie. 
-                        </div>
+                        </p>
 
                         <div className="details">
                             <div className="heading">Meno a priezvisko</div>
@@ -222,9 +215,9 @@ class Profile extends React.Component {
                         <br />
 
                         <div className="section">Fakturačné údaje</div>
-                        <div className="text">
+                        <p className="text">
                             Tu sú detaily o Vašom účte. V prípade zmeny fakturačných údajov pri objednávke si ich môžete zmeniť upravením údajov uvedených nižšie. 
-                        </div>
+                        </p>
 
                         <div className="details">
                             <div className="heading">Ulica</div>
@@ -244,9 +237,9 @@ class Profile extends React.Component {
                         <br />
 
                         <div className="section">Zmena hesla</div>
-                        <div className="text">
+                        <p className="text">
                             Tu sú detaily o Vašom účte. V prípade zmeny fakturačných údajov pri objednávke si ich môžete zmeniť upravením údajov uvedených nižšie. 
-                        </div>
+                        </p>
 
                         <div className="details">
                             <div className="heading">Aktuálne heslo</div>
@@ -261,8 +254,6 @@ class Profile extends React.Component {
                     </div>
                     )}
                 </div>
-
-                <Footer />
             </div>
         )
     }

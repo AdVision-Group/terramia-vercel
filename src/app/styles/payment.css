@@ -3,6 +3,7 @@
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 #payment .content {
@@ -10,7 +11,22 @@
     flex-direction: column;
     align-items: flex-start;
 
+    width: 100%;
+    max-width: 1600px;
+
     padding: 50px 100px;
+}
+
+@media (max-width: 1300px) {
+    #payment .content {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    #payment .content {
+        padding: 50px 20px;
+    }
 }
 
 #payment .content .title {
@@ -29,5 +45,110 @@
 
     width: 70%;
 
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 800px) {
+    #payment .content .description {
+        width: 100%;
+    }
+}
+
+#payment .content .summary {
+    border-collapse: collapse;
+
+    margin-bottom: 50px;
+}
+
+#payment .content .summary .product {
+    
+}
+
+#payment .content .summary tr td {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 700;
+
+    padding: 15px 20px;
+}
+
+@media (max-width: 800px) {
+    #payment .content .summary tr td {
+        font-size: 13px;
+
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 320px) {
+    #payment .content .summary tr td {
+        font-size: 10px;
+    }
+}
+
+#payment .content .summary .product .product-td {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 400;
+
+    padding: 10px 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 800px) {
+    #payment .content .summary .product .product-td {
+        font-size: 13px;
+
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 320px) {
+    #payment .content .summary .product .product-td {
+        font-size: 10px;
+    }
+}
+
+#payment .content .summary .product .image {
+    width: 40px;
+    height: 60px;
+    object-fit: contain;
+
+    margin: 0px;
+}
+
+@media (max-width: 800px) {
+    #payment .content .summary .product .image {
+        height: 40px;
+    }
+}
+
+#payment .content .payment-choice {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 20px;
+}
+
+#payment .content .payment-choice .item {
+    color: #383838;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+
+    padding: 10px 25px;
+    margin-right: 10px;
+
+    cursor: pointer;
+
+    transition: all 100ms;
+
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+#payment .content .payment-choice .item:hover {
+    background-color: rgba(0, 0, 0, 0.14);
 }

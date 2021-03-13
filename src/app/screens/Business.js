@@ -1,32 +1,36 @@
 import React from "react";
+import { Link, withRouter } from "react-router-dom";
+
+import { animate } from "../config/Animation";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Title from "../components/Title";
+import Banner from "../components/Banner";
 
 import "../styles/business.css";
+import { getStorageItem } from "../config/config";
 
-export default class Business extends React.Component {
+class Business extends React.Component {
 
     state = {
-        offset: 0
+        offset: 0,
+
+        banner: false
     }
 
     constructor() {
         super();
+
+        this.closeBanner = this.closeBanner.bind(this);
+    }
+
+    closeBanner() {
+        this.setState({ banner: false })
     }
 
     componentDidMount() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        window.addEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateOffset.bind(this));
-    }
-
-    updateOffset() {
-        this.setState({ offset: document.getElementById("header").clientHeight });
-        this.forceUpdate();
+        animate();
     }
 
     render() {
@@ -35,118 +39,98 @@ export default class Business extends React.Component {
 
         return(
             <div className="screen" id="business">
-                <Header />
-
-                <div className="title-panel" style={{ paddingTop: this.state.offset + offset }}>
-                    <div className="title">Podnikajte s TerraMia</div>
-                </div>
+                <Title title="Podnikajte s TerraMia" image="title-background-3.jpg" />
 
                 <div className="content">
-                    <h2 className="heading">
-                        Podnikajte s TerraMia
-                    </h2>
+                    <div className="section">
+                        <div className="image-panel fade-in">
+                            <img className="image" src={require("../assets/family-business-1.png")} />
+                        </div>
 
-                    <p className="text">
-                        Viete si predstaviť robiť celý deň čo Vás baví, stretávať sa s priateľmi, zarábať a zároveň sa starať o zdravie svojej rodiny?
-                    </p>
+                        <div className="divider"></div>
 
-                    <p className="text">
-                        Odpoveďou je spolupráca s TerraMia.
-                    </p>
+                        <div className="text-panel fade-in-right">
+                            <div className="bubble">
+                                <div className="number">1</div>
+                                <h3 className="title">Prečo podnikať s doTERRA?</h3>
+                                <p className="text">
+                                    doTERRA je americká spoločnosť s 12-ročnou históriou s takmer 10 miliónmi zákazníkov v 100 krajinách sveta. Okrem špičkových produktov – esenciálnych olejov a prírodných riešení umožňuje svojim členom aj možnosť zarobiť si púhym zdieľaním skúseností. Nezameriava sa predaj, ale na vzdelávanie a zdieľanie informácií o účinkoch produktov. Zákazníkom tejto mimoriadne úspešnej spoločnosti podnikajúcej formou sieťového marketingu, sú produkty distribuované sieťou nezávislých konzultantov. Konzultantom sa môže stať každý zákazník doTERRA, ktorý okrem najvýhodnejšieho nakupovania produktov chce získať aj finančné bonusy.
+                                </p>
+                                <div className="button-filled" onClick={() => getStorageItem("token") ? this.props.history.push("/blog/podnikanie") : this.setState({ banner: true })}>Zisti viac</div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <img className="image" src={require("../assets/business-1.png")} />
+                    <div className="section">
+                        <div className="text-panel fade-in-left">
+                            <div className="bubble">
+                                <div className="number">2</div>
+                                <h3 className="title">Prečo patriť do vetvy TerraMia?</h3>
+                                <p className="text">
+                                    Skúsení konzultanti vytvárajú silné tímy pripravené vzdelávať zákazníkov a venovať novým konzultantom čas k rozvoju potrebných zručností. Pomáhajú im pochopiť systém podnikania v sieťovom marketingu tak, aby bol príjemný a vzrušujúci. Jedným z najsilnejších a najúspešnejších tímov v Európe je TerraMia. Ako je to na Slovensku možné?
+                                </p>
+                                <div className="button-filled" onClick={() => getStorageItem("token") ? this.props.history.push("/blog/pochopenie-systemu-prace") : this.setState({ banner: true })}>Zisti viac</div>
+                            </div>
+                        </div>
 
-                    <p className="text">
-                        Určite už máte po krk ponúk nepopulárnych prác z domu, ktoré sľubujú rýchly zárobok. Na druhej strane tu máme podnikanie, ktorého súčasťou sú roky odriekania a driny s neistým. My v TerraMia taký nie sme.
-                    </p>
+                        <div className="divider"></div>
 
-                    <p className="text">
-                        My v TerraMia veríme, že každý človek si zaslúži slušne zarábať a byť slobodný.
-                    </p>
+                        <div className="image-panel fade-in">
+                            <img className="image" src={require("../assets/family-business-2.png")} />
+                        </div>
+                    </div>
 
-                    <p className="text">
-                        Sloboda je totiž najvyššou úrovňou kvality života.
-                    </p>
+                    <div className="section">
+                        <div className="image-panel fade-in">
+                            <img className="image" src={require("../assets/family-business-3.png")} />
+                        </div>
 
-                    <p className="text">
-                        Dá sa sloboda dosiahnuť? Dá sa to, lebo <b>SLOBODA je vecou voľby</b>. Nedosiahneme ju však ako zamestnanci.
-                    </p>
+                        <div className="divider"></div>
 
-                    <p className="text">
-                        Nikdy.
-                    </p>
+                        <div className="text-panel fade-in-right">
+                            <div className="bubble">
+                                <div className="number">3</div>
+                                <h3 className="title">Skutočnú slobodu nedosiahnete ako zamestnanec</h3>
+                                <p className="text">
+                                    Viete si predstaviť robiť celý deň čo Vás baví, stretávať sa s priateľmi, zarábať a zároveň sa starať o zdravie svojej rodiny? My v TerraMia veríme, že každý človek si zaslúži slušne zarábať a pritom byť časovo i vzťahovo slobodný. Dá sa to, lebo SLOBODA je vecou voľby. Nedosiahneme ju však ako zamestnanci. Nikdy. Šancu máme len, keď budeme úspešní v podnikaní. Z neho má však väčšina ľudí obavy. Majú strach, či ich schopnosti sú dostatočné pre úspech, či si vybrali „vhodnú“ oblasť, či sú pripravení investovať čas a peniaze, či sa im nezníži životná úroveň, než podnikanie začne zarábať a mnoho ďalších “či”. Ten, kto neprekoná svoje strachy, prežije svoj život pod svoje možnosti. Voľbu má totiž každý a aj úspešne podnikať sa dá naučiť.
+                                </p>
+                                <div className="button-filled" onClick={() => getStorageItem("token") ? this.props.history.push("/blog/ako-ziskat-maximalny-prijem") : this.setState({ banner: true })}>Zisti viac</div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <p className="text">
-                        Šancu máme len, keď budeme úspešní v podnikaní. Z neho má však väčšina ľudí obavy. 
-                    </p>
-
-                    <p className="text">
-                        Majú strach, či ich schopnosti sú dostatočné pre úspech, či si vybrali „vhodnú“ oblasť, či sú pripravení investovať čas a peniaze, či sa im nezníži životná úroveň, než podnikanie začne zarábať a mnoho ďaľších “či”.
-                    </p>
-
-                    <p className="text">
-                        Ten, kto neprekoná svoje strachy, prežije svoj život pod svoje možnosti. Voľbu má totiž každý a aj podnikať sa dá naučiť.
-                    </p>
-
-                    <h2 className="heading">
-                        Prečo podnikať s doTERRA?
-                    </h2>
-
-                    <p className="text">
-                        doTERRA nie je založená na predaji, preto úspešní konzultanti sa nesprávajú ako predajcovia. Je založená na zdieľaní vzdelania so zameraním sa na potrebu konkrétneho človeka a informácie pre neho zaujímavé – <b>bezpečnosť, účinnosť, cenová dostupnosť, kvalita a 100% prírodná podstata esenciálnych olejov.</b>
-                    </p>
-
-                    <p className="text">
-                        Perspektíva spoločnosti a prístup k zdrojom, či vzdelávacím nástrojom je v doTERRA výnimočný. Kto podniká s doTERRA, vo vetve <b>TerraMia</b> nie je nikdy sám. Skúsení konzultanti a lídri silných tímov sú pripravení venovať novým konzultantom čas k rozvoju potrebných zručností a pochopiť systém podnikania v sieťovom marketingu.
-                    </p>
-
-                    <img className="image" src={require("../assets/business-2.png")} />
-
-                    <h2 className="heading">
-                        Čaro sieťového marketingu
-                    </h2>
-
-                    <p className="text">
-                        Jeden z najbohatších ľudí na svete, Bill Gates sa vyjadril, že ak by dnes opäť začínal s podnikaním, rozhodne by to bolo formou MLM. Nehovoril to náhodou.
-                    </p>
-
-                    <p className="text">
-                        MLM umožňuje všetky výhody podnikania bez zbytočného finančného rizika. Nízke štartovacie náklady, testované produkty (bez investícií do vývoja, balenia, či doručovania), žiadny vlastný zákaznícky servis, žiadne náklady na budovy (prenájom/ osvetlenie/voda), či zamestnancov, naopak ponúka možnosť pasívneho príjmu a časovú slobodu. Základom úspechu v MLM je rozhodnúť sa podnikať v správnej spoločnosti. V takej, kde je možné sa spoľahnúť, že sľuby platia, kvalita je garantovaná na najvyššej možnej úrovni a energia, ktorú človek do podnikania vloží, sa nestratí.
-                    </p>
-
-                    <p className="text">
-                        My v doTERRA budujeme už niekoľko rokov svoju vetvu <b>TerraMia</b> na pevných podnikateľských princípoch.
-                    </p>
-
-                    <p className="text">
-                        Až 85% jej členov sú užívatelia, ktorí nadšenie používajú produkty, kvôli ich kvalite a účinnosti. Títo členovia získavajú produkty doTERRA s 25% zľavou z maloobchodnej ceny. V TerraMia majú možnosť systematického vzdelávania i priamej starostlivosti skúsených konzultantov, takže nikto nezostane sám so svojimi otázkami.
-                    </p>
-
-                    <p className="text">
-                        Avšak 15% členov TerraMia vníma aj podnikateľskú príležitosť, ktorá je v doTERRA veľmi široká.
-                    </p>
-
-                    <p className="text">
-                        Ak sa vidíte v pozícii šíriteľa posolstva zdravotných účinkov olejov doTERRA s príjmom bez stropu, neváhajte a pridajte sa! - tu bude link na registráciu
+                    <p className="motto-text">
+                    Ak sa vidíte v pozícii šíriteľa posolstva sily esenciálnych olejov doTERRA so záujmom eticky podnikať a zarábať, neváhajte a pridajte sa do vetvy TerraMia - <a className="link" href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">staň sa členom doTERRA</a>
                     </p>
 
                     <div className="contact-panel">
-                        <div className="item">
-                            <img className="photo" src={require("../assets/michaela-zackova.png")} />
-                            <div className="name">Michaela Začková</div>
-                            <div className="phone">0903 225 337</div>
+                        <div className="links">
+                            <div className="link">
+                                <div className="name">Roman Začka</div>
+                                <a className="phone" href="tel: +421-903-789-837">0903 789 837</a>
+                            </div>
+                            <div className="link">
+                                <div className="name">Michaela Začková</div>
+                                <a className="phone" href="tel: +421-903-225-337">0903 225 337</a>
+                            </div>
                         </div>
 
-                        <div className="item">
-                            <img className="photo" src={require("../assets/roman-zacka.png")} />
-                            <div className="name">Roman Začka</div>
-                            <div className="phone">0903 789 837</div>
-                        </div>
+                        <img className="photo" src={require("../assets/zackovci.jpg")} />
                     </div>
                 </div>
 
-                <Footer />
+                {this.state.banner && !getStorageItem("token") ? (
+                    <Banner
+                        title="Chcete sa dozvedieť viac o podnikaní?"
+                        text="Staňte sa členom klubu TerraMia a získajte prístup ku všetkým materiálom o podnikaní, blogom a novinkám"
+                        button="Staň sa členom klubu"
+                        business={true}
+                        closeBanner={this.closeBanner}
+                    />
+                ) : null}
             </div>
         )
     }
 }
+
+export default withRouter(Business);

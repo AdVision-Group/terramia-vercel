@@ -1,5 +1,6 @@
 import React, { useImperativeHandle } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, getStorageItem, removeStorageItem, setStorageItem, shop, createURLName, API_URL } from "../config/config";
 import Api from "../config/Api";
@@ -19,6 +20,7 @@ class AdminShop extends React.Component {
 
         name: "",
         label: "",
+        link: "",
         description: "",
         price: "",
         points: "0",
@@ -59,7 +61,7 @@ class AdminShop extends React.Component {
     async addProduct() {
         this.setState({ popup: true, loading: true });
 
-        const { name, label, description, tip1, tip2, tip3, price, points, isDoTerraProduct, image, imagePath, type, category, problems, topProduct } = this.state;
+        const { name, label, link, description, tip1, tip2, tip3, price, points, isDoTerraProduct, image, imagePath, type, category, problems, topProduct } = this.state;
 
         if (name.trim() === "" || label.trim() === "" || description.trim() === ""|| tip1.trim() === "" || tip2.trim() === "" || tip3.trim() === "" || price.trim() === "" || points.trim() === "" || imagePath.trim() === "") {
             this.setState({ popup: true, loading: false, title: "Všetky polia musia byť vyplnené" });
@@ -75,6 +77,7 @@ class AdminShop extends React.Component {
             visibility: true,
             name: name,
             label: label,
+            link: link,
             description: description,
             tips: [ tip1, tip2, tip3 ],
             price: price,
@@ -82,7 +85,6 @@ class AdminShop extends React.Component {
             isDoTerraProduct: isDoTerraProduct,
             problemType: problems,
             topProduct: topProduct,
-            link: createURLName(name)
         }, token)
 
         if (addProduct.success === "New product created successfully") {
@@ -97,7 +99,7 @@ class AdminShop extends React.Component {
     async updateProduct() {
         this.setState({ popup: true, loading: true });
 
-        const { name, label, description, tip1, tip2, tip3, price, points, isDoTerraProduct, image, imagePath, type, category, problems, topProduct } = this.state
+        const { name, label, link, description, tip1, tip2, tip3, price, points, isDoTerraProduct, image, imagePath, type, category, problems, topProduct } = this.state
 
         if (name.trim() === "" || label.trim() === "" || description.trim() === ""|| tip1.trim() === "" || tip2.trim() === "" || tip3.trim() === "" || price.trim() === "" || points.trim() === "" || imagePath.trim() === "") {
             this.setState({ popup: true, loading: false, title: "Všetky polia musia byť vyplnené" });
@@ -111,6 +113,7 @@ class AdminShop extends React.Component {
         const call = await Api.editProduct(id, {
             name: name,
             label: label,
+            link: link,
             description: description,
             price: price,
             isDoTerraProduct: isDoTerraProduct,
@@ -121,8 +124,7 @@ class AdminShop extends React.Component {
             category: category + 1,
 
             problemType: problems,
-            topProduct: topProduct,
-            link: createURLName(name)
+            topProduct: topProduct
         }, token);
 
         if (call.message === "Product patched successfully") {
@@ -191,6 +193,7 @@ class AdminShop extends React.Component {
                 this.setState({
                     name: product.name,
                     label: product.label,
+                    link: product.link,
                     description: product.description,
                     price: product.price.toString(),
                     isDoTerraProduct: product.isDoTerraProduct,
@@ -222,6 +225,11 @@ class AdminShop extends React.Component {
     render() {
         return(
             <div className="screen admin" id="admin-shop">
+                 <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | {this.props.location.pathname.includes("upravit-produkt") ? "Upraviť produkt" : "Pridať produkt"}</title>
+                </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         type="info"
@@ -243,12 +251,17 @@ class AdminShop extends React.Component {
 
                     <div className="panel">
                         <div className="heading">Meno produktu</div>
-                        <input className="field" type="text" value={this.state.name} placeholder="Meno produktu" onChange={(event) => this.setState({ name: event.target.value })} />
+                        <input className="field" type="text" value={this.state.name} placeholder="Meno produktu" onChange={(event) => this.setState({ name: event.target.value, link: createURLName(event.target.value) })} />
                     </div>
 
                     <div className="panel">
                         <div className="heading">Motto oleja</div>
                         <input className="field" type="text" value={this.state.label} placeholder="Motto produktu" onChange={(event) => this.setState({ label: event.target.value })} />
+                    </div>
+
+                    <div className="panel">
+                        <div className="heading">URL link</div>
+                        <input className="field" type="text" value={this.state.link} placeholder="URL link produktu" onChange={(event) => this.setState({ link: event.target.value })} />
                     </div>
 
                     <div className="panel">
@@ -342,7 +355,7 @@ class AdminShop extends React.Component {
 
                     <input className="file-input" name="file" id="file" type="file" onChange={() => this.changeImage()} />
 
-                    <img className="image" id="product-image" src={this.state.imagePath} style={this.state.imagePath ? {} : { display: "none" }} />
+                    <img className="image" id="product-image" src={this.state.imagePath} style={this.state.imagePath ? {} : { display: "none" }} loading="lazy" />
 
                     <div className="button-filled done-button" onClick={() => this.state.location.includes("pridat-produkt") ? this.addProduct() : this.updateProduct()}>Uložiť</div>
                 </div>

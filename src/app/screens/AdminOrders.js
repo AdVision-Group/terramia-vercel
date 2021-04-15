@@ -1,5 +1,6 @@
 import React, { useImperativeHandle } from "react";
 import { Link, withRouter } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import { API_URL, isLogged, getStorageItem, removeStorageItem, setStorageItem, shop } from "../config/config";
 import Api from "../config/Api";
@@ -13,19 +14,26 @@ import Order from "../components/Order";
 
 import "../styles/admin.css";
 
-class AdminShop extends React.Component {
+class AdminOrders extends React.Component {
 
     state = {
         filters: {
             filters: {
                 status: "ordered"
-            }
+            },
+            sortBy: {
+                date: 1
+            },
+            limit: 10,
+            skip: 0
         },
 
         orders: [],
         selectedOrders: [],
 
-        loading: true
+        type: "normal",
+
+        loading: false
     }
 
     constructor() {
@@ -43,6 +51,7 @@ class AdminShop extends React.Component {
         this.fulfillSelected = this.fulfillSelected.bind(this);
         this.sendSelected = this.sendSelected.bind(this);
         this.forwardSelected = this.forwardSelected.bind(this);
+        this.handleScrollLoading = this.handleScrollLoading.bind(this);
     }
 
     clearSelection(event) {
@@ -117,18 +126,89 @@ class AdminShop extends React.Component {
     }
 
     async loadData() {
-        this.setState({ loading: true })
+        this.setState({ loading: true });
 
-        const token = getStorageItem("token")
+        const token = getStorageItem("token");
 
-        const orders = await Api.getOrders(this.state.filters, token);
+        var filters = {
+            ...this.state.filters
+        }
 
-        if (orders.message === "Orders retrieved successfully") {
-            this.setState({
-                orders: orders.orders,
+        if (this.state.type === "normal") {
+            delete filters["filters"]["value"];
+            filters["filters"]["valueOverZero"] = true;
+        } else {
+            delete filters["filters"]["valueOverZero"];
+            filters["filters"]["value"] = 0;
+        }
+
+        const call = await Api.getOrders(filters, token);
+
+        if (call.orders) {
+            var orders = [];
+
+            for (let oi = 0; oi < call.orders.length; oi++) {
+                const order = call.orders[oi];
+
+                var ids = [];
+
+                for (let i = 0; i < order.products.length; i++) {
+                    const id = order.products[i];
+
+                    if (ids.length === 0) {
+                        ids.push({
+                            id: id,
+                            amount: 1
+                        });
+
+                        continue;
+                    }
+
+                    for (let j = 0; j < ids.length; j++) {
+                        if (ids[j].id === id) {
+                            ids[j].amount = ids[j].amount + 1;
+                        } else {
+                            if (j === ids.length - 1) {
+                                ids.push({
+                                    id: id,
+                                    amount: 1
+                                });
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                var products = [];
+
+                for (let i = 0; i < ids.length; i++) {
+                    const id = ids[i]
+                    
+                    const product = await Api.getProduct(id.id);
+                    
+                    products.push({
+                        ...product.product,
+                        amount: id.amount
+                    });
+                }
+
+                const clientId = order.orderedBy;
+                const client = await Api.getClient(clientId, token);
+
+                orders.push({
+                    order: order,
+                    products: products,
+                    client: client.user,
+                    date: order.date
+                })
+            }
+
+            this.setState((state) => ({
+                orders: state.orders.concat(orders),
                 selectedOrders: [],
                 loading: false
-            });
+            }));
         }
     }
 
@@ -161,7 +241,12 @@ class AdminShop extends React.Component {
             filters: {
                 filters: {
                     status: category
-                }
+                },
+                sortBy: {
+                    date: category === "sent" ? -1 : 1
+                },
+                limit: 10,
+                skip: 0
             },
             orders: [],
             selectedOrders: []
@@ -176,6 +261,12 @@ class AdminShop extends React.Component {
         }
 
         this.loadData();
+
+        window.addEventListener("scroll", this.handleScrollLoading);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScrollLoading);
     }
 
     componentDidUpdate() {
@@ -184,11 +275,23 @@ class AdminShop extends React.Component {
         }
     }
 
-    render() {
-        console.log(this.state.selectedOrders.length);
+    handleScrollLoading() {
+        var ordersPanel = document.getElementById("orders-panel");
 
+        if (ordersPanel.getBoundingClientRect().bottom < window.innerHeight && this.state.orders.length === this.state.filters.skip + 10) {
+            this.setState((state) => ({ filters: { ...state.filters, skip: state.filters.skip + 10 } }), () => this.loadData());
+            return;
+        }
+    }
+
+    render() {
         return(
             <div className="screen admin" id="admin-orders">
+                 <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Objednávky</title>
+                </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         type="info"
@@ -231,9 +334,16 @@ class AdminShop extends React.Component {
                         ) : null}
                     </div>
 
-                    <div className="orders">
-                        {!this.state.loading ? this.state.orders.map((order) => <Order order={order} fulfill={this.fulfillOrder} send={this.sendOrder} cancel={this.cancelOrder} selectOrder={this.selectOrder} isSelected={this.state.selectedOrders.includes(order._id)} />) : <Loading />}
+                    <div className="menu" style={{ marginTop: 0 }}>
+                        <div className="item" style={this.state.type === "normal" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ type: "normal", orders: [] }, () => this.loadData())}>Normálne</div>
+                        <div className="item" style={this.state.type === "samples" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ type: "samples", orders: [] }, () => this.loadData())}>Vzorky</div>
                     </div>
+
+                    <div className="orders" id="orders-panel">
+                        {this.state.orders.map((order) => <Order order={order} fulfill={this.fulfillOrder} send={this.sendOrder} cancel={this.cancelOrder} selectOrder={this.selectOrder} isSelected={this.state.selectedOrders.includes(order.order._id)} />)}
+                    </div>
+
+                    {this.state.loading && <Loading />}
 
                     {this.state.orders.length === 0 && !this.state.loading ? <div className="empty-message">Nenašli sa žiadne objednávky pre danú kategóriu</div> : null}
                 </div>
@@ -242,4 +352,4 @@ class AdminShop extends React.Component {
     }
 }
 
-export default withRouter(AdminShop);
+export default withRouter(AdminOrders);

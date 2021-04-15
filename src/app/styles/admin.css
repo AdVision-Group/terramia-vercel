@@ -41,6 +41,7 @@
     align-items: flex-start;
 
     padding: 50px;
+    padding-bottom: 100px;
 }
 
 @media (max-width: 1300px) {
@@ -60,7 +61,7 @@
     font-size: 40px;
     font-weight: 700;
 
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .admin .section {
@@ -260,7 +261,7 @@
 /* -----------------------------------------*/
 
 
-#admin-orders .content .menu {
+.admin .content .menu {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -270,35 +271,35 @@
     margin: 40px 0px;
 }
 
-#admin-orders .content .menu .item {
+.admin .content .menu .item {
     color: #383838;
     font-size: 16px;
     font-weight: 700;
 
-    border-radius: 1000px;
-
     padding: 10px 20px;
-    margin: 0px 5px;
+    margin-right: 10px;
     
     cursor: pointer;
+
+    background-color: rgba(0, 0, 0, 0.03);
 
     transition: all 200ms;
 }
 
 @media (max-width: 1000px) {
-    #admin-orders .content .menu {
+    .admin.content .menu {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    #admin-orders .content .menu .item {
+    .admin .content .menu .item {
         margin: 0px;
         margin-bottom: 10px;
     }
 }
 
-#admin-orders .content .menu .item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+.admin .content .menu .item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 #admin-orders .content .orders {
@@ -343,4 +344,103 @@
     #admin-blog .content .editor {
         height: 600px;
     }
+}
+
+#admin-analytics .statistics {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 30px;
+}
+
+#admin-analytics .statistics .line {
+    width: 100%;
+    height: 2px;
+
+    border-radius: 1px;
+
+    margin: 20px 0px;
+
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#admin-analytics .statistics .item {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#admin-analytics .statistics .item .left {
+    flex: 1;
+}
+
+#admin-analytics .statistics .item .left .title {
+    color: #383838;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 23px;
+
+    margin-bottom: 10px;
+}
+
+#admin-analytics .statistics .item .left .text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: 400;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+#admin-analytics .statistics .item .value {
+    color: #383838;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#admin-emails .content .emails {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#admin-emails .content .emails .heading {
+    color: #383838;
+    font-size: 22px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+#admin-emails .content .emails .text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: 400;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+#admin-emails .content .emails .area {
+    color: #383838;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+
+    margin: 0px;
+    padding: 0px;
+    padding: 8px;
+
+    width: 600px;
+
+    border: 1px solid lightgray;
+    outline: none;
+    resize: none;
+
+    margin: 30px 0px;
 }

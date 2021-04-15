@@ -296,7 +296,7 @@
 
     #home .links .item .title {
         color: white;
-        font-size: 35px;
+        font-size: 30px;
         font-weight: 700;
         text-align: center;
 
@@ -310,19 +310,19 @@
 }
 
 #links-item-1 {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/homepage-box-8.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/landing-box-1.png");
 }
 
 #links-item-2 {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/homepage-box-2.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/landing-box-2.png");
 }
 
 #links-item-3 {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/homepage-box-3.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/landing-box-3.png");
 }
 
 #links-item-4 {
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/homepage-box-4.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("../assets/landing-box-4.png");
 }
 
 @media (max-width: 1150px) and (min-width: 800px) {

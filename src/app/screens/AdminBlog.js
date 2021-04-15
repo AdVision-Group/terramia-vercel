@@ -2,9 +2,10 @@ import React, { useImperativeHandle } from "react";
 import { Link, withRouter } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import { Quill } from "react-quill";
+import { Helmet } from "react-helmet";
 import 'react-quill/dist/quill.snow.css';
 
-import { isLogged, getStorageItem, removeStorageItem, setStorageItem, shop,createURLName, API_URL } from "../config/config";
+import { isLogged, getStorageItem, removeStorageItem, setStorageItem, shop, createURLName, API_URL } from "../config/config";
 import Api from "../config/Api";
 
 import Header from "../components/Header";
@@ -18,6 +19,7 @@ class AdminBlog extends React.Component {
     state = {
         title: "",
         description: "",
+        link: "",
         type: 0,
         locked: false,
 
@@ -44,9 +46,9 @@ class AdminBlog extends React.Component {
     async createBlog() {
         this.setState({ popup: true, loading: true });
 
-        const { title, description, type, locked, value, image, imagePath } = this.state;
+        const { title, description, link, type, locked, value, image, imagePath } = this.state;
 
-        if (title.trim() === "" || description.trim() === "" || imagePath.trim() === "") {
+        if (title.trim() === "" || description.trim() === "" || link.trim() === "" || imagePath.trim() === "") {
             this.setState({ loading: false, message: "Všetky polia musia byť vyplnené" });
             return;
         }
@@ -56,10 +58,10 @@ class AdminBlog extends React.Component {
         const addBlog = await Api.createPost({
             name: title,
             description: description,
+            link: link,
             html: value,
             type: type,
-            locked: locked,
-            link: createURLName(title)
+            locked: locked
         }, token);
 
         if (addBlog.blog) {
@@ -74,7 +76,7 @@ class AdminBlog extends React.Component {
     async updateBlog() {
         this.setState({ popup: true, loading: true });
 
-        const { title, description, type, locked, value, image, imagePath } = this.state;
+        const { title, description, link, type, locked, value, image, imagePath } = this.state;
 
         if (title.trim() === "" || description.trim() === "" || imagePath.trim() === "") {
             this.setState({ loading: false, message: "Všetky polia musia byť vyplnené" });
@@ -88,10 +90,10 @@ class AdminBlog extends React.Component {
         const call = await Api.editPost(id, {
             name: title,
             description: description,
+            link: link,
             html: value,
             type: type,
             locked: locked,
-            link: createURLName(title)
         }, token);
 
         if (call.blog) {
@@ -135,6 +137,7 @@ class AdminBlog extends React.Component {
                 this.setState({
                     title: article.name,
                     description: article.description,
+                    link: article.link,
                     value: article.html,
                     type: article.type,
                     locked: article.locked,
@@ -154,6 +157,11 @@ class AdminBlog extends React.Component {
     render() {
         return(
             <div className="screen admin" id="admin-blog">
+                 <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | {this.props.location.pathname.includes("upravit-prispevok") ? "Upraviť príspevok" : "Pridať príspevok"}</title>
+                </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         type="info"
@@ -172,12 +180,17 @@ class AdminBlog extends React.Component {
 
                     <div className="panel">
                         <div className="heading">Názov</div>
-                        <input className="field" type="text" value={this.state.title} placeholder="Názov blogového príspevku" onChange={(event) => this.setState({ title: event.target.value })} />
+                        <input className="field" type="text" value={this.state.title} placeholder="Názov blogového príspevku" onChange={(event) => this.setState({ title: event.target.value, link: createURLName(event.target.value) })} />
                     </div>
 
                     <div className="panel">
                         <div className="heading">Popis</div>
                         <textarea className="area" rows="10" value={this.state.description} placeholder="Popis blogového príspevku" onChange={(event) => this.setState({ description: event.target.value })}></textarea>
+                    </div>
+
+                    <div className="panel">
+                        <div className="heading">URL adresa</div>
+                        <input className="field" type="text" value={this.state.link} placeholder="URL adresa blogového príspevku" onChange={(event) => this.setState({ link: event.target.value })} />
                     </div>
 
                     <div className="section">Zaradenie</div>
@@ -220,7 +233,7 @@ class AdminBlog extends React.Component {
 
                     <input className="file-input" name="file" id="file" type="file" onChange={() => this.changeImage()} />
 
-                    <img className="image" id="product-image" src={this.state.imagePath} style={this.state.imagePath ? {} : { display: "none" }} />
+                    <img className="image" id="product-image" src={this.state.imagePath} style={this.state.imagePath ? {} : { display: "none" }} loading="lazy" />
 
                     <div className="section">Obsah</div>
 

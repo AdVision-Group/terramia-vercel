@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { Helmet } from "react-helmet";
 
 import { isLogged, setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -73,7 +74,15 @@ class Checkout extends React.Component {
         const { name, email, phone, address, psc, city, country, doterra, birth } = this.state;
 
         if (name.trim() === "" || email.trim() === "" || phone.trim() === "" || address.trim() === "" || psc.trim() === "" || city.trim() === "" || country.trim() === "") {
-            console.log("OH NO")
+            this.setState({
+                popupLoading: false,
+                popupTitle: "Všetky polia musia byť vyplnené"
+            });
+
+            return;
+        }
+
+        if (doterra && birth.trim() === "") {
             this.setState({
                 popupLoading: false,
                 popupTitle: "Všetky polia musia byť vyplnené"
@@ -229,6 +238,11 @@ class Checkout extends React.Component {
     render() {
         return(
             <div className="screen" id="checkout">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Fakturačné údaje</title>
+                </Helmet>
+
                 <div className="content">
                     <div className="title">Fakturačné údaje</div>
                     <p className="description">

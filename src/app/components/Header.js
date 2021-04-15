@@ -6,6 +6,7 @@ import { showCookies } from "../components/Cookies";
 
 import MenuButton from "./MenuButton";
 import Dropdown from "./Dropdown";
+import Api from "../config/Api";
 
 import "../styles/header.css";
 
@@ -14,7 +15,7 @@ class Header extends React.Component {
     state = {
         active: false,
         type: "",
-        offset: 0
+        offset: 0,
     }
 
     constructor() {
@@ -41,7 +42,7 @@ class Header extends React.Component {
 
                     <div className="wrapper">
                         <div className="logo-panel">
-                            <Link to="/"><img className="logo" src={require("../assets/logo.png")} /></Link>
+                            <Link to="/"><img className="logo" src={require("../assets/logo.png")} loading="lazy" /></Link>
                         </div>
 
                         <div style={{ flex: 1 }} />
@@ -56,7 +57,7 @@ class Header extends React.Component {
 
                                 <Link className="button-filled" onClick={getStorageItem("token") ? () => {
                                     removeStorageItem("token");
-                                    this.props.history.push("/");
+                                    window.location.reload();
                                 } : () => this.props.history.push("/registracia-vzorky-zadarmo")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</Link>
                             </div>
 
@@ -86,9 +87,9 @@ class Header extends React.Component {
                                 <div className="divider" />
                                 <Link to="/kontakt" className="item">Kontakt</Link>
                                 <div className="divider" />
-                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík</Link>
+                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík{getStorageItem("cart").length > 0 ? <div className="count">{getStorageItem("cart").length}</div> : null}</Link>
                                 <div className="divider" />
-                                <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>Prihlásenie</Link>
+                                <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>{getStorageItem("token") ? getStorageItem("username") : "Prihlásenie"}</Link>
                             </div>
                         </div>
 

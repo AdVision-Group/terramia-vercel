@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { formatDate, API_URL, getStorageItem, ebooks, setStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -111,6 +112,11 @@ class News extends React.Component {
     render() {
         return(
             <div className="screen" id="news">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Novinky</title>
+                </Helmet>
+
                 <Title title="Novinky TerraMia" image="title-background-14.jpg" />
 
                 <div className="content" style={this.state.articles.length === 0 && this.state.type !== 4 ? { alignItems: "center" } : null}>
@@ -170,7 +176,7 @@ function Article(props) {
 
     return(
         <div className="article" onClick={article.locked ? (getStorageItem("token") ? () => props.history.push("/blog/" + article.link) : () => props.showBanner()) : () => props.history.push("/blog/" + article.link)}>
-            <img className="image" src={src} />
+            <img className="image" src={src} loading="lazy" />
             <h3 className="title">{article.name}</h3>
             <div className="date">{formatDate(article.date)}</div>
             <p className="text">{article.description}</p>
@@ -185,7 +191,7 @@ function EBook(props) {
 
     return(
         <div className="article">
-            <img className="image" src={ebook.image} />
+            <img className="image" src={ebook.image} loading="lazy" />
             <h3 className="title">{ebook.name}</h3>
             <div className="date">{ebook.date}</div>
             <p className="ebook-text">{ebook.description}</p>

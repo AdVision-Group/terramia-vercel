@@ -8,7 +8,7 @@ export default function Title(props) {
 
     return(
         <div className="title-panel" style={props.style}>
-            <img className="image" src={require("../assets/" + image)} />
+            <img className="image" src={require("../assets/" + image)} loading="lazy" />
 
             <div className="title">{title}</div>
         </div>

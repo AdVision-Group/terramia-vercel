@@ -6,7 +6,7 @@ export default function Maintenance() {
     return(
         <div className="screen" id="maintanance">
             <div className="image-panel">
-                <img className="image" src={require("./assets/family-business-1.png")} />
+                <img className="image" src={require("./assets/family-business-1.png")} loading="lazy" />
             </div>
 
             <div className="info-panel">

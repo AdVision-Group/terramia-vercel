@@ -10,11 +10,16 @@ import Cookies from "./components/Cookies";
 
 import ScrollToTop from "./components/ScrollToTop";
 
-import AdminShop from "./screens/AdminShop";
+import AdminAnalytics from "./screens/AdminAnalytics";
+import AdminEmails from "./screens/AdminEmails";
 import AdminOrders from "./screens/AdminOrders";
+import AdminShop from "./screens/AdminShop";
 import AdminBlog from "./screens/AdminBlog";
 
 import AutoLogin from "./screens/AutoLogin";
+
+import Contest from "./screens/Contest";
+import Quiz from "./screens/Quiz";
 
 import Home from "./screens/Home";
 import Shop from "./screens/Shop";
@@ -57,6 +62,9 @@ export default class Router extends React.Component {
                     <Switch>
                         <Route exact path="/"><Home /></Route>
 
+                        <Route exact path="/sutaz-o-vstupny-balicek"><Contest /></Route>
+                        <Route exact path="/kviz"><Quiz /></Route>
+
                         <Route path="/autologin/:email/:password" render={(props) => { return ( <AutoLogin {...props } /> )}} />
 
                         <Route exact path="/e-shop/kategoria/:type/:category"><Shop /></Route>
@@ -79,10 +87,11 @@ export default class Router extends React.Component {
                         <Route exact path="/registracia-suhrn-objednavky"><Register stage={4} /></Route>
                         <Route exact path="/profil"><Profile /></Route>
 
-                        <Route exact path="/admin/pridat-produkt"><AdminShop /></Route>
+                        <Route exact path="/admin/analytika"><AdminAnalytics /></Route>
+                        <Route exact path="/admin/registracia-novych-clenov"><AdminEmails /></Route>
                         <Route exact path="/admin/objednavky"><AdminOrders /></Route>
+                        <Route exact path="/admin/pridat-produkt"><AdminShop /></Route>
                         <Route exact path="/admin/pridat-prispevok"><AdminBlog /></Route>
-
                         <Route path="/admin/upravit-produkt/:id" render={(props) => { return ( <AdminShop {...props } /> ) }} />
                         <Route path="/admin/upravit-prispevok/:id" render={(props) => { return ( <AdminBlog {...props } /> ) }} />
 

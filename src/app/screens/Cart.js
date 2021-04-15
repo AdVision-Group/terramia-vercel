@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, setStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";
+import Banner from "../components/Banner";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -16,7 +18,9 @@ class Cart extends React.Component {
 
         cart: [],
         products: [],
-        totalPoints: 0
+        totalPoints: 0,
+        
+        banner: false
     }
 
     constructor() {
@@ -24,6 +28,8 @@ class Cart extends React.Component {
 
         this.loadData = this.loadData.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
+        this.getTotalPoints = this.getTotalPoints.bind(this);
+        this.closeBanner = this.closeBanner.bind(this);
     }
 
     async loadData() {
@@ -47,29 +53,31 @@ class Cart extends React.Component {
         this.setState({ products: products, totalPoints: totalPoints });
     }
 
-    changeAmount(id, action) {
+    changeAmount(product, action) {
         const cart = this.state.cart;
 
         for (let i = 0; i < cart.length; i++) {
-            if (cart[i]._id === id) {
+            if (cart[i]._id === product._id) {
                 if (cart[i].amount + action <= 0) {
                     cart.splice(i, 1);
                 } else {
-                    cart[i].amount = cart[i].amount + action
+                    cart[i].amount = cart[i].amount + action;
                 }
 
                 break
             }
         }
 
+        window.location.reload();
         setStorageItem("cart", cart);
-        this.setState({ cart: cart }, () => {
-            this.loadData();
-        });
     }
 
     componentDidMount() {
         this.loadData();
+
+        setTimeout(() => {
+            this.setState({ banner: true });
+        }, 2000);
     }
     
     componentDidUpdate() {
@@ -82,17 +90,37 @@ class Cart extends React.Component {
         }
     }
 
+    getTotalPoints() {
+        const cart = getStorageItem("cart");
+        var points = 0;
+
+        for (let i = 0; i < cart.length; i++) {
+            points += cart[i].points * cart[i].amount;
+        }
+
+        return points;
+    }
+
+    closeBanner() {
+        this.setState({ banner: false });
+    }
+
     render() {
         const products = this.state.products;
 
         return(
             <div className="screen" id="cart">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Košík</title>
+                </Helmet>
+
                 <div className="content">
                     <div className="title">Košík</div>
 
-                        {products.length === 0 ? <div className="empty-message">Košík je prázdny</div> : null}
+                    {products.length === 0 ? <div className="empty-message">Košík je prázdny</div> : null}
 
-                        {products.map((product) => <CartItem product={product} changeAmount={this.changeAmount} /> )}
+                    {products.map((product) => <CartItem product={product} changeAmount={this.changeAmount} /> )}
 
                     <div className="button-panel">
                         {products.length === 0 ? <Link className="button-filled" to="/e-shop">Začnite nakupovať</Link> : null}
@@ -101,6 +129,17 @@ class Cart extends React.Component {
                         {products.length !== 0 ? <Link className="button-filled" to={{ pathname: "/fakturacne-udaje", state: { totalPoints: this.state.totalPoints }}}>Prejsť ku platbe</Link> : null}
                     </div>
                 </div>
+
+                {this.state.banner ? (
+                    <Banner
+                        title={this.getTotalPoints() > 100 ? "Získaj zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov" : "Nakúp ešte za " + (100 - this.getTotalPoints()) + " bodov a získaj 25% zľavu"}
+                        text={this.getTotalPoints() > 100 ? "Otvorte si účet v doTERRA a získajte 25% zľavu na celý nákup." : "Ak nakúpite produkty ešte za " + (100 - this.getTotalPoints()) + " bodov, získaťe možnosť OTVORENIA ÚČTU v doTERRA a dostanete 25% zľavu na Váš nákup"}
+                        button={this.getTotalPoints() > 100 ? "Zisti viac" : "Nakupovať"}
+                        location={this.getTotalPoints() > 100 ? "/sutaz-o-vstupny-balicek" : "/e-shop"}
+                        image={this.getTotalPoints() > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}
+                        closeBanner={this.closeBanner}
+                    />
+                ) : null}
             </div>
         )
     }
@@ -111,7 +150,7 @@ function CartItem(props) {
 
     return(
         <div className="product">
-            <img className="image" src={src} />
+            <img className="image" src={src} loading="lazy" />
 
             <div className="info">
                 <h3 className="name">{props.product.product.name}</h3>
@@ -121,9 +160,9 @@ function CartItem(props) {
 
                 <div className="bottom-panel">
                     <div className="controls">
-                        <div className="button" onClick={() => props.changeAmount(props.product.product._id, -1)}>-</div>
+                        <div className="button" onClick={() => props.changeAmount(props.product.product, -1)}>-</div>
                         <div className="amount">{props.product.amount}</div>
-                        <div className="button" onClick={() => props.changeAmount(props.product.product._id, 1)}>+</div>
+                        <div className="button" onClick={() => props.changeAmount(props.product.product, 1)}>+</div>
                     </div>
 
                     <div style={{ flex: 1 }}></div>

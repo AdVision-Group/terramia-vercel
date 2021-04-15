@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { Helmet } from "react-helmet";
 
 import { isLogged, setStorageItem, removeStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";
@@ -35,7 +36,7 @@ class Payment extends React.Component {
         loading: false,
         processing: false,
 
-        banner: true
+        banner: false
     }
 
     constructor() {
@@ -216,6 +217,11 @@ class Payment extends React.Component {
     render() {
         return(
             <div className="screen" id="payment">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Platba</title>
+                </Helmet>
+
                 {this.state.processing ? (
                     <Popup
                         type="info"

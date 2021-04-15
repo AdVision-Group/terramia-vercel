@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import Api from "../config/Api";
 
@@ -50,6 +51,11 @@ export default class Contact extends React.Component {
     render() {
         return(
             <div className="screen" id="contact">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Kontakt</title>
+                </Helmet>
+
                 <Title title="Kontaktujte nás" image="title-background-11.jpg" />
 
                 {this.state.popup ? (

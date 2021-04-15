@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { getStorageItem, setStorageItem } from "../config/config";
 
@@ -88,6 +89,11 @@ class AutoLogin extends React.Component {
         if (this.state.loading) {
             return(
                 <div className="screen" id="autologin">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Načítava sa</title>
+                    </Helmet>
+
                     <Loading />
                 </div>
             )
@@ -105,11 +111,16 @@ class AutoLogin extends React.Component {
                 ) : null}
 
                 <div className="image-panel">
-                    <img className="image" src={require("../assets/family-business-1.png")} />
+                    <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" />
                 </div>
 
                 {this.state.success ? (
                     <div className="text-panel">
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <title>TerraMia | Vitajte v klube TerraMia</title>
+                        </Helmet>
+
                         <div className="title-large">Vitajte v klube TerraMia</div>
                         <div className="text">
                             Ako nášmu dobrému zákazníkovi sme si dovolili vytvoriť Vám členstvo v klube Terramia, aby sme Vám uľahčili robotu s vytváraním členstva nanovo.
@@ -129,6 +140,11 @@ class AutoLogin extends React.Component {
                     </div>
                 ) : (
                     <div className="text-panel" style={{ alignSelf: "center" }}>
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <title>TerraMia | Nastala chyba pri prihlasovaní</title>
+                        </Helmet>
+
                         <div className="title-large">Nastala chyba pri prihlasovaní</div>
                         <div className="text">
                             Nastala chyba pri overovaní Vášho členstva v klube TerraMia. Vygenerovaný link z Vášho e-mailu je pravdepodobne chybný. Kontaktujte nás prosím telefonicky, e-mailom, alebo pomocou nášho kontaktného formulára ohľadom tohoto problému a my Vám pošleme nový link na vytvorenie členstva v klube TerraMia.

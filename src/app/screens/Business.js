@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { animate } from "../config/Animation";
 
@@ -39,12 +40,17 @@ class Business extends React.Component {
 
         return(
             <div className="screen" id="business">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Podnikajte s TerraMia</title>
+                </Helmet>
+
                 <Title title="Podnikajte s TerraMia" image="title-background-3.jpg" />
 
                 <div className="content">
                     <div className="section">
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-1.png")} />
+                            <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" />
                         </div>
 
                         <div className="divider"></div>
@@ -76,13 +82,13 @@ class Business extends React.Component {
                         <div className="divider"></div>
 
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-2.png")} />
+                            <img className="image" src={require("../assets/family-business-2.png")} loading="lazy" />
                         </div>
                     </div>
 
                     <div className="section">
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-3.png")} />
+                            <img className="image" src={require("../assets/family-business-3.png")} loading="lazy" />
                         </div>
 
                         <div className="divider"></div>
@@ -115,7 +121,7 @@ class Business extends React.Component {
                             </div>
                         </div>
 
-                        <img className="photo" src={require("../assets/zackovci.jpg")} />
+                        <img className="photo" src={require("../assets/zackovci.jpg")} loading="lazy" />
                     </div>
                 </div>
 

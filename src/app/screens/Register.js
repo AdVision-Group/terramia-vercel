@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import ReactGA from "react-ga";
 import ReactPixel from "react-facebook-pixel";
@@ -388,6 +389,10 @@ class Register extends React.Component {
         if (this.props.stage === 1) {
             return(
                 <div className="screen" id="register">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                    </Helmet>
 
                     {this.state.popup ? (
                         <Popup
@@ -408,7 +413,7 @@ class Register extends React.Component {
     
                     <div className="content">
                         <div className="left-panel">
-                            <img className="icon" src={require("../assets/family-business-1.png")} />
+                            <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
                         </div>
     
                         <div className="right-panel">
@@ -453,7 +458,7 @@ class Register extends React.Component {
                                     <div className="samples">
                                         {this.state.samples.map((sample, index) => sample.price === 0 ? (
                                             <div className="item" onClick={() => this.setState({ sampleId: sample._id })} style={this.state.sampleId === sample._id ? { /*boxShadow: "0px 0px 15px -5px lightgray"*/ border: "2px solid rgba(0, 0, 0, 0.07)" } : null}>
-                                                <img className="image" src={API_URL + "/uploads/resized/" + sample.imagePath} />
+                                                <img className="image" src={API_URL + "/uploads/resized/" + sample.imagePath} loading="lazy" />
 
                                                 <div className="info">
                                                     <div className="name">{sample.name}</div>
@@ -484,6 +489,11 @@ class Register extends React.Component {
         if (this.props.stage === 2) {
             return(
                 <div className="screen" id="register">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                    </Helmet>
+
                     {this.state.popup ? (
                         <Popup
                             type="info"
@@ -503,7 +513,7 @@ class Register extends React.Component {
     
                     <div className="content">
                         <div className="left-panel">
-                            <img className="icon" src={require("../assets/family-business-1.png")} />
+                            <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
                         </div>
     
                         <div className="right-panel">
@@ -559,6 +569,11 @@ class Register extends React.Component {
         if (this.props.stage === 3) {
             return(
                 <div className="screen" id="register">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                    </Helmet>
+
                     {this.state.popup ? (
                         <Popup
                             type="info"
@@ -578,7 +593,7 @@ class Register extends React.Component {
     
                     <div className="content">
                         <div className="left-panel">
-                            <img className="icon" src={require("../assets/family-business-1.png")} />
+                            <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
                         </div>
     
                         <div className="right-panel">
@@ -619,6 +634,11 @@ class Register extends React.Component {
 
             return(
                 <div className="screen" id="register">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                    </Helmet>
+
                     {this.state.popup ? (
                         <Popup
                             type="info"
@@ -638,7 +658,7 @@ class Register extends React.Component {
     
                     <div className="content">
                         <div className="left-panel">
-                            <img className="icon" src={require("../assets/family-business-1.png")} />
+                            <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
                         </div>
     
                         <div className="right-panel">

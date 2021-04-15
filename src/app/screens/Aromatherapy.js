@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { animate } from "../config/Animation";
 import SmoothScroll from "../config/SmoothScroll";
@@ -31,6 +32,11 @@ class Aromatherapy extends React.Component {
     render() {
         return(
             <div className="screen" id="aromatherapy">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Aromavzdelávanie</title>
+                </Helmet>
+
                 <Title title="Spoznajte silu esenciálnych olejov" image="title-background-4.jpg" />
 
                 <div className="content">
@@ -96,7 +102,7 @@ class Aromatherapy extends React.Component {
 
                         <div className="panel">
                             <div className="image-panel">
-                                <img className="image" src={require("../assets/image-aromatherapy-1.png")} style={{ marginLeft: -100 }} />
+                                <img className="image" src={require("../assets/image-aromatherapy-1.png")} style={{ marginLeft: -100 }} loading="lazy" />
                             </div>
 
                             <div className="box-panel">
@@ -132,27 +138,27 @@ class Aromatherapy extends React.Component {
 
                         <div className="list">
                             <div className="item fade-in-up">
-                                <img className="image" src={require("../assets/icon-1.jpg")} />
+                                <img className="image" src={require("../assets/icon-1.jpg")} loading="lazy" />
                                 <div className="title">Plody</div>
                             </div>
 
                             <div className="item fade-in-up">
-                            <img className="image" src={require("../assets/icon-2.jpg")} />
+                            <img className="image" src={require("../assets/icon-2.jpg")} loading="lazy" />
                                 <div className="title">Kvety</div>
                             </div>
 
                             <div className="item fade-in-up">
-                            <img className="image" src={require("../assets/icon-3.jpg")} />
+                            <img className="image" src={require("../assets/icon-3.jpg")} loading="lazy" />
                                 <div className="title">Listy a vetvičky</div>
                             </div>
 
                             <div className="item fade-in-up">
-                            <img className="image" src={require("../assets/icon-4.jpg")} />
+                            <img className="image" src={require("../assets/icon-4.jpg")} loading="lazy" />
                                 <div className="title">Kôra a živica</div>
                             </div>
 
                             <div className="item fade-in-up">
-                            <img className="image" src={require("../assets/icon-5.jpg")} />
+                            <img className="image" src={require("../assets/icon-5.jpg")} loading="lazy" />
                                 <div className="title">Korene</div>
                             </div>
                         </div>
@@ -193,17 +199,17 @@ class Aromatherapy extends React.Component {
 
                         <div className="list">
                             <div className="item fade-in-up">
-                                <img className="image" src={require("../assets/icon-blue.png")} />
+                                <img className="image" src={require("../assets/icon-blue.png")} loading="lazy" />
                                 <div className="title">Aromaticky</div>
                             </div>
 
                             <div className="item fade-in-up">
-                                <img className="image" src={require("../assets/icon-red.png")} />
+                                <img className="image" src={require("../assets/icon-red.png")} loading="lazy" />
                                 <div className="title">Masážne</div>
                             </div>
 
                             <div className="item fade-in-up">
-                                <img className="image" src={require("../assets/icon-purple.png")} />
+                                <img className="image" src={require("../assets/icon-purple.png")} loading="lazy" />
                                 <div className="title">Vnútorne</div>
                             </div>
                         </div>

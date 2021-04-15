@@ -1,5 +1,6 @@
 import React, { useImperativeHandle } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, getStorageItem, removeStorageItem, setStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -166,6 +167,11 @@ class Profile extends React.Component {
 
         return(
             <div className="screen" id="profile">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Profil</title>
+                </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         type="info"
@@ -185,6 +191,8 @@ class Profile extends React.Component {
                         <div style={{ flex: 1 }}></div>
 
                         <div className="button-panel">
+                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
+                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
                             {user && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
                             {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
                             {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}

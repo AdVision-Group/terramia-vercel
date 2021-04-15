@@ -8,6 +8,54 @@ export default class Api extends React.Component {
     constructor() {
         super();
     }
+
+    static async getStatistics(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/stats", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async bundleEmails(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/orders/emailBundle", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
     
     // EXCEL FILE FOR ORDERS
 
@@ -664,10 +712,7 @@ export default class Api extends React.Component {
         headers.append("Content-Type", "application/json");
         headers.append("auth-token", token);
 
-        var raw = JSON.stringify({
-            filters: filters.filters,
-            limit: filters.limit,
-        })
+        var raw = JSON.stringify(filters)
 
         var requestOptions = {
             method: "POST",
@@ -894,6 +939,32 @@ export default class Api extends React.Component {
         };
 
         return fetch(API_URL + "/api/admin/blogs/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async sendCompetitionAnswer(data) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            email: data.email,
+            message: data.message
+        })
+        
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+        
+        return fetch(API_URL + "/api/contact/competition", requestOptions)
             .then(response => response.json())
             .then(result => {
                 return result

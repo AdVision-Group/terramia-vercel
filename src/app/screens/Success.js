@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -28,6 +29,11 @@ class Success extends React.Component {
     render() {
         return(
             <div className="screen" id="success">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Ďakujeme za nákup </title>
+                </Helmet>
+
                 <div className="content">
                     <div className="title">Ďakujeme Vám za Váš nákup!</div>
                     <p className="description">

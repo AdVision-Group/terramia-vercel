@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { addToCart, API, API_URL, getStorageItem, shop, createURLName, setStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -21,13 +22,6 @@ class Shop extends React.Component {
         products: null,
 
         title: "",
-
-        type: -2,
-        category: 0,
-        price: 0,
-        abc: 1,
-        problem: 0,
-        limit: 12,
         search: "",
 
         loading: true
@@ -39,78 +33,51 @@ class Shop extends React.Component {
         this.loadData = this.loadData.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.showFilters = this.showFilters.bind(this);
+
         this.setQuery = this.setQuery.bind(this);
-        this.setType = this.setType.bind(this);
-        this.setCategory = this.setCategory.bind(this);
-        this.setPrice = this.setPrice.bind(this);
-        this.setAbc = this.setAbc.bind(this);
-        this.setProblem = this.setProblem.bind(this);
+        this.getQuery = this.getQuery.bind(this);
     }
 
     showFilters() {
         document.getElementById("shop-menu").style.left = "0px";
     }
-    
-    setQuery(query) {
-        this.setState({ search: query });
-        setStorageItem("shop-query", query);
-    }
-
-    setType(type) {
-        this.setState({ type: type, category: 0 }, () => this.loadData());
-        setStorageItem("shop-type", type);
-        setStorageItem("shop-category", 0);
-    }
-
-    setCategory(category) {
-        this.setState({ category: category }, () => this.loadData());
-        setStorageItem("shop-category", category);
-    }
-
-    setPrice(price) {
-        this.setState({ price: price, abc: 0 }, () => this.loadData());
-        setStorageItem("shop-price", price);
-        setStorageItem("shop-abc", 0);
-    }
-
-    setAbc(abc) {
-        this.setState({ abc: abc, price: 0 }, () => this.loadData());
-        setStorageItem("shop-price", 0);
-        setStorageItem("shop-abc", abc);
-    }
-
-    setProblem(problem) {
-        this.setState({ problem: problem }, () => this.loadData());
-        setStorageItem("shop-problem", problem);
-    }
 
     async loadData() {
         this.setState({ loading: true });
 
-        const { type, category, price, abc, problem, search, limit } = this.state;
+        const query = new URLSearchParams(this.props.location.search);
+        const type = query.get("typ");
+        const category = query.get("kategoria");
+        const sort = query.get("zoradenie");
+        const problem = query.get("problem");
+        const search = query.get("vyhladavanie");
 
         var filterBy = {};
         var sortBy = {};
 
         var filters = {};
 
-        if (price !== 0) sortBy["price"] = price;
-        if (abc !== 0) sortBy["abc"] = abc;
+        if (sort) {
+            if (sort === "az") sortBy["abc"] = 1;
+            if (sort === "za") sortBy["abc"] = -1;
+            if (sort === "najlacnejsie") sortBy["price"] = 1;
+            if (sort === "najdrahsie") sortBy["price"] = -1;
+        }
 
-        if (type >= 0) filterBy["type"] = type + 1;
-        if (type >= 0) filterBy["category"] = category + 1;
+        if (parseInt(type) >= 0) filterBy["type"] = parseInt(type) + 1;
+        if (parseInt(type) >= 0) filterBy["category"] = parseInt(category) + 1;
 
-        if (type === -1) sortBy["soldAmount"] = 1;
-        if (type === -2) filterBy["topProduct"] = true;
+        if (parseInt(type) === -1) sortBy["soldAmount"] = 1;
+        if (parseInt(type) === -2) filterBy["topProduct"] = true;
 
-        if (problem !== 0) {
-            filterBy["problemType"] = problem;
+        if (problem) {
+            filterBy["problemType"] = parseInt(problem);
 
             delete filterBy["type"];
             delete filterBy["category"];
         }
 
-        if (search.trim() !== "") {
+        if (search) {
             filters["query"] = search;
 
             delete filterBy["type"];
@@ -122,9 +89,9 @@ class Shop extends React.Component {
         filters["filters"] = filterBy;
         filters["sortBy"] = sortBy;
 
-        if (type >= 0) this.setState({ title: shop[type].categories[category] });
-        if (type == -1) this.setState({ title: "Najpredávanejšie" });
-        if (type == -2) this.setState({ title: "Top 12 esenciálnych olejov" });
+        if (parseInt(type) >= 0) this.setState({ title: shop[parseInt(type)].categories[parseInt(category)] });
+        if (parseInt(type) == -1) this.setState({ title: "Najpredávanejšie" });
+        if (parseInt(type) == -2) this.setState({ title: "Top 12 esenciálnych olejov" });
 
         const products = await Api.getProducts(filters);
 
@@ -135,53 +102,47 @@ class Shop extends React.Component {
 
     handleKeyPress(event) {
         if (event.key === "Enter") {
-            this.loadData();
+            this.setQuery([[ "vyhladavanie", this.state.search.trim() ]]);
         }
+    }
+
+    setQuery(queries) {
+        var query = new URLSearchParams(this.props.location.search);
+
+        for (let i = 0; i < queries.length; i++) {
+            var element = queries[i];
+
+            if (query.get(element[0])) {
+                query.set(element[0], element[1]);
+            } else {
+                query.append(element[0], element[1]);
+            }
+
+            if (element[0] === "vyhladavanie" && element[1] === "") {
+                query.delete("vyhladavanie");
+                query.set("typ", 0);
+                query.set("kategoria", 0);
+            } else if (element[0] === "vyhladavanie" && element[1] !== "") {
+                query.delete("typ");
+                query.delete("kategoria");
+            }
+        }
+
+        this.props.history.replace("/e-shop?" + query.toString());
+    }
+
+    getQuery(name) {
+        var query = new URLSearchParams(this.props.location.search);
+        return query.get(name);
     }
 
     componentDidUpdate(prevProps) {
-        const type = this.props.location.type;
-        const category = this.props.location.category;
-
-        if (type !== prevProps.location.type) {
-            this.setState({ type: type, category: category }, () => this.loadData());
+        if (this.props.location !== prevProps.location) {
+          this.loadData();
         }
-    }
+      }
 
     componentDidMount() {
-        const type = this.props.location.type;
-        const category = this.props.location.category;
-
-        const linkType = this.props.match.params.type;
-        const linkCategory = this.props.match.params.category;
-
-        if (linkType !== null && linkCategory !== null) {
-            this.setState({ type: parseInt(linkType), category: parseInt(linkCategory) }, () => this.loadData());
-            return;
-        } else if (type != null && category != null) {
-            this.setState({ type: type, category: category }, () => this.loadData());
-            return;
-        }
-
-        if (getStorageItem("shop-query") !== null) {
-            this.setState({ search: getStorageItem("shop-query") }, () => this.loadData());
-        } 
-        if (getStorageItem("shop-type") !== null) {
-            this.setState({ type: getStorageItem("shop-type")}, () => this.loadData());
-        }
-        if (getStorageItem("shop-category") !== null) {
-            this.setState({ category: getStorageItem("shop-category")}, () => this.loadData());
-        }
-        if (getStorageItem("shop-price") !== null && getStorageItem("shop-price") !== 0) {
-            this.setState({ price: getStorageItem("shop-price"), abc: 0 }, () => this.loadData());
-        }
-        if (getStorageItem("shop-abc") !== null && getStorageItem("shop-abc") !== 0) {
-            this.setState({ abc: getStorageItem("shop-abc"), price: 0 }, () => this.loadData());
-        }
-        if (getStorageItem("shop-problem") !== null) {
-            this.setState({ problem: getStorageItem("shop-problem")}, () => this.loadData());
-        }
-
         this.loadData();
     }
     
@@ -191,20 +152,13 @@ class Shop extends React.Component {
 
         return(
             <div className="screen" id="shop">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | E-shop</title>
+                </Helmet>
+
                 <div className="content">
-                    <ShopMenu
-                        type={this.state.type}
-                        category={this.state.category}
-                        price={this.state.price}
-                        abc={this.state.abc}
-                        problem={this.state.problem}
-                        
-                        setType={this.setType}
-                        setCategory={this.setCategory}
-                        setPrice={this.setPrice}
-                        setAbc={this.setAbc}
-                        setProblem={this.setProblem}
-                    />
+                    <ShopMenu />
 
                     <div className="product-panel">
                         <div className="upper-panel">
@@ -215,8 +169,8 @@ class Shop extends React.Component {
                         </div>
 
                         <div className="filters">
-                            <input className="field" type="text" onKeyPress={this.handleKeyPress} value={this.state.search} placeholder="Vyhľadávanie" onChange={(event) => this.setQuery(event.target.value)} />
-                            <div className="button-filled" onClick={() => this.loadData()}>Hľadať</div>
+                            <input className="field" type="text" onKeyPress={this.handleKeyPress} value={this.state.search} placeholder="Vyhľadávanie" onChange={(event) => this.setState({ search: event.target.value })} />
+                            <div className="button-filled" onClick={() => this.setQuery([[ "vyhladavanie", this.state.search.trim() ]])}>Hľadať</div>
                         </div>
 
                         <div className="button-filters" onClick={() => this.showFilters()}><ion-icon name="filter-outline"></ion-icon>Filtrovať</div>
@@ -247,16 +201,16 @@ function Product(props) {
 
     return(
         <Link className="product" to={"/e-shop/" + props.product.link} style={!props.product.available ? { opacity: 0.7 } : null}>
-            <img className="image" src={src} />
+            <img className="image" src={src} loading="lazy" />
             <h3 className="name">{props.product.name}</h3>
-            <p className="description">{props.product.description}</p>
+            <p className="description">{props.product.points ? props.product.points : 0} bodov</p>
 
             <div style={{ flex: 1 }} />
 
             {props.product.available ? (
                 <div className="panel">
                     <div className="price">{(props.product.price / 100).toFixed(2)}€</div>
-                    <div className="button-filled" /*onClick={() => addToCart(props.product._id, 1, props.parent)}*/>Do košíka</div>
+                    <div className="button-filled">Kúpiť</div>
                 </div>
             ) : (
                 <div className="panel">

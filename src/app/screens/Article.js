@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { addToCart, API_URL, shop, formatDate, getStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -66,9 +67,14 @@ class Article extends React.Component {
 
         return(
             <div className="screen" id="article">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | {article ? article.name : "Načítava sa..."}</title>
+                </Helmet>
+
                 {!article ? <div className="content"><Loading /></div> : (
                     <div className="content">
-                        <img className="image" src={API_URL + "/uploads/" + article.imagePath} />
+                        <img className="image" src={API_URL + "/uploads/" + article.imagePath} loading="lazy" />
 
                         <h3 className="title">{article.name}</h3>
                         <div className="date">{article.date ? formatDate(article.date) : null}</div>

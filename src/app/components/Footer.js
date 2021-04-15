@@ -31,7 +31,7 @@ function Footer(props) {
 
             <div className="wrapper">
                 <div className="logo-panel">
-                    <Link to="/"><img className="logo" src={require("../assets/logo.png")} /></Link>
+                    <Link to="/"><img className="logo" src={require("../assets/logo.png")} loading="lazy" /></Link>
                 </div>
 
                 <div className="top-panel">
@@ -48,7 +48,7 @@ function Footer(props) {
 
                     <div className="column">
                         <div className="title">Produkty</div>
-                        {shop.map((item, index) => <div className="info" onClick={() => redirect(index, 0)}>{item.type}</div>)}
+                        {shop.map((item, index) => <Link className="info" to={"/e-shop?typ=" + index + "&kategoria=0&zoradenie=az"}>{item.type}</Link>)}
                     </div>
 
                     <div className="column">

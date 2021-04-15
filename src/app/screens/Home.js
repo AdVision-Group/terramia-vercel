@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { animate } from "../config/Animation";
 
@@ -17,7 +18,7 @@ import "../styles/home.css";
 export default class Home extends React.Component {
 
     state = {
-        banner: true,
+        banner: false,
 
         bannerEbooks: false,
         chooserEbooks: false,
@@ -47,26 +48,39 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         animate();
+
+        setTimeout(() => {
+            this.setState({ banner: true });
+        }, 2000);
     }
 
     render() {
         return(
             <div className="screen" id="home">
-                <div className="slideshow">
-                    <h2 className="title fade-in-up animate__delay-1s">Klub TerraMia, cesta ku špičkovej starostlivosti</h2>
-                    <p className="text fade-in-up animate__delay-3s">
-                        Chcete sa starať o seba a svoju rodinu použitím prírodných riešení čo najvýhodnejšie? Chcete nakupovať a získavať darčeky bezpečne? Esenciálne oleje doTERRA sú 100% prírodné, bezpečné a cenovo výhodné.
-                    </p>
-                    <Link className="button-filled fade-in-up animate__delay-5s" to={getStorageItem("token") ? "/profil" : "/registracia-vzorky-zadarmo"}>Staň sa členom klubu</Link>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Cesta k slobode</title>
+                </Helmet>
 
-                    <div onClick={() => SmoothScroll.scroll("#oils")}><img className="arrow" src={require("../assets/arrow.png")} onClick={() => {/*this.scrollDown()*/}}/></div>
+                <div className="slideshow">
+                    <h2 className="title fade-in-up animate__delay-1s">
+                        {getStorageItem("token") ? "Vyberte si zo širokej ponuky esenciálnych olejov v našom e-shope" : "Klub TerraMia, cesta ku špičkovej starostlivosti"}
+                    </h2>
+                    <p className="text fade-in-up animate__delay-3s">
+                        {getStorageItem("token") ? "Využite cenu pre členov doTERRA v našom e-shope. Zľavu 25% na všetky produkty si môžete uplatniť hneď pri prvom nákupe nad 125€. Radi Vám vysvetlíme, ako to funguje." : "Chcete sa starať o seba a svoju rodinu použitím prírodných riešení čo najvýhodnejšie? Chcete nakupovať a získavať darčeky bezpečne? Esenciálne oleje doTERRA sú 100% prírodné, bezpečné a cenovo výhodné."}
+                    </p>
+                    <Link className="button-filled fade-in-up animate__delay-5s" to={getStorageItem("token") ? "/sutaz-o-vstupny-balicek" : "/registracia-vzorky-zadarmo"}>
+                        {getStorageItem("token") ? "Získaj 25% zľavu" : " Staň sa členom klubu"}
+                    </Link>
+
+                    <div onClick={() => SmoothScroll.scroll("#oils")}><img className="arrow" src={require("../assets/arrow.png")} onClick={() => {/*this.scrollDown()*/}} loading="lazy" /></div>
                 </div>
 
                 <div className="oils" id="oils" style={{ position: "relative" }}>
                     <h3 className="title-large fade-in-up">Balzam na dušu</h3>
                     <div className="panel" id="oils-panel-1">
 
-                        <img className="image fade-in-up" src={require("../assets/landing-oil.jpg")} />
+                        <img className="image fade-in-up" src={require("../assets/landing-oil.jpg")} loading="lazy" />
 
                         <div className="info">
                             <p className="text">
@@ -78,15 +92,16 @@ export default class Home extends React.Component {
 
                     <div className="panel" id="oils-panel-2">
                         <div className="info">
-                            <h3 className="title-large fade-in-up">Cesta k slobode</h3>
+                            <h3 className="title-large fade-in-up">Získaj 25% zľavu</h3>
 
                             <p className="text">
-                                Chcete sa starať o seba a svoju rodinu použitím prírodných riešení čo najvýhodnejšie? Chcete nakupovať s 25% zľavou a získavať darčeky?
+                                Chceli by ste získať zľavu 25% na všetky produkty od doTERRA a ďalšie výhody? Nebude Vás to stáť nič navyše. Stále neviete ako na to?
                             </p>
-                            <a className="button-filled" href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">Staň sa členom doTERRA</a>
+                            {/*<a className="button-filled" href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">Staň sa členom doTERRA</a>*/}
+                            <Link className="button-filled" to="/sutaz-o-vstupny-balicek">Získaj 25% zľavu</Link>
                         </div>
 
-                        <img className="images fade-in-up" src={require("../assets/family-business-2.png")} />
+                        <img className="images fade-in-up" src={require("../assets/family-business-2.png")} loading="lazy" />
                     </div>
                 </div>
 
@@ -97,7 +112,7 @@ export default class Home extends React.Component {
                     </div>
 
                     <div className="item fade-in-up" id="links-item-2">
-                        <h3 className="title">Ako sa vyrábajú esenciálne oleje?</h3>
+                        <h3 className="title">Ako sa získavajú esenciálne oleje?</h3>
                         <Link className="button-filled" to={{ pathname: "/aromavzdelavanie", section: "#aromatherapy-section-4" }}>Zisti viac</Link>
                     </div>
 
@@ -114,7 +129,7 @@ export default class Home extends React.Component {
 
                 <div className="ebook">
                     <div className="wrapper">
-                        <img className="family-image" src={require("../assets/family-business-1.png")} />
+                        <img className="family-image" src={require("../assets/family-business-1.png")} loading="lazy" />
 
                         <div className="info-panel">
                             <div className="title">Inšpiruj sa Voňavým pomocníkom</div>
@@ -132,13 +147,23 @@ export default class Home extends React.Component {
 
                 {this.state.chooserEbooks ? <EBookChooser ebooks={ebooksMain} downloadEbook={this.downloadEbook} close={() => this.setState({ chooserEbooks: false })} /> : null}
 
-                {this.state.banner && !getStorageItem("token") ? (
-                    <Banner
-                        title="Získaj vzorku zadarmo"
-                        text="V klube TerraMia na našej webstránke získaj prístup k TOP informáciám o prírodných riešeniach a vzorku esenciálnych olejov môžeš mať úplne zadarmo!"
-                        button="Staň sa členom klubu"
-                        closeBanner={this.closeBanner}
-                    />
+                {this.state.banner ? (
+                    getStorageItem("token") ?
+                        <Banner
+                            title="Chcete produkty doTERRA kúpiť s 25% zľavou a získať ďaľšie darčeky?"
+                            text="Otvorte si vlastný účet doTERRA a získavajte pravidelné výhody podľa vášho výberu a nakupujte produkty doTERRA oveľa výhodnejšie!"
+                            button="Zisti viac"
+                            image={require("../assets/popup-rodinka.png")}
+                            location="/sutaz-o-vstupny-balicek"
+                            closeBanner={this.closeBanner}
+                        />
+                    :
+                        <Banner
+                            title="Získaj vzorku zadarmo"
+                            text="V klube TerraMia na našej webstránke získaj prístup k TOP informáciám o prírodných riešeniach a vzorku esenciálnych olejov môžeš mať úplne zadarmo!"
+                            button="Staň sa členom klubu"
+                            closeBanner={this.closeBanner}
+                        />
                 ) : null}
 
                 {this.state.bannerEbooks && !getStorageItem("token") ? (

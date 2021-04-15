@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { formatDate, API_URL, getStorageItem, createURLName } from "../config/config";
 
@@ -55,8 +56,6 @@ class Blog extends React.Component {
             sortBy: {}
         });
 
-        console.log(call);
-
         if (call.blogs) {
             for (let i = 0; i < call.blogs.length; i++) {
                 const url = createURLName(call.blogs[i].name);
@@ -87,6 +86,11 @@ class Blog extends React.Component {
 
         return(
             <div className="screen" id="blog">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Blog</title>
+                </Helmet>
+
                 <Title title="Blog TerraMia" image="title-background-15.jpg" />
 
                 <div className="content" style={!blogs ? { display: "flex", alignItems: "center", justifyContent: "center" } : null}>
@@ -119,7 +123,7 @@ function Article(props) {
         <div className="article" onClick={article.locked ? (getStorageItem("token") ? () => props.history.push("/blog/" + article.link) : () => props.showBanner()) : () => props.history.push("/blog/" + article.link)}>
             {article.locked && !getStorageItem("token") ? <ion-icon name="lock-closed"></ion-icon> : null}
             
-            <img className="image" src={src} />
+            <img className="image" src={src} loading="lazy" />
 
             <div className="info">
                 <div className="date">{formatDate(article.date)}</div>

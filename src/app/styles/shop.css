@@ -244,12 +244,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
 #shop .content .product-panel .products .product .description {
-    color: rgba(0, 0, 0, 0.4);
+    color: #383838;
     font-size: 15px;
     font-weight: 400;
 
@@ -258,6 +258,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+
+    margin-top: 8px;
 }
 
 @media (min-width: 700px) {

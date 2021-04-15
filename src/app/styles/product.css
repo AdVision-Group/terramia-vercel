@@ -218,6 +218,14 @@
     cursor: pointer;
 }
 
+#product .content .info-panel .top-panel .left-panel .points {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+    font-weight: 400;
+
+    margin-bottom: 20px;
+}
+
 #product .content .info-panel .top-panel .left-panel .buy-panel {
     display: flex;
     flex-direction: row;

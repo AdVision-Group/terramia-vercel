@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, setStorageItem, getStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -63,6 +64,11 @@ class Reset extends React.Component {
     render() {
         return(
             <div className="screen" id="reset">
+                <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>TerraMia | Resetovanie hesla</title>
+                    </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         title={this.state.title}

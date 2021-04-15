@@ -194,18 +194,19 @@ export function evaluateRegister(response) {
 }
 
 // adds an ITEM and its AMOUNT into the CART
-export function addToCart(productId, amount, parent) {
+export function addToCart(productId, points, amount, parent) {
     var cart = getStorageItem("cart");
         
     for (let i = 0; i < cart.length; i++) {
         if (cart[i]._id === productId) {
-            cart[i].amount = cart[i].amount + amount
+            cart[i].amount = cart[i].amount + amount;
             break;
         } else {
             if (i === cart.length - 1) {
                 cart.push({
                     _id: productId,
-                    amount: amount
+                    amount: amount,
+                    points: points
                 });
 
                 break;
@@ -216,8 +217,9 @@ export function addToCart(productId, amount, parent) {
     if (cart.length === 0) {
         cart.push({
             _id: productId,
-            amount: amount
-        })
+            amount: amount,
+            points: points
+        });
     }
 
     setStorageItem("cart", cart);
@@ -262,11 +264,7 @@ export function changeMenu() {
 }
 
 export function createURLName(name) {
-    const result = name.toLowerCase()
-                        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                        .replace(/-/g, "")
-                        .replace(/"/g, "").replace(/'/g, "").replace(/\(|\)/g, "")
-                        .replace(/ +/g, "-");
+    const url = name.trim().toLowerCase().split(/[ ,]+/).join("-").replace(/[.,\/#!$%\^&\*;:{}=\“\”_`~()""']/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-    return result;
+    return url;
 }

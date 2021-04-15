@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { isLogged, evaluateLogin, setStorageItem, getStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -43,9 +44,14 @@ class Login extends React.Component {
         })
 
         if (login.token) {
-            setStorageItem("token", login.token)
-            this.setState({ popup: false });
-            this.props.history.push("/");
+            setStorageItem("token", login.token);
+
+            const call = await Api.getUser(login.token);
+
+            if (call.user) {
+                setStorageItem("username", call.user.name);
+                this.props.history.push("/");
+            }
         } else {
             const message = evaluateLogin(login.message);
             this.setState({ popup: true, loading: false, title: message });
@@ -89,6 +95,11 @@ class Login extends React.Component {
     render() {
         return(
             <div className="screen" id="login">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | Prihlásenie</title>
+                </Helmet>
+
                 {this.state.popup ? (
                     <Popup
                         type={this.state.type}
@@ -101,7 +112,7 @@ class Login extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} />
+                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">
@@ -118,7 +129,7 @@ class Login extends React.Component {
                         
                         <div className="button-filled" onClick={() => this.login()}>Prihlásiť sa</div>
 
-                        <div className="text" style={{ margin: "30px 0 0 0" }}>Nieste ešte členom klubu TerraMia? Staňte sa členom <span onClick={() => this.props.history.push("/registracia-vzorky-zadarmo")} style={{ fontWeight: "700", color: "#A161B3", cursor: "pointer" }}>tu</span>.</div>
+                        <div className="text" style={{ margin: "30px 0 0 0" }}>Nie ste ešte členom klubu TerraMia? Staňte sa členom <span onClick={() => this.props.history.push("/registracia-vzorky-zadarmo")} style={{ fontWeight: "700", color: "#A161B3", cursor: "pointer" }}>tu</span>.</div>
                     </div>
                 </div>
             </div>

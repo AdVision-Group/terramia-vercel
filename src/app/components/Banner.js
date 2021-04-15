@@ -20,10 +20,10 @@ export default function Banner(props) {
                 </div>
 
                 <div className="image-panel">
-                    <img className="image" src={require("../assets/family-business-1.png")} />
+                    <img className="image" src={props.image ? props.image : require("../assets/family-business-1.png")} loading="lazy" />
                 </div>
 
-                <img className="cancel" src={require("../assets/cancel.png")} onClick={() => props.closeBanner()} />
+                <img className="cancel" src={require("../assets/cancel.png")} onClick={() => props.closeBanner()} loading="lazy" />
             </div>
         </div>
     )

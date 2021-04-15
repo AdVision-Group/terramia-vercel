@@ -35,22 +35,27 @@ export default class Order extends React.Component {
             if (this.state.category === category) {
                 this.hideDropdown();
             } else {
-                this.setState({ category: category }, () => document.getElementById("dropdown-" + this.props.order._id).style.display = "flex");
+                this.setState({ category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
             }
         } else {
-            this.setState({ dropdown: true, category: category }, () => document.getElementById("dropdown-" + this.props.order._id).style.display = "flex");
+            this.setState({ dropdown: true, category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
         }
     }
 
     hideDropdown() {
-        this.setState({ dropdown: false }, () => document.getElementById("dropdown-" + this.props.order._id).style.display = "none");
+        this.setState({ dropdown: false }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "none");
     }
 
     async loadData() {
+        this.setState({
+            products: this.props.order.products,
+            client: this.props.order.client,
+            date: formatDate(this.props.order.date)
+        });
+
+        /*
         const token = getStorageItem("token");
         const order = this.props.order;
-
-        console.log(order);
 
         // LOAD PRODUCTS
         var ids = this.filter(order.products);
@@ -77,6 +82,7 @@ export default class Order extends React.Component {
 
         // LOAD DATE
         this.setState({ date: formatDate(order.date) });
+        */
     }
 
     filter(ids) {
@@ -118,14 +124,15 @@ export default class Order extends React.Component {
     }
 
     render() {
-        const order = this.props.order;
+        const order = this.props.order.order;
+        const client = this.state.client || {};
 
         return(
             <div className="order" id={"order-" + order._id}>
                 <div className="main-panel">
                     {order.status !== "pending" && order.status !== "sent" && order.status !== "cancelled" ? <div className={"selector" + (this.props.isSelected ? " selected" : "")} onClick={() => this.props.selectOrder(order._id)} /> : null}
 
-                    <div className="name item">{this.state.client.name} {parseInt(order.value) === 0 ? "(Vzorky)" : null}</div>
+                    <div className="name item">{client.name} {parseInt(order.value) === 0 ? "(Vzorky)" : null}</div>
                     <div className="date item">{this.state.date}</div>
                     
                     <div className="trigger item" style={this.state.dropdown && this.state.category === "info" ? { fontWeight: "700" } : null}>Kontaktné údaje<ion-icon name={"caret-" + (this.state.dropdown && this.state.category === "info" ? "up" : "down") + "-outline"} onClick={() => this.showDropdown("info")}></ion-icon></div>
@@ -139,7 +146,7 @@ export default class Order extends React.Component {
                         {order.status !== "cancelled" && order.status !== "sent" ? <div className="button-outline item" onClick={() => this.props.cancel(order._id)}>Zrušiť</div> : null}
                     </div>
 
-                    <div className="price item"><b>{(this.props.order.value / 100).toFixed(2)}€</b></div>
+                    <div className="price item"><b>{(order.value / 100).toFixed(2)}€</b></div>
                 </div>
 
                 <div className="dropdown" id={"dropdown-" + order._id}>
@@ -153,25 +160,25 @@ export default class Order extends React.Component {
                         <div className="body" id="info">
                             <div className="left">
                                 <div className="heading">E-mail</div>
-                                <div className="info">{this.state.client.email}</div>
+                                <div className="info">{client.email}</div>
 
                                 <div className="heading">Telefónne číslo</div>
-                                <div className="info">{this.state.client.phone}</div>
+                                <div className="info">{client.phone}</div>
 
                                 {order.applyDiscount ? <div className="heading">Dátum narodenia</div> : null}
-                                {order.applyDiscount ? <div className="info">{this.state.client.birthDate}</div> : null}
+                                {order.applyDiscount ? <div className="info">{client.birthDate}</div> : null}
 
                                 <div className="heading">Adresa</div>
-                                <div className="info">{this.state.client.address}</div>
+                                <div className="info">{client.address}</div>
 
                                 <div className="heading">PSČ</div>
-                                <div className="info">{this.state.client.psc}</div>
+                                <div className="info">{client.psc}</div>
 
                                 <div className="heading">Mesto</div>
-                                <div className="info">{this.state.client.city}</div>
+                                <div className="info">{client.city}</div>
 
                                 <div className="heading">Krajina</div>
-                                <div className="info">{this.state.client.country}</div>
+                                <div className="info">{client.country}</div>
 
                                 {parseInt(order.value) !== 0 ? <div className="heading">Registrovať do doTERRA</div> : null}
                                 {parseInt(order.value) !== 0 ? <div className="info">{order.applyDiscount ? "ÁNO" : "NIE"}</div> : null}
@@ -188,22 +195,22 @@ export default class Order extends React.Component {
                                 <div className="info">{order.buyingAsCompany ? "ÁNO" : "NIE"}</div>
 
                                 {order.buyingAsCompany ? <div className="heading">Názov firmy</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.name}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.name}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">IČO</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.ico}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.ico}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">DIČ</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.dic}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.dic}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">IČDPH</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.icdph}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.icdph}</div> : null}
 
                                 {order.buyingAsCompany ? <div className="heading">Adresa firmy</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.address}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.address}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">PSČ</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.psc}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.psc}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">Mesto</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.city}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.city}</div> : null}
                                 {order.buyingAsCompany ? <div className="heading">Krajina</div> : null}
-                                {order.buyingAsCompany ? <div className="info">{this.state.client.company.country}</div> : null}
+                                {order.buyingAsCompany ? <div className="info">{client.company.country}</div> : null}
                             </div>
                         </div>
                     ) : null}
@@ -219,7 +226,7 @@ function Product(props) {
 
     return(
         <div className="product">
-            <img className="image" src={src} />
+            <img className="image" src={src} loading="lazy" />
             <div className="name">{product.name}</div>
             <div style={{ flex: 1 }} />
             <div className="amount">{product.amount}x</div>

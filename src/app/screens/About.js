@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -12,13 +13,14 @@ export default class About extends React.Component {
         offset: 0
     }
 
-    constructor() {
-        super();
-    }
-
     render() {
         return(
             <div className="screen" id="about">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>TerraMia | O nás</title>
+                </Helmet>
+
                 <Title title="O nás" image="title-background-12.jpg" />
 
                 <div className="content">
@@ -38,7 +40,7 @@ export default class About extends React.Component {
                         Až neskôr sa Miška začala zaujímať o formu podnikania doTERRA, ktorou je sieťový marketing a uvedomila si jeho mnohé výhody. Jej energia, schopnosti a skúsenosti umožnili využiť podnikateľskú príležitosť veľmi efektívne, najmä po tom, čo sa k jej podnikaniu pridal manžel Roman. Synergia páru umožnila dynamický rast vetvy TerraMia, ktorá sa stala jednou z najväčších a najúspešnejších nielen v kontexte Slovenska, ale celej Európy. <b>TerraMia vedená Miškou a Romanom Začka je pevným prístavom pre tých, ktorí podnikanie myslia vážne a s nasadením, ale aj pre tých, ktorí nič iné ako používanie produktov doTERRA nehľadajú. <a style={{ textDecoration: "none", color: "#A161B3" }} href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">Ak chcete patriť do TerraMia, otvorte si vlastný účet v doTERRA tu.</a></b>
                     </p>
 
-                    <img className="image" src={require("../assets/about-1.png")} />
+                    <img className="image" src={require("../assets/about-1.png")} loading="lazy" />
                 </div>
             </div>
         )

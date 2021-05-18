@@ -1,0 +1,146 @@
+#checkout {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#checkout .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    max-width: 1600px;
+
+    padding: 50px 100px;
+}
+
+@media (max-width: 1300px) {
+    #checkout .content {
+        padding: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    #checkout .content {
+        padding: 50px 20px;
+    }
+}
+
+#checkout .content .title {
+    color: #383838;
+    font-size: 40px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+#checkout .content .description {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+
+    width: 70%;
+
+    margin-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+    #checkout .content .description {
+        width: 100%;
+    }
+}
+
+#checkout-button-login {
+    margin-bottom: 60px;
+}
+
+#checkout-button-next {
+    margin-top: 40px;
+}
+
+#checkout .content .panel {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+#checkout .content .panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#checkout .content .panel .field {
+    color: #383838;
+    font-size: 15px;
+    font-weight: 400;
+
+    padding: 8px;
+
+    margin-bottom: 10px;
+
+    width: 350px;
+
+    border: 1px solid lightgray;
+    outline: none;
+}
+
+@media (max-width: 800px) {
+    #checkout .content .panel .field {
+        width: 100%;
+    }
+}
+
+#checkout .content .panel {
+    display: flex;
+    flex-direction: column;
+}
+
+#checkout .content .panel .heading {
+    color: #383838;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+#checkout .content .panel .text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+
+    margin-bottom: 30px;
+}
+
+#checkout .content .panel .choice {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+#checkout .content .panel .choice .item {
+    float: left;
+    
+    color: #383838;
+    font-size: 16px;
+    font-weight: 700;
+
+    padding: 10px 25px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    transition: all 100ms;
+
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+#checkout .content .panel .choice .item:hover {
+    background-color: rgba(0, 0, 0, 0.14);
+}

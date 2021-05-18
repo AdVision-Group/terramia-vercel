@@ -10,6 +10,8 @@ import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 import Loading from "../components/Loading";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import Order from "../components/Order";
 
 import "../styles/admin.css";
@@ -52,12 +54,16 @@ class AdminAnalytics extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        showTransition();
+
         if (!isLogged()) {
             this.props.history.push("/prihlasenie")
         }
 
-        this.loadData();
+        await this.loadData();
+
+        hideTransition();
     }
 
     render() {
@@ -68,6 +74,7 @@ class AdminAnalytics extends React.Component {
                  <Helmet>
                     <meta charSet="utf-8" />
                     <title>TerraMia | Analytika</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 <div className="content">

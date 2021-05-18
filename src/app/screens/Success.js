@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 import "../styles/success.css";
+import { showCookies } from "../components/Cookies";
+import { hideTransition, showTransition } from "../components/Transition";
 
 class Success extends React.Component {
 
@@ -21,9 +23,13 @@ class Success extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         setStorageItem("cart", []);
         removeStorageItem("doterra");
         removeStorageItem("temp");
+
+        hideTransition();
     }
 
     render() {
@@ -31,7 +37,8 @@ class Success extends React.Component {
             <div className="screen" id="success">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Ďakujeme za nákup </title>
+                    <title>Ďakujeme za nákup | TerraMia</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 <div className="content">

@@ -1,0 +1,153 @@
+#delivery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#delivery .content {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    max-width: 1600px;
+
+    padding: 0px 100px;
+}
+
+@media (max-width: 1200px) {
+    #delivery .content {
+        padding: 0px 50px;
+
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 800px) {
+    #delivery .content {
+        padding: 0px 20px;
+    }
+}
+
+#delivery .content .body {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 50px 50px 50px 0px;
+}
+
+@media (max-width: 1200px) {
+    #delivery .content .body {
+        padding: 50px 0px;
+    }
+}
+
+#delivery .content .body .heading {
+    color: #383838;
+    font-size: 35px;
+    font-weight: 700;
+
+    margin: 0px;
+    margin-bottom: 50px;
+}
+
+#delivery .content .body .section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+}
+
+#delivery .content .body .section .heading {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 700;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+
+    width: 100%;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#delivery .content .body .section .options {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+    #delivery .content .body .section .options {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+#delivery .content .body .section .options .item {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 20px;
+
+    background-color: rgba(0, 0, 0, 0.03);
+    
+    transition: all 200ms;
+
+    cursor: pointer;
+}
+
+#delivery .content .body .section .options .item:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+#delivery .content .body .section .options .item ion-icon {
+    width: 25px;
+    height: 25px;
+
+    color: #383838;
+
+    margin-right: 20px;
+}
+
+#delivery .content .body .section .options .item .label {
+    color: #383838;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#delivery .content .body .section .options .item .price {
+    color: #383838;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#delivery .content .body .section .options .selected {
+    background-color: #A161B3;
+}
+
+#delivery .content .body .section .options .selected:hover {
+    background-color: #A161B3;
+}
+
+#delivery .content .body .section .options .selected ion-icon {
+    color: white;
+}
+
+#delivery .content .body .section .options .selected .label {
+    color: white;
+}
+
+#delivery .content .body .section .options .selected .price {
+    color: white;
+}

@@ -9,6 +9,26 @@ export default class Api extends React.Component {
         super();
     }
 
+    static async getCoupon(code) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/store/coupons/" + code, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
     static async getStatistics(data, token) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -38,7 +58,10 @@ export default class Api extends React.Component {
         headers.append("Content-Type", "application/json");
         headers.append("auth-token", token);
 
-        var raw = JSON.stringify(data);
+        var raw = JSON.stringify({
+            ...data,
+            addToStats: true
+        });
 
         var requestOptions = {
             method: "POST",
@@ -282,15 +305,7 @@ export default class Api extends React.Component {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         
-        var raw = JSON.stringify({
-            name: data.name,
-            email: data.email,
-            phone: data.phone,
-            address: data.address,
-            city: data.city,
-            psc: data.psc,
-            country: data.country
-        })
+        var raw = JSON.stringify(data)
 
         var requestOptions = {
             method: 'POST',
@@ -635,32 +650,12 @@ export default class Api extends React.Component {
             });
     }
 
-    static async createOrder(data, action, token) {
+    static async createOrder(data, token) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
+        if (token) headers.append("auth-token", token);
 
-        var raw = {}
-
-        if (action === "logged") {
-            headers.append("auth-token", data.token);
-
-            raw = JSON.stringify({
-                products: data.products,
-                applyDiscount: data.applyDiscount,
-                buyingAsCompany: data.buyingAsCompany,
-                shouldDeliver: data.shouldDeliver,
-                birthDate: data.birthDate
-            })
-        } else if (action === "temp") {
-            raw = JSON.stringify({
-                products: data.products,
-                userId: data.tempId,
-                applyDiscount: data.applyDiscount,
-                buyingAsCompany: data.buyingAsCompany,
-                shouldDeliver: data.shouldDeliver,
-                birthDate: data.birthDate
-            })
-        }
+        var raw = JSON.stringify(data)
 
         var requestOptions = {
             method: "POST",
@@ -679,14 +674,11 @@ export default class Api extends React.Component {
             });
     }
 
-    static async skipPayment(orderId, token) {
+    static async skipPayment(data) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("auth-token", token);
 
-        var raw = JSON.stringify({
-            orderId: orderId
-        });
+        var raw = JSON.stringify(data);
 
         var requestOptions = {
             method: "POST",
@@ -831,14 +823,7 @@ export default class Api extends React.Component {
         headers.append("Content-Type", "application/json");
         headers.append("auth-token", token);
 
-        var raw = JSON.stringify({
-            name: data.name,
-            description: data.description,
-            html: data.html,
-            type: data.type,
-            locked: data.locked,
-            link: data.link
-        });
+        var raw = JSON.stringify(data);
 
         var requestOptions = {
             method: "POST",

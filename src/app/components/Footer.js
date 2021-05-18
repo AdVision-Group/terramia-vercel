@@ -48,7 +48,7 @@ function Footer(props) {
 
                     <div className="column">
                         <div className="title">Produkty</div>
-                        {shop.map((item, index) => <Link className="info" to={"/e-shop?typ=" + index + "&kategoria=0&zoradenie=az"}>{item.type}</Link>)}
+                        {shop.map((item, index) => <Link className="info" to={"/e-shop?typ=" + index + "&kategoria=0&zoradenie=az"} key={index}>{item.type}</Link>)}
                     </div>
 
                     <div className="column">

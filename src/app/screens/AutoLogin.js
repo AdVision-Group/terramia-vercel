@@ -8,6 +8,8 @@ import Api from "../config/Api";
 import Loading from "../components/Loading";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/autologin.css";
 import "../styles/welcome.css";
 
@@ -81,8 +83,12 @@ class AutoLogin extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.login();
+    async componentDidMount() {
+        showTransition();
+        
+        await this.login();
+
+        hideTransition();
     }
 
     render() {
@@ -92,6 +98,7 @@ class AutoLogin extends React.Component {
                     <Helmet>
                         <meta charSet="utf-8" />
                         <title>TerraMia | Načítava sa</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                     <Loading />
@@ -119,6 +126,7 @@ class AutoLogin extends React.Component {
                         <Helmet>
                             <meta charSet="utf-8" />
                             <title>TerraMia | Vitajte v klube TerraMia</title>
+                            <meta name="robots" content="noindex, nofollow"></meta>
                         </Helmet>
 
                         <div className="title-large">Vitajte v klube TerraMia</div>

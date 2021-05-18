@@ -1,13 +1,9 @@
 import React from "react";
 
 // default API URL
-export const API = "http://141.136.35.33:8080";
-export const API_URL = "https://coronashop.store:8443";
 
-const TITLE = "title";
-const TEXT = "text";
-const POINT = "point";
-const HEADING = "heading";
+export const API_URL = "https://coronashop.store:8443"; // REAL
+//export const API_URL = "https://coronashop.store:8844"; // TESTING
 
 export const shop = [
     {
@@ -55,56 +51,56 @@ export const ebooks = [
     {
         image: require("../assets/slabikar-1.jpg"),
         name: "AromaŠlabikár 1",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-terramia-academy-4-20.pdf",
         description: "Chcete vedieť čo najviac o produktoch Copaiba, Deep Blue, Spearmint, Lime, Purify, ZenGest, Smart & Sassy, ktoré boli ponúknuté v BOGO v apríli 2020? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-2.jpg"),
         name: "AromaŠlabikár 2",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-krotitelia-napatia.pdf",
         description: "Chcete vedieť čo najviac o zmesiach AromaTouch, Balance, PastTense, ktoré poznáme ako Krotiteľov napätia? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-3.jpg"),
         name: "AromaŠlabikár 3",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-terramia-academy-7-20-1.pdf",
         description: "Chcete vedieť čo najviac o produktoch Serenity, Cedarwood, Turmeric, Island Mint, Thyme a Marjoram, ktoré boli ponúknuté v BOGO v júli 2020? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-4.jpg"),
         name: "AromaŠlabikár 4",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-terramia-academy-7-20-2.pdf",
         description: "Chcete vedieť čo najviac o produktoch Bergamot, Clementine, Clary Sage, Laurel Leaf, Console, Cheer, Forgive, ktoré boli ponúknuté v BOGO v júli 2020? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-5.jpg"),
         name: "AromaŠlabikár 5",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-emocionalna-aromaterapia.pdf",
         description: "Chcete vedieť čo najviac o zmesiach Balíka emocionálnej aromaterapie Peace, Motivate, Cheer, Passion, Forgive, Console? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-6.jpg"),
         name: "AromaŠlabikár 6",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-terramia-academy-8-20.pdf",
         description: "Chcete vedieť čo najviac o produktoch Serenity, Siberian Fir, Green Mandarin, Grapefruit, ktoré boli ponúknuté v BOGO v auguste 2020? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-7.jpg"),
         name: "AromaŠlabikár 7",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-onguard-prirucka.pdf",
         description: "Chcete vedieť čo najviac o úžasnej produktovej rade OnGuard ktorá je dlhodobo najžiadanejšou a najúspešnejšou zmesou doTERRA? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     },
     {
         image: require("../assets/slabikar-8.jpg"),
         name: "AromaŠlabikár 8",
-        date: "20.1.2021, 12:00",
+        date: "20.12.2020, 12:00",
         pathname: "/ebooks/ebook-terramia-academy-10-20.pdf",
         description: "Chcete vedieť čo najviac o produktoch Cardamom, Pink Pepper, Balance, Helichrysum, Black Spruce, Neroli, Ylang Ylang, Frankincense, Lavender, Motivate, ktoré boli ponúknuté v BOGO v októbri 2020? V špeciálnom vydaní ponúkame hĺbkovú sondu do poznania účinkov a praktického využitia práve týchto skvelých produktov doTERRA."
     }

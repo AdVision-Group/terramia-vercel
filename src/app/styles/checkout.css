@@ -1,6 +1,4 @@
 #checkout {
-    width: 100%;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,75 +6,138 @@
 
 #checkout .content {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
 
     width: 100%;
     max-width: 1600px;
 
-    padding: 50px 100px;
+    padding: 0px 100px;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
     #checkout .content {
-        padding: 50px;
+        padding: 0px 50px;
+
+        flex-direction: column;
     }
 }
 
 @media (max-width: 800px) {
     #checkout .content {
-        padding: 50px 20px;
+        padding: 0px 20px;
     }
 }
 
-#checkout .content .title {
-    color: #383838;
-    font-size: 40px;
-    font-weight: 700;
+#checkout .content .body {
+    flex: 1;
 
-    margin-bottom: 10px;
-}
-
-#checkout .content .description {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 30px;
-
-    width: 70%;
-
-    margin-bottom: 30px;
-}
-
-@media (max-width: 800px) {
-    #checkout .content .description {
-        width: 100%;
-    }
-}
-
-#checkout-button-login {
-    margin-bottom: 60px;
-}
-
-#checkout-button-next {
-    margin-top: 40px;
-}
-
-#checkout .content .panel {
     display: flex;
     flex-direction: column;
+
+    padding: 50px 50px 50px 0px;
+}
+
+@media (max-width: 1200px) {
+    #checkout .content .body {
+        padding: 50px 0px;
+    }
+}
+
+#checkout .content .body .heading {
+    color: #383838;
+    font-size: 35px;
+    font-weight: 700;
+
+    margin: 0px;
+    margin-bottom: 50px;
+}
+
+#checkout .content .body .section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
     width: 100%;
 }
 
-#checkout .content .panel {
+#checkout .content .body .section .heading {
+    color: #383838;
+    font-size: 20px;
+    font-weight: 700;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+
+    width: 100%;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 700px) {
+    #checkout .content .body .section .heading {
+        font-size: 18px;
+    }
+}
+
+#checkout .content .body .section .heading .item {
+    color: #383838;
+    font-size: 14px;
+    font-weight: 700;
+
+    padding: 10px 20px;
+    
+    cursor: pointer;
+
+    background-color: rgba(0, 0, 0, 0.03);
+
+    transition: all 200ms;
+}
+
+#checkout .content .body .section .row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    #checkout .content .body .section .row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 700px) {
+    #checkout .content .body .section .row {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
+    }
+}
+
+#checkout .content .body .section .row .item {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-#checkout .content .panel .field {
+#checkout .content .body .section .row .item .heading {
     color: #383838;
+    font-size: 16px;
+    font-weight: 700;
+
+    padding: 0px;
+    margin-bottom: 10px;
+
+    border: none;
+}
+
+#checkout .content .body .section .row .item .field {
+    color: black;
     font-size: 15px;
     font-weight: 400;
 
@@ -84,63 +145,8 @@
 
     margin-bottom: 10px;
 
-    width: 350px;
+    width: 100%;
 
     border: 1px solid lightgray;
     outline: none;
-}
-
-@media (max-width: 800px) {
-    #checkout .content .panel .field {
-        width: 100%;
-    }
-}
-
-#checkout .content .panel {
-    display: flex;
-    flex-direction: column;
-}
-
-#checkout .content .panel .heading {
-    color: #383838;
-    font-size: 25px;
-    font-weight: 700;
-
-    margin-bottom: 20px;
-}
-
-#checkout .content .panel .text {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 30px;
-
-    margin-bottom: 30px;
-}
-
-#checkout .content .panel .choice {
-    display: inline-block;
-    margin-bottom: 30px;
-}
-
-#checkout .content .panel .choice .item {
-    float: left;
-    
-    color: #383838;
-    font-size: 16px;
-    font-weight: 700;
-
-    padding: 10px 25px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-
-    cursor: pointer;
-
-    transition: all 100ms;
-
-    background-color: rgba(0, 0, 0, 0.07);
-}
-
-#checkout .content .panel .choice .item:hover {
-    background-color: rgba(0, 0, 0, 0.14);
 }

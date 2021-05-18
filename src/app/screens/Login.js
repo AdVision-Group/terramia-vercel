@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/login.css";
 
 class Login extends React.Component {
@@ -77,11 +79,15 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         const token = getStorageItem("token");
 
         if (token) {
             this.props.history.push("/profil")
         }
+
+        hideTransition();
     }
 
     componentDidUpdate() {
@@ -97,7 +103,8 @@ class Login extends React.Component {
             <div className="screen" id="login">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Prihlásenie</title>
+                    <title>Prihlásenie | TerraMia</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 {this.state.popup ? (

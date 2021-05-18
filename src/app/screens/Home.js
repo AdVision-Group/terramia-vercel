@@ -9,9 +9,9 @@ import Api from "../config/Api";
 
 import SmoothScroll from "../config/SmoothScroll";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Banner from "../components/Banner";
+
+import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/home.css";
 
@@ -47,7 +47,11 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+        
         animate();
+
+        hideTransition();
 
         setTimeout(() => {
             this.setState({ banner: true });
@@ -59,7 +63,9 @@ export default class Home extends React.Component {
             <div className="screen" id="home">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Cesta k slobode</title>
+                    <title>Esenciálne oleje doTERRA na Slovensku | TerraMia</title>
+                    <meta name="description" content="TerraMia ponúka široký výber esenciálnych olejov doTERRA na Slovensku. V TerraMia Vám ukážeme, kde kúpiť prírodné esenciálne oleje doTERRA."></meta>
+                    <meta name="keywords" content="doterra, esenciálne oleje, doterra oleje, esencialne oleje, doterra sk, oleje doterra, doterra slovensko, esenciálne oleje doterra, doterra esenciálne oleje, doterra eshop, kde kupit esencialne oleje, prírodné esenciálne oleje, esencialne oleje doterra"></meta>
                 </Helmet>
 
                 <div className="slideshow">

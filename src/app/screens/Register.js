@@ -13,6 +13,8 @@ import Popup from "../components/Popup";
 import doc1 from "../documents/gdpr.pdf";
 import doc2 from "../documents/obchodne-podmienky.pdf";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/register.css";
 
 const samplesByPriority = [
@@ -133,11 +135,10 @@ class Register extends React.Component {
 
                 const order = await Api.createOrder({
                     products: [ sample ],
-                    applyDiscount: false,
-                    token: login.token
-                }, "logged");
+                    applyDiscount: false
+                }, login.token);
 
-                const pay = await Api.skipPayment(order.orderId, login.token);
+                const pay = await Api.skipPayment({ orderId: order.orderId });
 
                 if (pay.message === "Payment skipped successfully") {
                     this.setState({ popup: false }); 
@@ -339,11 +340,19 @@ class Register extends React.Component {
 
             const sorted = this.getSortedSamples(items);
 
-            this.setState({
-                samples: sorted,
-                problem: problem,
-                sampleId: sorted[0]._id
-            });
+            if (sorted.length > 0) {
+                this.setState({
+                    samples: sorted,
+                    problem: problem,
+                    sampleId: sorted[0]._id
+                });
+            } else {
+                this.setState({
+                    samples: [],
+                    problem: problem,
+                    sampleId: ""
+                });
+            }
         }
     }
 
@@ -370,6 +379,8 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         if (this.props.stage === 1) {
             this.changeCategory(1);
         } else {
@@ -379,10 +390,8 @@ class Register extends React.Component {
                 this.setState(regUser);
             }
         }
-    }
 
-    componentDidUpdate(prevProps) {
-        
+        hideTransition();
     }
 
     render() {
@@ -391,7 +400,8 @@ class Register extends React.Component {
                 <div className="screen" id="register">
                     <Helmet>
                         <meta charSet="utf-8" />
-                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                        <title>Vytvorenie členstva v klube TerraMia | TerraMia</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                     {this.state.popup ? (
@@ -491,7 +501,8 @@ class Register extends React.Component {
                 <div className="screen" id="register">
                     <Helmet>
                         <meta charSet="utf-8" />
-                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                        <title>Vytvorenie členstva v klube TerraMia | TerraMia</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                     {this.state.popup ? (
@@ -571,7 +582,8 @@ class Register extends React.Component {
                 <div className="screen" id="register">
                     <Helmet>
                         <meta charSet="utf-8" />
-                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                        <title>Vytvorenie členstva v klube TerraMia | TerraMia</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                     {this.state.popup ? (
@@ -636,7 +648,8 @@ class Register extends React.Component {
                 <div className="screen" id="register">
                     <Helmet>
                         <meta charSet="utf-8" />
-                        <title>TerraMia | Vytvorenie členstva v klube TerraMia</title>
+                        <title>Vytvorenie členstva v klube TerraMia | TerraMia</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                     {this.state.popup ? (

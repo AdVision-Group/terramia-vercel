@@ -11,6 +11,8 @@ import Popup from "../components/Popup";
 
 import Loading from "../components/Loading";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/profile.css";
 
 class Profile extends React.Component {
@@ -152,14 +154,18 @@ class Profile extends React.Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        showTransition();
+
         const token = getStorageItem("token");
 
         if (!token) {
             this.props.history.push("/prihlasenie")
         } else {
-            this.init();
+            await this.init();
         }
+
+        hideTransition();
     }
 
     render() {
@@ -169,7 +175,8 @@ class Profile extends React.Component {
             <div className="screen" id="profile">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Profil</title>
+                    <title>Profil | TerraMia</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 {this.state.popup ? (

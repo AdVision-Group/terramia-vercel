@@ -12,116 +12,9 @@ import Banner from "../components/Banner";
 
 import Api from "../config/Api";
 
-import "../styles/quiz.css";
+import { showTransition, hideTransition } from "../components/Transition";
 
-/*
-const questions = [
-    {
-        title: "Esenciálne oleje a iné produkty doTERRA plánujem použiť pre:",
-        answers: [
-            {
-                title: "Seba/partnera",
-                products: [ 1, 2, 3, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Deti",
-                products: [ 1, 3, 4 ]
-            },
-            {
-                title: "Rodiča/seniora",
-                products: [ 1, 3, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Celú rodinu",
-                products: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-            }
-        ]
-    },
-    {
-        title: "Produkty doTERRA chcem využívať najmä na (max. 3 možnosti):",
-        answers: [
-            {
-                title: "Zlepšenie celkového zdravia",
-                products: [ 1, 2, 3, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Prevenciu zdravotných obmedzení",
-                products: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Emocionálnu pohodu",
-                products: [ 1, 2, 3, 4, 9, 10 ]
-            },
-            {
-                title: "Podporu detoxikácie organizmu",
-                products: [ 3, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Čistenie v domácnosti",
-                products: [ 1, 2, 9, 10 ]
-            },
-            {
-                title: "Prevoňanie priestoru",
-                products: [ 1, 2, 3, 9, 10 ]
-            },
-            {
-                title: "Podnikanie",
-                products: [ 1, 2, 9, 10 ]
-            }
-        ]
-    },
-    {
-        title: "Chcem sa zamerať najmä na podporu týchto telesných systémov (max. 3 možnosti)",
-        answers: [
-            {
-                title: "Tráviaci",
-                products: [ 1, 2, 4, 5, 6, 7, 8, 9, 10 ]
-            },
-            {
-                title: "Dýchací",
-                products: [ 1, 2, 3, 4, 9, 10 ]
-            },
-            {
-                title: "Imunitný",
-                products: [ 1, 2, 3, 4, 5, 6, 9, 10 ]
-            },
-            {
-                title: "Hormonálny",
-                products: [ 7, 8, 9, 10 ]
-            },
-            {
-                title: "Bolesť a zápaly",
-                products: [ 1, 2, 3, 4, 5, 6, 9, 10 ]
-            },
-            {
-                title: "Koža",
-                products: [ 1, 2, 9, 10 ]
-            },
-            {
-                title: "Ochrana zdravia bunky",
-                products: [ 7, 8, 9, 10 ]
-            }
-        ]
-    },
-    {
-        title: "Koľko chcem investovať do prírodných riešení podporujúcich moje zdravie denne",
-        answers: [
-            {
-                title: "Do 5.-eur/deň",
-                products: [ 2, 3, 4 ]
-            },
-            {
-                title: "Do 10.-eur/deň",
-                products: [ 1, 2, 3, 4, 5, 6, 7, 8 ]
-            },
-            {
-                title: "Nemám limit",
-                products: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-            }
-        ]
-    }
-]
-*/
+import "../styles/quiz.css";
 
 const questions = [
     {
@@ -141,7 +34,7 @@ const questions = [
             },
             {
                 title: "Celú rodinu",
-                products: [ 1, 2, 3, 4, 5, 7,  9, 10 ]
+                products: [ 1, 2, 3, 4, 5, 7,  9, 10, 10, 10 ]
             }
         ]
     },
@@ -174,7 +67,7 @@ const questions = [
             },
             {
                 title: "Podnikanie",
-                products: [ 1, 9, 9, 9, 10 ]
+                products: [ 1, 9, 10, 10, 10 ]
             }
         ]
     },
@@ -372,8 +265,12 @@ class Quiz extends React.Component {
         return false;
     }
 
-    componentDidMount() {
-        this.loadData();
+    async componentDidMount() {
+        showTransition();
+
+        await this.loadData();
+
+        hideTransition();
     }
 
     render() {
@@ -383,7 +280,7 @@ class Quiz extends React.Component {
             <div className="screen" id="quiz">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Kvíz</title>
+                    <title>Kvíz | TerraMia</title>
                 </Helmet>
 
                 <div className="content">
@@ -419,7 +316,7 @@ class Quiz extends React.Component {
                                         </div>
                                     )}
 
-                                    <div style={{ display: "grid", gridTemplateColumns: "auto auto", gap: 0, marginTop: 50 }}>
+                                    <div style={{ display: "grid", gridTemplateColumns: "auto auto", gap: 10, marginTop: 50 }}>
                                         {step !== 0 ? <div className="button-outline" onClick={() => this.setState((state) => ({ step: state.step - 1 }), () => window.scroll(0, 0))}>Naspäť</div> : null}
                                         <div className={"button-filled" + (!this.isQuestionFinished(qi) ? " faded" : "")} onClick={() => this.isQuestionFinished(qi) ? this.setState((state) => ({ step: state.step + 1 }), () => window.scroll(0, 0)) : {}}>Pokračovať</div>
                                     </div>
@@ -451,7 +348,7 @@ class Quiz extends React.Component {
                                 </div>
                             }
 
-                            <div style={{ display: "grid", gridTemplateColumns: "auto auto", gap: 0, marginTop: 100 }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "auto auto", gap: 10, marginTop: 100 }}>
                                 <div className="button-outline" onClick={() => this.setState((state) => ({ step: state.step - 1 }), () => window.scroll(0, 0))}>Naspäť</div>
                                 <Link className="button-filled" to="/">Hotovo</Link>
                             </div>

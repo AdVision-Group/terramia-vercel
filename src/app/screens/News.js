@@ -9,7 +9,10 @@ import Title from "../components/Title";
 import Loading from "../components/Loading";
 import Banner from "../components/Banner";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/news.css";
+import { get } from "jquery";
 
 class News extends React.Component {
 
@@ -50,18 +53,23 @@ class News extends React.Component {
         this.setState({ loading: true });
 
         if (this.state.all) {
-            const blogs1 = await Api.getPosts({ filters: { type: 1 } });
-            const blogs2 = await Api.getPosts({ filters: { type: 2 } });
-            const blogs3 = await Api.getPosts({ filters: { type: 3 } });
-            const blogs4 = await Api.getPosts({ filters: { type: 4 } });
-            const blogs5 = await Api.getPosts({ filters: { type: 5 } });
+            const getBlogs = await Api.getPosts({ sortBy: { date: -1 } });
+            var blogs = [];
 
-            const blogs = blogs1.blogs.concat(blogs2.blogs, blogs3.blogs, blogs4.blogs, blogs5.blogs);
+            for (let i = 0; i < getBlogs.blogs.length; i++) {
+                if (getBlogs.blogs[i].type === 1 || getBlogs.blogs[i].type === 2 || getBlogs.blogs[i].type === 3 || getBlogs.blogs[i].type === 4 || getBlogs.blogs[i].type === 5) {
+                    blogs.push(getBlogs.blogs[i]);
+                }
+            }
+            
             this.setState({ loading: false, articles: blogs });
         } else {
             const filters = {
                 filters: {
                     type: this.state.type
+                },
+                sortBy: {
+                    date: -1
                 }
             }
 
@@ -83,8 +91,6 @@ class News extends React.Component {
                 this.loadData();
             });
         }
-
-        setStorageItem("news-type", type);
     }
 
     showBanner() {
@@ -95,18 +101,12 @@ class News extends React.Component {
         this.setState({ banner: false });
     }
 
-    componentDidMount() {
-        if (getStorageItem("news-type") !== null) {
-                const action = getStorageItem("news-type") === 0 ? "all" : "type";
+    async componentDidMount() {
+        showTransition();
 
-                if (action === "all") {
-                    this.setState({ all: true }, () => this.loadData());
-                } else {
-                    this.setState({ type: getStorageItem("news-type"), all: false }, () => this.loadData());
-                }
-        } else {
-            this.loadData();
-        }
+        await this.loadData();
+
+        hideTransition();
     }
 
     render() {
@@ -114,12 +114,12 @@ class News extends React.Component {
             <div className="screen" id="news">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Novinky</title>
+                    <title>Novinky | TerraMia</title>
                 </Helmet>
 
                 <Title title="Novinky TerraMia" image="title-background-14.jpg" />
 
-                <div className="content" style={this.state.articles.length === 0 && this.state.type !== 4 ? { alignItems: "center" } : null}>
+                <div className="content">
                     <div className="menu-panel">
                         <div className="title">Kategórie</div>
 

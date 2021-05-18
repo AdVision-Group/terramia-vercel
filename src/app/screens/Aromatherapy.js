@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Title from "../components/Title";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/aromatherapy.css";
 
 class Aromatherapy extends React.Component {
@@ -22,7 +24,11 @@ class Aromatherapy extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         animate();
+
+        hideTransition();
 
         if (this.props.location.section) {
             SmoothScroll.scroll(this.props.location.section)
@@ -34,7 +40,9 @@ class Aromatherapy extends React.Component {
             <div className="screen" id="aromatherapy">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Aromavzdelávanie</title>
+                    <title>Aromaterapia, esenciálne oleje a ich účinky | TerraMia</title>
+                    <meta name="description" content="Aromaterapia využíva esenciálne oleje a ich prírodné účinky. Použitie olejov doTERRA na aromaterapiu prinesie tie najlepšie skúsenosti pre Vás či Vaše deti."></meta>
+                    <meta name="keywords" content="esenciálne oleje, aromaterapia, esencialne oleje, doterra skusenosti, aromaterapia oleje, aromaterapia kniha, esenciálne oleje použitie, esencialne oleje ucinky, prírodné esenciálne oleje, doterra oleje pouzitie, aromaterapia pre deti"></meta>
                 </Helmet>
 
                 <Title title="Spoznajte silu esenciálnych olejov" image="title-background-4.jpg" />

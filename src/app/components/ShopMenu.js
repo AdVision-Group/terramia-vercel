@@ -82,7 +82,7 @@ class ShopMenu extends React.Component {
 
         return(
             <div id="shop-menu">
-                <div className="content">
+                <div className="shop-menu-content">
                     <div className="heading">Kategórie</div>
 
                     <Item title="Najpredávanejšie" selected={parseInt(this.getQuery("typ")) === -1} onClick={() => this.setQuery([[ "typ", -1 ]])} icon={false} />

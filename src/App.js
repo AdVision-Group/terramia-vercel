@@ -9,7 +9,7 @@ export default class App extends React.Component {
 
   state = {
     maintenance: false,
-    loading: true
+    loading: false
   }
 
   constructor() {
@@ -28,13 +28,15 @@ export default class App extends React.Component {
       const status = call.status;
 
       this.setState({
-        maintenance: status.underMaintenance
+        maintenance: status.underMaintenance,
+        loading: false
       });
     } else {
-      this.setState({ maintenance: false });
+      this.setState({
+        maintenance: true,
+        loading: false
+      });
     }
-
-    this.setState({ loading: false });
   }
 
   loadLocalStorage() {

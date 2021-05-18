@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/reset.css";
 
 class Reset extends React.Component {
@@ -61,12 +63,18 @@ class Reset extends React.Component {
         }
     }
 
+    componentDidMount() {
+        showTransition();
+        hideTransition();
+    }
+
     render() {
         return(
             <div className="screen" id="reset">
                 <Helmet>
                         <meta charSet="utf-8" />
-                        <title>TerraMia | Resetovanie hesla</title>
+                        <title>Resetovanie hesla | TerraMia</title>
+                        <meta name="robots" content="noindex, nofollow"></meta>
                     </Helmet>
 
                 {this.state.popup ? (

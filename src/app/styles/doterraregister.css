@@ -1,0 +1,161 @@
+#doterra-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#doterra-register .content {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    max-width: 1600px;
+
+    padding: 0px 100px;
+}
+
+@media (max-width: 1200px) {
+    #doterra-register .content {
+        padding: 0px 50px;
+
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 800px) {
+    #doterra-register .content {
+        padding: 0px 20px;
+    }
+}
+
+#doterra-register .content .body {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 50px 50px 50px 0px;
+}
+
+@media (max-width: 1200px) {
+    #doterra-register .content .body {
+        padding: 50px 0px;
+    }
+}
+
+#doterra-register .content .body .heading {
+    color: #383838;
+    font-size: 35px;
+    font-weight: 700;
+
+    margin: 0px;
+    margin-bottom: 30px;
+}
+
+#doterra-register .content .body .text {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+#doterra-register .content .body .price-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#doterra-register .content .body .price-panel .price {
+    color: #383838;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration: line-through;
+}
+
+#doterra-register .content .body .price-panel .discounted {
+    color: red;
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 35px;
+}
+
+#doterra-register .content .body .price-panel ion-icon {
+    color: #383838;
+    
+    width: 25px;
+    height: 25px;
+
+    margin: 0px 20px;
+}
+
+#doterra-register .content .body .sub-heading {
+    color: #383838;
+    font-size: 22px;
+    font-weight: 700;
+
+    margin-bottom: 20px;
+}
+
+#doterra-register .content .body .list {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+}
+
+#doterra-register .content .body .list .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#doterra-register .content .body .list .item .bullet {
+    width: 10px;
+    min-width: 10px;
+    max-width: 10px;
+    height: 10px;
+    min-height: 10px;
+    max-height: 10px;
+
+    border-radius: 50%;
+
+    background-color: #A161B3;
+
+    margin-right: 15px;
+}
+
+#doterra-register .content .body .list .item .label {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+#doterra-register .content .body .field {
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+
+    padding: 8px;
+
+    margin: 30px 0px 50px 0px;
+
+    width: 250px;
+
+    border: 1px solid lightgray;
+    outline: none;
+}
+
+@media (max-width: 700px) {
+    #doterra-register .content .body .field {
+        width: 100%;
+    }
+}
+
+#doterra-register .content .body .button-panel {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 15px;
+
+    align-self: flex-start;
+}

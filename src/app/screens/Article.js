@@ -10,6 +10,8 @@ import Footer from "../components/Footer";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/article.css";
 
 class Article extends React.Component {
@@ -57,9 +59,13 @@ class Article extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.loadArticle();
-        this.loadUser();
+    async componentDidMount() {
+        showTransition();
+
+        await this.loadArticle();
+        await this.loadUser();
+
+        hideTransition();
     }
 
     render() {
@@ -69,7 +75,8 @@ class Article extends React.Component {
             <div className="screen" id="article">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | {article ? article.name : "Načítava sa..."}</title>
+                    <title>{article ? article.name : "Načítava sa..."} | TerraMia</title>
+                    <meta name="description" content={article ? article.name : ""}></meta>
                 </Helmet>
 
                 {!article ? <div className="content"><Loading /></div> : (

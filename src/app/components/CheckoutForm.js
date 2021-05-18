@@ -40,15 +40,14 @@ export default function CheckoutForm(props) {
     */
 
     const pay = async () => {
-        const oId = await props.createOrder();
+        const orderId = await props.createOrder();
 
-        // Create PaymentIntent as soon as the page loads
         return window.fetch(API_URL + "/api/payments/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ orderId: oId })
+            body: JSON.stringify({ orderId: orderId })
         })
         .then(res => {
             return res.json();
@@ -102,14 +101,14 @@ export default function CheckoutForm(props) {
             setProcessing(false);
             setSucceeded(true);
 
-            setStorageItem("cart", [])
+            setStorageItem("cart", []);
             props.redirect();
         }
     };
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
-            <div style={{ color: "#383838", fontSize: 25, fontWeight: "700", marginBottom: 30 }}>Zadajte svoju kartu</div>
+            <div style={{ color: "white", fontSize: 18, fontWeight: "700", marginBottom: 20 }}>Zadajte svoju kartu</div>
 
             <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
             <button

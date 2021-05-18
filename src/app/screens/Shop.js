@@ -5,12 +5,11 @@ import { Helmet } from "react-helmet";
 import { addToCart, API, API_URL, getStorageItem, shop, createURLName, setStorageItem } from "../config/config";
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Loading from "../components/Loading";
-import Categories from "../components/Categories";
 
 import ShopMenu from "../components/ShopMenu";
+
+import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/shop.css";
 
@@ -43,7 +42,7 @@ class Shop extends React.Component {
     }
 
     async loadData() {
-        this.setState({ loading: true });
+        this.setState({ loading: true, products: [] });
 
         const query = new URLSearchParams(this.props.location.search);
         const type = query.get("typ");
@@ -58,8 +57,8 @@ class Shop extends React.Component {
         var filters = {};
 
         if (sort) {
-            if (sort === "az") sortBy["abc"] = 1;
-            if (sort === "za") sortBy["abc"] = -1;
+            if (sort === "az") sortBy["name"] = 1;
+            if (sort === "za") sortBy["name"] = -1;
             if (sort === "najlacnejsie") sortBy["price"] = 1;
             if (sort === "najdrahsie") sortBy["price"] = -1;
         }
@@ -142,8 +141,12 @@ class Shop extends React.Component {
         }
       }
 
-    componentDidMount() {
-        this.loadData();
+    async componentDidMount() {
+        showTransition();
+
+        await this.loadData();
+
+        hideTransition();
     }
     
     render() {
@@ -154,7 +157,9 @@ class Shop extends React.Component {
             <div className="screen" id="shop">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | E-shop</title>
+                    <title>E-shop | Esenciálne oleje doTERRA | TerraMia</title>
+                    <meta name="description" content="E-shop TerraMia ponúka široký výber esenciálnych olejov doTERRA. Náš e-shop obsahuje takmer všetky doTERRA oleje, ostatné doterra produkty či difuzéry."></meta>
+                    <meta name="keywords" content="doterra, esenciálne oleje, doterra oleje, doterra difuzer, esencialne oleje, oleje doterra, esenciálne oleje doterra, doterra esenciálne oleje, doterra eshop, esencialne oleje e shop, aromaterapia oleje, doterra produkt, kde kupit esencialne oleje, esenciálne oleje cena, prírodné esenciálne oleje, doterra oleje cena, esencialne oleje doterra, esencialne oleje na vnutorne užitie"></meta>
                 </Helmet>
 
                 <div className="content">
@@ -186,8 +191,6 @@ class Shop extends React.Component {
                                 )}
                             </div>
                         )}
-
-                        {/*this.state.limit <= count ? (<div className="button-filled" id="more-button" onClick={() => this.setState((state) => ({ limit: state.limit + 8 }), () => this.loadData())}>Zobraziť viac</div>) : null*/}
                     </div>
                 </div>
             </div>
@@ -196,8 +199,7 @@ class Shop extends React.Component {
 }
 
 function Product(props) {
-
-    const src = API_URL + "/uploads/resized/" + props.product.imagePath
+    const src = API_URL + "/uploads/resized/" + props.product.imagePath;
 
     return(
         <Link className="product" to={"/e-shop/" + props.product.link} style={!props.product.available ? { opacity: 0.7 } : null}>

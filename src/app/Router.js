@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import Offset from "./components/Offset";
 import Cookies from "./components/Cookies";
 
+import Transition from "./components/Transition";
+
 import ScrollToTop from "./components/ScrollToTop";
 
 import AdminAnalytics from "./screens/AdminAnalytics";
@@ -31,10 +33,14 @@ import Blog from "./screens/Blog";
 import Article from "./screens/Article";
 import About from "./screens/About";
 import Contact from "./screens/Contact";
+
 import Cart from "./screens/Cart";
 import Checkout from "./screens/Checkout";
-import Payment from "./screens/Payment";
+import DoterraRegister from "./screens/DoterraRegister";
+import Delivery from "./screens/Delivery";
+import Confirm from "./screens/Confirm";
 import Success from "./screens/Success";
+
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import Profile from "./screens/Profile";
@@ -97,14 +103,21 @@ export default class Router extends React.Component {
 
                         <Route exact path="/kosik"><Cart /></Route>
                         <Route exact path="/fakturacne-udaje"><Checkout /></Route>
+                        <Route exact path="/ziskajte-25-percentnu-zlavu"><DoterraRegister /></Route>
+                        <Route exact path="/doprava-a-platba"><Delivery /></Route>
+                        <Route exact path="/potvrdenie-objednavky"><Confirm /></Route>
+                        <Route exact path="/dakujeme-za-objednavku"><Success /></Route>
+                        {/*
                         <Route exact path="/platba"><Payment /></Route>
                         <Route exact path="/uspech"><Success /></Route>
+                        */}
 
                         <Route path="/reset/:secret" render={(props) => { return ( <Reset {...props } /> ) }} />
 
                         <Route><NotFound /></Route>
                     </Switch>
 
+                    <Transition />
                     <Footer />
                 </div>
                 </AppContaner>

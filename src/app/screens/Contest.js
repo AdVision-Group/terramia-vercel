@@ -8,6 +8,8 @@ import Api from "../config/Api";
 import Popup from "../components/Popup";
 import SmoothScroll from "../config/SmoothScroll";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/contest.css";
 
 export default class Contest extends React.Component {
@@ -77,6 +79,8 @@ export default class Contest extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         const width = window.innerWidth;
 
         if (width > 1100) {
@@ -99,6 +103,8 @@ export default class Contest extends React.Component {
         }
 
         window.addEventListener("resize", this.handleResize);
+
+        hideTransition();
     }
 
     componentWillUnmount() {
@@ -133,7 +139,9 @@ export default class Contest extends React.Component {
             <div className="screen" id="contest">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Súťaž o vstupný balík</title>
+                    <title>Kde kúpiť esenciálne oleje? doTERRA oleje | TerraMia</title>
+                    <meta name="description" content="Najvýhodnejšie nakúpite esenciálne oleje na TerraMia. doTERRA registrácia Vám zaručí zľavu na našom e-shope s doTERRA esenciálnymi olejmi. Už viete kde kúpiť oleje."></meta>
+                    <meta name="keywords" content="doterra slovensko, kde kupit esencialne oleje, doterra registracia, esenciálne oleje cena"></meta>
                 </Helmet>
 
                 <Title title="Získaj zľavu 25% a ďalšie výhody" image="contest-background.png" />

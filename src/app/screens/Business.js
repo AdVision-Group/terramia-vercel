@@ -9,6 +9,8 @@ import Footer from "../components/Footer";
 import Title from "../components/Title";
 import Banner from "../components/Banner";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/business.css";
 import { getStorageItem } from "../config/config";
 
@@ -31,7 +33,11 @@ class Business extends React.Component {
     }
 
     componentDidMount() {
+        showTransition();
+
         animate();
+
+        hideTransition();
     }
 
     render() {
@@ -42,7 +48,9 @@ class Business extends React.Component {
             <div className="screen" id="business">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Podnikajte s TerraMia</title>
+                    <title>doTERRA podnikanie na Slovensku a skúsenosti | TerraMia</title>
+                    <meta name="description" content="Skúsenosti s firmou doTERRA na Slovensku. Naše recenzie na podnikanie s doTERRA na Slovensku. Čo by ste mali vedieť pred registráciou do doTERRA?"></meta>
+                    <meta name="keywords" content="doterra slovensko, doterra recenzie, doterra skusenosti, doterra registracia"></meta>
                 </Helmet>
 
                 <Title title="Podnikajte s TerraMia" image="title-background-3.jpg" />

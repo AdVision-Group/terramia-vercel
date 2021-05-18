@@ -12,6 +12,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/admin.css";
 
 class AdminBlog extends React.Component {
@@ -22,6 +24,8 @@ class AdminBlog extends React.Component {
         link: "",
         type: 0,
         locked: false,
+
+        visible: true,
 
         image: null,
         imagePath: "",
@@ -46,7 +50,7 @@ class AdminBlog extends React.Component {
     async createBlog() {
         this.setState({ popup: true, loading: true });
 
-        const { title, description, link, type, locked, value, image, imagePath } = this.state;
+        const { title, description, link, type, locked, visible, value, image, imagePath } = this.state;
 
         if (title.trim() === "" || description.trim() === "" || link.trim() === "" || imagePath.trim() === "") {
             this.setState({ loading: false, message: "Všetky polia musia byť vyplnené" });
@@ -61,7 +65,8 @@ class AdminBlog extends React.Component {
             link: link,
             html: value,
             type: type,
-            locked: locked
+            locked: locked,
+            visible: visible
         }, token);
 
         if (addBlog.blog) {
@@ -76,7 +81,7 @@ class AdminBlog extends React.Component {
     async updateBlog() {
         this.setState({ popup: true, loading: true });
 
-        const { title, description, link, type, locked, value, image, imagePath } = this.state;
+        const { title, description, link, type, locked, visible, value, image, imagePath } = this.state;
 
         if (title.trim() === "" || description.trim() === "" || imagePath.trim() === "") {
             this.setState({ loading: false, message: "Všetky polia musia byť vyplnené" });
@@ -94,6 +99,7 @@ class AdminBlog extends React.Component {
             html: value,
             type: type,
             locked: locked,
+            visible: visible
         }, token);
 
         if (call.blog) {
@@ -101,7 +107,7 @@ class AdminBlog extends React.Component {
                 const addImage = await Api.addImageToBlog(id, image, token);
             }
 
-            this.props.history.push("/" + (this.state.type === 0 ? "blog" : "novinky") + "/" + createURLName(title));
+            this.props.history.push("/" + (this.state.type === 0 ? "blog" : "novinky"));
         } else {
             this.setState({ loading: false, message: "Blog sa nepodarilo pridať" });
         }
@@ -117,6 +123,8 @@ class AdminBlog extends React.Component {
     }
 
     async componentDidMount() {
+        showTransition();
+        
         if (!isLogged()) {
             this.props.history.push("/prihlasenie")
         }
@@ -141,11 +149,14 @@ class AdminBlog extends React.Component {
                     value: article.html,
                     type: article.type,
                     locked: article.locked,
+                    visible: article.visible || true,
 
                     imagePath: API_URL + "/uploads/" + article.imagePath,
                 });
             }
         }
+
+        hideTransition();
     }
 
     componentDidUpdate() {
@@ -160,6 +171,7 @@ class AdminBlog extends React.Component {
                  <Helmet>
                     <meta charSet="utf-8" />
                     <title>TerraMia | {this.props.location.pathname.includes("upravit-prispevok") ? "Upraviť príspevok" : "Pridať príspevok"}</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 {this.state.popup ? (
@@ -205,10 +217,20 @@ class AdminBlog extends React.Component {
 
                     {this.state.type === 0 ? (
                         <div className="panel">
+                            <div className="heading">Dostupnosť</div>
+                            <div className="chooser">
+                                <div className="item" style={!this.state.locked ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ locked: false })}>Dostupný</div>
+                                <div className="item" style={this.state.locked ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ locked: true })}>Zamknutý</div>
+                            </div>
+                        </div>
+                    ) : null}
+
+                    {this.state.type === 0 ? (
+                        <div className="panel">
                             <div className="heading">Viditeľnosť</div>
                             <div className="chooser">
-                                <div className="item" style={!this.state.locked ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ locked: false })}>Viditeľný</div>
-                                <div className="item" style={this.state.locked ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ locked: true })}>Zamknutý</div>
+                                <div className="item" style={this.state.visible ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ visible: true })}>Viditeľný</div>
+                                <div className="item" style={!this.state.visible ? { backgroundColor: "#A161B3", color: "white", fontSize: 16, padding: "10px 20px" } : { fontSize: 16, padding: "10px 20px" }} onClick={() => this.setState({ visible: false })}>Skrytý</div>
                             </div>
                         </div>
                     ) : null}

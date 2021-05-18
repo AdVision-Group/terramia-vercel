@@ -286,6 +286,10 @@
     transition: all 200ms;
 }
 
+.admin .content .menu .faded {
+    opacity: 0.5;
+}
+
 @media (max-width: 1000px) {
     .admin.content .menu {
         flex-direction: column;

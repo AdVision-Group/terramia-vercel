@@ -8,6 +8,8 @@ import MenuButton from "./MenuButton";
 import Dropdown from "./Dropdown";
 import Api from "../config/Api";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/header.css";
 
 class Header extends React.Component {
@@ -55,31 +57,20 @@ class Header extends React.Component {
                                 
                                 <div style={{ flex: 1 }} />
 
-                                <Link className="button-filled" onClick={getStorageItem("token") ? () => {
+                                <div className="button-filled" onClick={getStorageItem("token") ? () => {
                                     removeStorageItem("token");
                                     window.location.reload();
-                                } : () => this.props.history.push("/registracia-vzorky-zadarmo")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</Link>
+                                } : () => this.props.history.push("/registracia-vzorky-zadarmo")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</div>
                             </div>
 
                             <div className="menu-panel">
-                                <div to="/e-shop" className="item" onClick={() => {
-                                    removeStorageItem("shop-query");
-                                    removeStorageItem("shop-type");
-                                    removeStorageItem("shop-category");
-                                    removeStorageItem("shop-price");
-                                    removeStorageItem("shop-abc");
-                                    removeStorageItem("shop-problem");
-                                    this.props.history.push("/e-shop");
-                                }}>E-shop</div>
+                                <Link to="/e-shop" className="item" to="/e-shop">E-shop</Link>
                                 <div className="divider" />
                                 <Link to="/aromavzdelavanie" className="item">Aromavzdelávanie</Link>
                                 <div className="divider" />
                                 <Link to="/podnikanie" className="item">Podnikanie</Link>
                                 <div className="divider" />
-                                <div className="item" onClick={() => {
-                                    removeStorageItem("news-type");
-                                    this.props.history.push("/novinky");
-                                }}>Novinky</div>
+                                <Link className="item" to="/novinky">Novinky</Link>
                                 <div className="divider" />
                                 <Link to="/blog" className="item">Blog</Link>
                                 <div className="divider" />
@@ -87,7 +78,7 @@ class Header extends React.Component {
                                 <div className="divider" />
                                 <Link to="/kontakt" className="item">Kontakt</Link>
                                 <div className="divider" />
-                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík{getStorageItem("cart").length > 0 ? <div className="count">{getStorageItem("cart").length}</div> : null}</Link>
+                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík{getStorageItem("cart") && getStorageItem("cart").length > 0 ? <div className="count">{getStorageItem("cart").length}</div> : null}</Link>
                                 <div className="divider" />
                                 <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>{getStorageItem("token") ? getStorageItem("username") : "Prihlásenie"}</Link>
                             </div>

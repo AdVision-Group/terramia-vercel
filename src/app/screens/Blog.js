@@ -10,6 +10,8 @@ import Title from "../components/Title";
 import Loading from "../components/Loading";
 import Banner from "../components/Banner";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import Api from "../config/Api";
 
 import "../styles/blog.css";
@@ -17,6 +19,9 @@ import "../styles/blog.css";
 class Blog extends React.Component {
 
     state = {
+        isAdmin: false,
+        hiddenBlogs: null,
+
         blogs: null,
 
         banner: false
@@ -32,9 +37,17 @@ class Blog extends React.Component {
     }
 
     async loadData() {
+        const token = getStorageItem("token");
+
+        const getProfile = await Api.getUser(token);
+        var isAdmin = false;
+
+        if (getProfile.user && getProfile.user.admin === 1) isAdmin = true;
+
         const filters = {
             filters: {
-                type: 0
+                type: 0,
+                visible: true
             },
             sortBy: {
                 date: -1
@@ -45,6 +58,22 @@ class Blog extends React.Component {
 
         if (blogs.blogs) {
             this.setState({ blogs: blogs.blogs });
+        }
+        
+        if (isAdmin) {
+            const getHiddenBlogs = await Api.getPosts({
+                filters: {
+                    type: 0,
+                    visible: false
+                },
+                sortBy: {
+                    date: -1
+                }
+            });
+
+            if (getHiddenBlogs.blogs) {
+                this.setState({ isAdmin: isAdmin, hiddenBlogs: getHiddenBlogs.blogs });
+            }
         }
     }
 
@@ -77,8 +106,12 @@ class Blog extends React.Component {
         this.setState({ banner: false });
     }
 
-    componentDidMount() {
-        this.loadData();
+    async componentDidMount() {
+        showTransition();
+
+        await this.loadData();
+
+        hideTransition();
     }
 
     render() {
@@ -88,12 +121,18 @@ class Blog extends React.Component {
             <div className="screen" id="blog">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Blog</title>
+                    <title>Blog | TerraMia</title>
                 </Helmet>
 
                 <Title title="Blog TerraMia" image="title-background-15.jpg" />
 
                 <div className="content" style={!blogs ? { display: "flex", alignItems: "center", justifyContent: "center" } : null}>
+                    {this.state.isAdmin && this.state.hiddenBlogs && this.state.hiddenBlogs.length > 0 &&
+                        <div className="article-panel" style={{ marginBottom: 50, paddingBottom: 50, borderBottom: "2px solid rgba(0, 0, 0, 0.05)" }}>
+                            {this.state.hiddenBlogs.map((article) => <Article article={article} history={this.props.history} showBanner={this.showBanner} />)}
+                        </div>
+                    }
+
                     {blogs ? (
                         <div className="article-panel">
                             {blogs.map((article) => <Article article={article} history={this.props.history} showBanner={this.showBanner} />)}

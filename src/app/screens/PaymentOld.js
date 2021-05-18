@@ -13,7 +13,7 @@ import Banner from "../components/Banner";
 import Loading from "../components/Loading";
 import Popup from "../components/Popup";
 
-import "../styles/payment.css";
+import "../styles/paymentold.css";
 
 const promise = loadStripe("pk_live_51HrnXkAeUp0KWc2H8PIYeKHCbVq9oOQttDTGoMmHWgYLnnaZRMl16RHnHTohmfHCnFibyyP8y0DKkx5HxcEnw5iI006IZDTVLh");
 

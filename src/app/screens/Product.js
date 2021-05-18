@@ -10,6 +10,8 @@ import Footer from "../components/Footer";
 import Loading from "../components/Loading";
 import Banner from "../components/Banner";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/product.css";
 
 class Product extends React.Component {
@@ -97,8 +99,12 @@ class Product extends React.Component {
     }
 
     async componentDidMount() {
+        showTransition();
+
         await this.loadData();
         await this.loadUser();
+
+        hideTransition();
     }
 
     componentDidUpdate(prevProps) {
@@ -115,7 +121,9 @@ class Product extends React.Component {
             <div className="screen" id="product">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | {product.name || "Načítava sa..."}</title>
+                    <title>{product.name || "Načítava sa..."} | TerraMia</title>
+                    <meta name="description" content={product.description || ""}></meta>
+                    <meta name="keywords" content={product.name || ""}></meta>
                 </Helmet>
 
                 {this.state.loading ? (

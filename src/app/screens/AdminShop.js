@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/admin.css";
 
 class AdminShop extends React.Component {
@@ -175,6 +177,8 @@ class AdminShop extends React.Component {
     }
 
     async componentDidMount() {
+        showTransition();
+
         if (!isLogged()) {
             this.props.history.push("/prihlasenie")
         }
@@ -214,6 +218,8 @@ class AdminShop extends React.Component {
                 document.getElementById("type-select").selectedIndex = product.type - 1;
             }
         }
+
+        hideTransition();
     }
 
     componentDidUpdate() {
@@ -228,6 +234,7 @@ class AdminShop extends React.Component {
                  <Helmet>
                     <meta charSet="utf-8" />
                     <title>TerraMia | {this.props.location.pathname.includes("upravit-produkt") ? "Upraviť produkt" : "Pridať produkt"}</title>
+                    <meta name="robots" content="noindex, nofollow"></meta>
                 </Helmet>
 
                 {this.state.popup ? (

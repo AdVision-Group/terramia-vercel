@@ -8,6 +8,8 @@ import Footer from "../components/Footer";
 import Title from "../components/Title";
 import Popup from "../components/Popup";
 
+import { showTransition, hideTransition } from "../components/Transition";
+
 import "../styles/contact.css";
 
 export default class Contact extends React.Component {
@@ -48,12 +50,17 @@ export default class Contact extends React.Component {
         }
     }
 
+    componentDidMount() {
+        showTransition();
+        hideTransition();
+    }
+
     render() {
         return(
             <div className="screen" id="contact">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>TerraMia | Kontakt</title>
+                    <title>Kontakt | TerraMia</title>
                 </Helmet>
 
                 <Title title="Kontaktujte nás" image="title-background-11.jpg" />

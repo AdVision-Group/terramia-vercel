@@ -95,7 +95,10 @@ class Cart extends React.Component {
 
         setStorageItem("order", orderData);
 
-        this.setState({ products: products });
+        this.setState({
+            products: products,
+            totalPoints: totalPoints
+        });
     }
 
     /*

@@ -37,10 +37,6 @@ class Shop extends React.Component {
         this.getQuery = this.getQuery.bind(this);
     }
 
-    showFilters() {
-        document.getElementById("shop-menu").style.left = "0px";
-    }
-
     async loadData() {
         this.setState({ loading: true, products: [] });
 
@@ -72,15 +68,15 @@ class Shop extends React.Component {
         if (problem) {
             filterBy["problemType"] = parseInt(problem);
 
-            delete filterBy["type"];
-            delete filterBy["category"];
+            //delete filterBy["type"];
+            //delete filterBy["category"];
         }
 
         if (search) {
             filters["query"] = search;
 
-            delete filterBy["type"];
-            delete filterBy["category"];
+            //delete filterBy["type"];
+            //delete filterBy["category"];
         }
 
         filterBy["eshop"] = true;
@@ -97,6 +93,10 @@ class Shop extends React.Component {
         if (products.products) {
             this.setState({ products: products, loading: false });
         }
+    }
+
+    showFilters() {
+        document.getElementById("shop-menu").style.left = "0px";
     }
 
     handleKeyPress(event) {
@@ -119,11 +119,13 @@ class Shop extends React.Component {
 
             if (element[0] === "vyhladavanie" && element[1] === "") {
                 query.delete("vyhladavanie");
-                query.set("typ", 0);
-                query.set("kategoria", 0);
+                query.set("typ", -1);
+                //query.set("kategoria", 0);
             } else if (element[0] === "vyhladavanie" && element[1] !== "") {
                 query.delete("typ");
                 query.delete("kategoria");
+
+                query.set("typ", -1);
             }
         }
 

@@ -24,6 +24,8 @@ class DoterraRegister extends React.Component {
 
         additionalMessage: [],
 
+        error: false,
+
         popup: false,
         message: "",
         loading: false
@@ -44,9 +46,16 @@ class DoterraRegister extends React.Component {
         const { dateOfBirth } = this.state;
 
         if (registerInDoterra && dateOfBirth.trim() === "") {
+            /*
             this.setState({
                 loading: false,
                 message: "Prosím vyplňte Váš dátum narodenia aby ste uplatnili 25% zľavu na Váš nákup"
+            });
+            */
+
+            this.setState({
+                error: true,
+                popup: false
             });
 
             return;
@@ -228,7 +237,7 @@ class DoterraRegister extends React.Component {
 
                             <div className="item">
                                 <div className="bullet" />
-                                <div className="label">ZÚčet slúži iba na to, aby ste neprichádzali o výhody, ktoré doTERRA každý mesiac poskytuje a my Vám vždy poradíme, čo je pre Vás najvýhodnejšie</div>
+                                <div className="label">Účet slúži iba na to, aby ste neprichádzali o výhody, ktoré doTERRA každý mesiac poskytuje a my Vám vždy poradíme, čo je pre Vás najvýhodnejšie</div>
                             </div>
                         </div>
 
@@ -237,10 +246,12 @@ class DoterraRegister extends React.Component {
                         <div className="sub-heading">Otvorenie si účtu v doTERRA</div>
 
                         <div className="text">
-                            Ak si chcete uplatniť zľavu 25% na tento nákup a získať ďalšie výhody, potrebujeme od Vás dátum narodenia.
+                            Prosím vyplňte Váš dátum narodenia, aby ste uplatnili 25% zľavu na Váš nákup.
                         </div>
 
-                        <input className="field" type="text" value={this.state.dateOfBirth} onChange={(event) => this.setState({ dateOfBirth: event.target.value })} placeholder="Dátum narodenia" />
+                        <input className="field" type="text" value={this.state.dateOfBirth} onChange={(event) => this.setState({ dateOfBirth: event.target.value })} placeholder="Dátum narodenia (DD.MM.RRRR)" />
+
+                        <div className="error" style={this.state.error ? { opacity: 1 } : { opacity: 0 }}>Pole s dátumom narodenia nemôže ostať prázdne</div>
 
                         <div className="button-panel">
                             <div className="button-filled" onClick={() => this.saveDataAndContinue(true)}>Získať 25% zľavu</div>

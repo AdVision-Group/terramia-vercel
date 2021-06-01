@@ -101,54 +101,6 @@ class Cart extends React.Component {
         });
     }
 
-    /*
-    async loadData() {
-        const currentCart = getStorageItem("cart");
-
-        var cart = [];
-
-        for (let i = 0; i < currentCart.length; i++) {
-            if (currentCart[i]._id != null && currentCart[i].amount != null && currentCart[i].points != null) {
-                cart.push(currentCart[i]);
-            }
-        }
-
-        setStorageItem("cart", cart);
-
-        var products = [];
-
-        var totalPoints = 0;
-        var totalPrice = 0;
-
-        for (let i = 0; i < cart.length; i++) {
-            var product = await Api.getProduct(cart[i]._id);
-
-            if (product.product) {
-                products.push({
-                    product: product.product,
-                    amount: cart[i].amount
-                });
-
-                totalPoints += product.product.points * cart[i].amount;
-                totalPrice += product.product.price * cart[i].amount;
-            }
-        }
-
-        const order = {
-            totalPrice: totalPrice,
-            totalPoints: totalPoints
-        }
-
-        setStorageItem("order", order);
-
-        this.setState({
-            products: products,
-            totalPoints: totalPoints,
-            totalPrice: totalPrice
-        });
-    }
-    */
-
     async evaluateCoupon() {
         this.setState({ popup: true, loading: true });
 
@@ -296,7 +248,7 @@ class Cart extends React.Component {
                 {this.state.banner ? (
                     <Banner
                         title={this.state.totalPoints > 100 ? "Získaj zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov" : "Nakúp ešte za " + (100 - this.state.totalPoints) + " bodov a získaj 25% zľavu"}
-                        text={this.state.totalPoints > 100 ? "Otvorte si účet v doTERRA a získajte 25% zľavu na celý nákup." : "Ak nakúpite produkty ešte za " + (100 - this.state.totalPoints) + " bodov, získaťe možnosť OTVORENIA ÚČTU v doTERRA a dostanete 25% zľavu na Váš nákup"}
+                        text={this.state.totalPoints > 100 ? "Otvorte si účet v doTERRA a získajte 25% zľavu na celý nákup." : "Ak nakúpite produkty ešte za " + (100 - this.state.totalPoints) + " bodov, získate možnosť OTVORENIA ÚČTU v doTERRA a dostanete 25% zľavu na Váš nákup"}
                         button={this.state.totalPoints > 100 ? "Zisti viac" : "Nakupovať"}
                         location={this.state.totalPoints > 100 ? "/sutaz-o-vstupny-balicek" : "/e-shop"}
                         image={this.state.totalPoints > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}

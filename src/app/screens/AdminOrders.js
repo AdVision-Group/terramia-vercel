@@ -112,7 +112,34 @@ class AdminOrders extends React.Component {
 
     async downloadExcelTable(event) {
         const token = getStorageItem("token");
-        const call = await Api.generateExcelTable(token);
+
+        const { status, type } = this.state;
+
+        var data = {
+            mode: "complex",
+            filters: {
+                status: status
+            }
+        }
+
+        if (type === "normal") {
+            delete data["filters"]["value"];
+            delete data["filters"]["applyDiscount"];
+
+            data["filters"]["valueOverZero"] = true;
+        } else if (type === "samples") {
+            delete data["filters"]["applyDiscount"];
+            delete data["filters"]["valueOverZero"];
+
+            data["filters"]["value"] = 0;
+        } else if (type === "doterra") {
+            delete data["filters"]["value"];
+            delete data["filters"]["valueOverZero"];
+
+            data["filters"]["applyDiscount"] = true;
+        }
+
+        const call = await Api.generateExcelTable(data, token);
 
         if (call.path) {
             event.stopPropagation();
@@ -149,6 +176,10 @@ class AdminOrders extends React.Component {
         } else if (type === "samples") {
             delete filters["filters"]["valueOverZero"];
             filters["filters"]["value"] = 0;
+        } else if (type === "doterra") {
+            delete filters["filters"]["value"];
+            delete filters["filters"]["valueOverZero"];
+            filters["filters"]["applyDiscount"] = true;
         }
 
         const call = await Api.getOrders(filters, token);
@@ -338,7 +369,7 @@ class AdminOrders extends React.Component {
 
                         <div style={{ flex: 1 }} />
 
-                        {this.state.status === "fulfilled" ? <div className="button-filled" onClick={(event) => this.downloadExcelTable(event)} style={{ marginRight: 20 }}>Stiahnuť tabuľku</div> : null}
+                        {this.state.status === "fulfilled" || this.state.status === "sent" ? <div className="button-filled" onClick={(event) => this.downloadExcelTable(event)} style={{ marginRight: 20 }}>Stiahnuť tabuľku</div> : null}
 
                         {this.state.selectedOrders.length > 0 ? (
                             <div className="button-filled selection" onClick={() => this.setState({ selectedOrders: [] })} onClick={() => this.forwardSelected()}>
@@ -359,6 +390,7 @@ class AdminOrders extends React.Component {
                     <div className="menu" style={{ marginTop: 0 }}>
                         <div className={"item" + (this.state.loading ? " faded" : "")} style={this.state.type === "normal" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.state.loading ? {} : this.changeOrderType("normal")}>Normálne</div>
                         <div className={"item" + (this.state.loading ? " faded" : "")} style={this.state.type === "samples" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.state.loading ? {} : this.changeOrderType("samples")}>Vzorky</div>
+                        <div className={"item" + (this.state.loading ? " faded" : "")} style={this.state.type === "doterra" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.state.loading ? {} : this.changeOrderType("doterra")}>Registrácie doTERRA</div>
                     </div>
 
                     <div className="orders" id="orders-panel">

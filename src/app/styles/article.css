@@ -95,8 +95,7 @@
     margin-left: 50px;
 }
 
-@media (max-width: 1000px) {
-    #article .content .text img {
-        width: 100%;
-    }
+#article .content .text img {
+    width: 100%;
+    max-width: 600px;
 }

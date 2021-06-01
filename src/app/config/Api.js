@@ -29,21 +29,18 @@ export default class Api extends React.Component {
             });
     }
 
-    static async getStatistics(data, token) {
+    static async getStatistics(timespan, token) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("auth-token", token);
 
-        var raw = JSON.stringify(data);
-
         var requestOptions = {
-            method: "POST",
+            method: "GET",
             headers: headers,
-            body: raw,
             redirect: "follow"
         };
 
-        return fetch(API_URL + "/api/admin/stats", requestOptions)
+        return fetch(API_URL + "/api/admin/stats?" + new URLSearchParams({ timespan: timespan }), requestOptions)
             .then(response => response.json())
             .then(result => {
                 return result
@@ -82,12 +79,12 @@ export default class Api extends React.Component {
     
     // EXCEL FILE FOR ORDERS
 
-    static async generateExcelTable(token) {
+    static async generateExcelTable(data, token) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("auth-token", token);
 
-        var raw = JSON.stringify({});
+        var raw = JSON.stringify(data);
 
         var requestOptions = {
             method: "POST",

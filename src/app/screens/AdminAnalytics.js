@@ -1,13 +1,10 @@
 import React, { useImperativeHandle } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {Helmet} from "react-helmet";
 
-import { API_URL, isLogged, getStorageItem, removeStorageItem, setStorageItem, shop, API } from "../config/config";
+import { isLogged, getStorageItem } from "../config/config";
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Popup from "../components/Popup";
 import Loading from "../components/Loading";
 
 import { showTransition, hideTransition } from "../components/Transition";
@@ -37,9 +34,7 @@ class AdminAnalytics extends React.Component {
         const token = getStorageItem("token");
         const { timespan } = this.state;
 
-        const call = await Api.getStatistics({
-            timespan: timespan
-        }, token);
+        const call = await Api.getStatistics(timespan, token);
         
         if (call.stats) {
             this.setState({
@@ -48,7 +43,7 @@ class AdminAnalytics extends React.Component {
             });
         } else {
             this.setState({
-                statistic: null,
+                statistics: null,
                 loading: false
             });
         }
@@ -93,44 +88,78 @@ class AdminAnalytics extends React.Component {
                         <div className="statistics">
                             <div className="item">
                                 <div className="left">
-                                    <div className="title">Registrácie doTERRA - TerraMia</div>
-                                    <div className="text">Toto je naše KPI (key performance indicator), čiže 30 registrácií na zmluve. Rátajú sa maily, ktoré obdržali vzorku a registrovala ich TerraMia.</div>
+                                    <div className="title">1. Registrácie doTERRA - TerraMia</div>
+                                    <div className="text">
+                                        Toto je naše KPI (key performance indicator), čiže 30 registrácii na zmluve. Rátajú sa maily, ktoré obdržali vzorku a registrovala ich TerraMia + tí, ktorí nakúpili cez e-shop a registrovala ich TerraMia, zároveň nevyplnili poznámku "akcia"
+                                    </div>
                                 </div>
 
-                                <div className="value">{statistics.terramia}</div>
+                                <div className="value">{statistics.kpi}</div>
                             </div>
 
                             <div className="line" />
 
                             <div className="item">
                                 <div className="left">
-                                    <div className="title">Registrácie doTERRA sieť + TerraMia</div>
-                                    <div className="text">Rátajú sa maily, ktoré dostali vzorku a registrovala ich TerraMia alebo niekto zo siete.</div>
+                                    <div className="title">2. Registrácie doTERRA - sieť + Terramia</div>
+                                    <div className="text">
+                                        Rátajú sa maily, ktoré dostali vzorku a registrovala ich TerraMia alebo niekto zo siete.
+                                    </div>
                                 </div>
 
-                                <div className="value">{statistics.terramia_net}</div>
+                                <div className="value">{statistics.kpi_net}</div>
                             </div>
 
                             <div className="line" />
 
                             <div className="item">
                                 <div className="left">
-                                    <div className="title">Registrácie doTERRA - celkovo</div>
-                                    <div className="text">Rátajú sa sem maily, ktoré dostali vzorku a registrovala ich TerraMia alebo niekto zo siete. Taktiež sa sem rátajú manuálne registrácie TerraMia, ktoré nemáme v databáze.</div>
+                                    <div className="title">3. Registrácie TerraMia manuálne</div>
+                                    <div className="text">
+                                        Rátajú sa maily, ktoré prešli registráciou cez e-shop, registrovala ich TerraMia a vypnili v poznámke "akcia"
+                                    </div>
                                 </div>
 
-                                <div className="value">{statistics.total}</div>
+                                <div className="value">{statistics.manual}</div>
                             </div>
 
                             <div className="line" />
 
                             <div className="item">
                                 <div className="left">
-                                    <div className="title">Vzorky spolu</div>
-                                    <div className="text">Počet ľudí, ktorí obdržali vzorku od TerraMia.</div>
+                                    <div className="title">4. Registrácie TerraMia cez vzorku</div>
+                                    <div className="text">
+                                        Rátajú sa všetky maily, ktoré nakúpili cez e-shop, registrovala ich TerraMia a zároveň ich mail obdržal vzorku.
+                                    </div>
                                 </div>
 
-                                <div className="value">{statistics.samples}</div>
+                                <div className="value">{statistics.kpi_sample}</div>
+                            </div>
+
+                            <div className="line" />
+
+                            <div className="item">
+                                <div className="left">
+                                    <div className="title">5. Registrácie doTERRA-celkovo</div>
+                                    <div className="text">
+                                        Rátajú sa maily, ktoré dostali vzorku a registrovala ich TerraMia alebo niekto zo siete. Taktiež sa sem rátajú manuálne registrácie TerraMia, ktoré nemáme v databáze.
+                                    </div>
+                                </div>
+
+                                <div className="value">{statistics.kpi_net_plus_manual}</div>
+                            </div>
+
+                            <div className="line" />
+
+                            <div className="item">
+                                <div className="left">
+                                    <div className="title">6. Vzorky spolu</div>
+                                    <div className="text">
+                                        Počet ľudí, ktorí obdržali vzorku od TerraMia
+                                    </div>
+                                </div>
+
+                                <div className="value">{statistics.sampled}</div>
                             </div>
                         </div>
                     : null}

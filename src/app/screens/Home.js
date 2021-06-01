@@ -53,8 +53,20 @@ export default class Home extends React.Component {
 
         hideTransition();
 
-        setTimeout(() => {
-            this.setState({ banner: true });
+        setTimeout(async () => {
+            const token = getStorageItem("token");
+            
+            if (token) {
+                const call = await Api.getUser(token);
+
+                if (call.user) {
+                    if (!call.user.registeredInDoTerra) this.setState({ banner: true });
+                } else {
+                    this.setState({ banner: true });
+                }
+            } else {
+                this.setState({ banner: true });
+            }
         }, 2000);
     }
 

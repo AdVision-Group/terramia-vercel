@@ -57,12 +57,12 @@ class ShopMenu extends React.Component {
 
             if (element[0] === "problem" && parseInt(element[1]) === 0) {
                 query.delete(element[0]);
-                query.set("typ", 0);
-                query.set("kategoria", 0);
-            } else if (element[0] === "problem" && parseInt(element[1]) !== 0) {
+                //query.set("typ", 0);
+                //query.set("kategoria", 0);
+            } /*else if (element[0] === "problem" && parseInt(element[1]) !== 0) {
                 query.delete("typ");
                 query.delete("kategoria");
-            } else if (element[0] === "typ" && parseInt(element[1]) === -1) {
+            }*/ else if (element[0] === "typ" && parseInt(element[1]) === -1) {
                 query.delete("kategoria");
             } else if (element[0] === "typ" && parseInt(element[1]) === -2) {
                 query.delete("kategoria");

@@ -97,7 +97,7 @@ export default class Router extends React.Component {
                         <Route exact path="/prihlasenie"><Login /></Route>
 
                         <Route exact path="/registracna-sutaz"><RegisterContest /></Route>
-                        <Route exact path="/vyber-vzorky"><RegisterSamples /></Route>
+                        <Route exact path="/vzorka-zadarmo"><RegisterSamples /></Route>
                         <Route exact path="/fakturacne-udaje"><RegisterContact /></Route>
                         <Route exact path="/vytvorenie-hesla"><RegisterPassword /></Route>
                         <Route exact path="/suhrn-clenstva"><RegisterSuccess /></Route>

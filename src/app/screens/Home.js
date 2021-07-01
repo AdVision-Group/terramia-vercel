@@ -116,7 +116,7 @@ export default class Home extends React.Component {
                                 Chceli by ste získať zľavu 25% na všetky produkty od doTERRA a ďalšie výhody? Nebude Vás to stáť nič navyše. Stále neviete ako na to?
                             </p>
                             {/*<a className="button-filled" href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">Staň sa členom doTERRA</a>*/}
-                            <Link className="button-filled" to="/sutaz-o-vstupny-balicek">Získaj 25% zľavu</Link>
+                            <Link className="button-filled" to="/kde-kupit-esencialne-oleje">Získaj 25% zľavu</Link>
                         </div>
 
                         <img className="images fade-in-up" src={require("../assets/family-business-2.png")} loading="lazy" />
@@ -177,9 +177,10 @@ export default class Home extends React.Component {
                         />
                     :
                         <Banner
-                            title="Získaj vzorku zadarmo"
-                            text="V klube TerraMia na našej webstránke získaj prístup k TOP informáciám o prírodných riešeniach a vzorku esenciálnych olejov môžeš mať úplne zadarmo!"
-                            button="Staň sa členom klubu"
+                            title="Odpovedzte na otázku a vyhrajte"
+                            text="Zapojte sa do súťaže o Malý balík nevyhnutností pre domácnosť v hodnote 184€."
+                            button="Zapojiť sa do súťaže"
+                            location="/registracna-sutaz"
                             closeBanner={this.closeBanner}
                         />
                 ) : null}

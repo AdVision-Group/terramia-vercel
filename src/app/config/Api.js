@@ -1,4 +1,3 @@
-import { data } from "jquery";
 import React from "react";
 
 import { API_URL } from "./config";
@@ -192,11 +191,7 @@ export default class Api extends React.Component {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-            email: data.email,
-            registeredInDoTerra: data.registeredInDoTerra,
-            sampleId: data.sampleId
-        });
+        var raw = JSON.stringify(data);
 
         var requestOptions = {
             method: "POST",
@@ -947,6 +942,56 @@ export default class Api extends React.Component {
         };
         
         return fetch(API_URL + "/api/contact/competition", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    // COMPETITION
+
+    static async sendCompetitionAnswer(data) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/user/competition", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    // ANALYTICS
+
+    static async track(data) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/user/track", requestOptions)
             .then(response => response.json())
             .then(result => {
                 return result

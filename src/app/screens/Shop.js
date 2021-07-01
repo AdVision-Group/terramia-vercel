@@ -88,6 +88,8 @@ class Shop extends React.Component {
         if (parseInt(type) == -1) this.setState({ title: "Najpredávanejšie" });
         if (parseInt(type) == -2) this.setState({ title: "Top 12 esenciálnych olejov" });
 
+        //filters["filters"]["eshop"] = false;
+
         const products = await Api.getProducts(filters);
 
         if (products.products) {

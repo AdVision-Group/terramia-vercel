@@ -333,6 +333,7 @@ class Register extends React.Component {
         }
 
         const samples = await Api.getProducts(filters);
+        console.log(samples);
 
         if (samples.products) {
             const items = samples.products;
@@ -380,6 +381,8 @@ class Register extends React.Component {
 
     componentDidMount() {
         showTransition();
+
+        this.props.history.push("/registracna-sutaz");
 
         if (this.props.stage === 1) {
             this.changeCategory(1);

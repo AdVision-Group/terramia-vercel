@@ -172,9 +172,11 @@ class AdminOrders extends React.Component {
 
         if (type === "normal") {
             delete filters["filters"]["value"];
+            filters["filters"]["applyDiscount"] = false;
             filters["filters"]["valueOverZero"] = true;
         } else if (type === "samples") {
             delete filters["filters"]["valueOverZero"];
+            filters["filters"]["applyDiscount"] = false;
             filters["filters"]["value"] = 0;
         } else if (type === "doterra") {
             delete filters["filters"]["value"];

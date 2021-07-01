@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import AppContaner from "./AppContainer";
+import AppContainer from "./AppContainer";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -42,7 +42,15 @@ import Confirm from "./screens/Confirm";
 import Success from "./screens/Success";
 
 import Login from "./screens/Login";
+
 import Register from "./screens/Register";
+
+import RegisterContest from "./screens/RegisterContest";
+import RegisterSamples from "./screens/RegisterSamples";
+import RegisterContact from "./screens/RegisterContact";
+import RegisterPassword from "./screens/RegisterPassword";
+import RegisterSuccess from "./screens/RegisterSuccess";
+
 import Profile from "./screens/Profile";
 import Reset from "./screens/Reset";
 import MobileMenu from "./components/MobileMenu";
@@ -53,7 +61,7 @@ export default class Router extends React.Component {
     render() {
         return(
             <BrowserRouter basename="/">
-                <AppContaner>
+                <AppContainer>
                 <div id="top" style={{ position: "absolute", left: 0, top: 0 }}></div>
 
                 <ScrollToTop />
@@ -68,7 +76,7 @@ export default class Router extends React.Component {
                     <Switch>
                         <Route exact path="/"><Home /></Route>
 
-                        <Route exact path="/sutaz-o-vstupny-balicek"><Contest /></Route>
+                        <Route exact path="/kde-kupit-esencialne-oleje"><Contest /></Route>
                         <Route exact path="/kviz"><Quiz /></Route>
 
                         <Route path="/autologin/:email/:password" render={(props) => { return ( <AutoLogin {...props } /> )}} />
@@ -87,6 +95,13 @@ export default class Router extends React.Component {
                         <Route exact path="/kontakt"><Contact /></Route>
 
                         <Route exact path="/prihlasenie"><Login /></Route>
+
+                        <Route exact path="/registracna-sutaz"><RegisterContest /></Route>
+                        <Route exact path="/vyber-vzorky"><RegisterSamples /></Route>
+                        <Route exact path="/fakturacne-udaje"><RegisterContact /></Route>
+                        <Route exact path="/vytvorenie-hesla"><RegisterPassword /></Route>
+                        <Route exact path="/suhrn-clenstva"><RegisterSuccess /></Route>
+
                         <Route exact path="/registracia-vzorky-zadarmo"><Register stage={1} /></Route>
                         <Route exact path="/registracia-fakturacne-udaje"><Register stage={2} /></Route>
                         <Route exact path="/registracia-vytvorit-ucet"><Register stage={3} /></Route>
@@ -120,7 +135,7 @@ export default class Router extends React.Component {
                     <Transition />
                     <Footer />
                 </div>
-                </AppContaner>
+                </AppContainer>
             </BrowserRouter>
         )
     }

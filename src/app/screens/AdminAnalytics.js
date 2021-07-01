@@ -1,9 +1,11 @@
 import React, { useImperativeHandle } from "react";
 import { withRouter } from "react-router-dom";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
+import Calendar from "react-calendar";
 
 import { isLogged, getStorageItem } from "../config/config";
 import Api from "../config/Api";
+import SmoothScroll from "../config/SmoothScroll";
 
 import Loading from "../components/Loading";
 
@@ -19,6 +21,9 @@ class AdminAnalytics extends React.Component {
         timespan: "day",
         statistics: null,
 
+        day1: null,
+        day2: null,
+
         loading: false
     }
 
@@ -26,15 +31,70 @@ class AdminAnalytics extends React.Component {
         super();
 
         this.loadData = this.loadData.bind(this);
+        this.formatDate = this.formatDate.bind(this);
+        this.convertDate = this.convertDate.bind(this);
+        this.getStatisticsType = this.getStatisticsType.bind(this);
+    }
+
+    getStatisticsType() {
+        const { timespan, day1, day2 } = this.state;
+
+        if (day1 != null && day2 != null) {
+            return (day1[1] + " - " + day2[1]);
+        }
+
+        if (timespan === "day") return "posledný deň";
+        if (timespan === "week") return "posledný týždeň";
+        if (timespan === "month") return "posledný mesiac";
+        if (timespan === "year") return "posledný rok";
+
+        return null;
+    }
+
+    formatDate(date) {
+        const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+
+        const parts = date.toString().split(" ");
+
+        var day = parts[2];
+        var month = null;
+        var year = parts[3];
+        
+        for (let i = 0; i < months.length; i++) {
+            if (months[i] === parts[1]) {
+                month = i + 1 <  10 ? "0" + (i + 1).toString() : (i + 1).toString();
+                break;
+            }
+        }
+
+        const result = day + "/" + month + "/" + year;
+
+        return [ date, result ];
+    }
+
+    convertDate(date) {
+        const parts = date.toString().split(" ");
+        const result = parts[0] + " " + parts[1] + " " + parts[2] + " " + parts[3];
+
+        return result;
     }
 
     async loadData() {
         this.setState({ loading: true });
 
         const token = getStorageItem("token");
-        const { timespan } = this.state;
+        const { timespan, day1, day2 } = this.state;
 
-        const call = await Api.getStatistics(timespan, token);
+        var request = timespan;
+
+        if (day1 != null && day2 != null) {
+            request = day1[1] + ":" + day2[1];
+        } else {
+            this.setState({ day1: null, day2: null });
+        }
+        
+        SmoothScroll.scroll("#analytics-heading");
+        const call = await Api.getStatistics(request.toString(), token);
         
         if (call.stats) {
             this.setState({
@@ -61,6 +121,10 @@ class AdminAnalytics extends React.Component {
         hideTransition();
     }
 
+    getActiveDays(date) {
+        const { day1, day2 } = this.state;
+    }
+
     render() {
         const { statistics, loading } = this.state;
  
@@ -76,11 +140,32 @@ class AdminAnalytics extends React.Component {
                     <div className="title">Analytika</div>
 
                     <div className="menu">
-                        <div className="item" style={this.state.timespan === "day" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "day" }, () => this.loadData())}>Deň</div>
-                        <div className="item" style={this.state.timespan === "week" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "week" }, () => this.loadData())}>Týždeň</div>
-                        <div className="item" style={this.state.timespan === "month" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "month" }, () => this.loadData())}>Mesiac</div>
-                        <div className="item" style={this.state.timespan === "year" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "year" }, () => this.loadData())}>Rok</div>
+                        <div className="item" style={this.state.timespan === "day" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "day", day1: null, day2: null }, () => this.loadData())}>Deň</div>
+                        <div className="item" style={this.state.timespan === "week" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "week", day1: null, day2: null }, () => this.loadData())}>Týždeň</div>
+                        <div className="item" style={this.state.timespan === "month" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "month", day1: null, day2: null }, () => this.loadData())}>Mesiac</div>
+                        <div className="item" style={this.state.timespan === "year" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.setState({ timespan: "year", day1: null, day2: null }, () => this.loadData())}>Rok</div>
                     </div>
+
+                    <Calendar
+                        onChange={(e) => e.length === 1 ? this.setState({ day1: this.formatDate(e[0]), day2: null }) : this.setState({ day2: this.formatDate(e[1]) }, () => this.loadData())}
+                        allowPartialRange={true}
+                        selectRange={true}
+                        className="calendar"
+                        tileClassName={({ date }) => {
+                            if (this.state.day1 != null && this.convertDate(date) === this.convertDate(this.state.day1[0].toString())) {
+                                return "calendar-item selected";
+                            }
+
+                            if (this.state.day2 != null && this.convertDate(date) === this.convertDate(this.state.day2[0].toString())) {
+                                return "calendar-item selected";
+                            }
+
+                            return "calendar-item";
+                        }}
+                        /*value={value}*/
+                    />
+
+                    <div className="heading" id="analytics-heading">Štatistiky <span className="timespan">({this.getStatisticsType()})</span></div>
 
                     {loading && <Loading />}
 

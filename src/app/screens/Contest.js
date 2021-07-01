@@ -196,6 +196,7 @@ export default class Contest extends React.Component {
                         </div>
                     </div>
 
+                    {/*
                     <div className="panel panel-3">
                         <div className="left">
                             <div className="title">Zapojte sa do súťaže o darček - vstupný balíček troch olejov v hodnote 30€ - za správnu odpoveď na našu otázku</div>
@@ -233,6 +234,7 @@ export default class Contest extends React.Component {
                             </div>
                         </div>
                     </div>
+                    */}
                 </div>
 
                 {this.state.popup ? (

@@ -153,7 +153,7 @@ class RegisterPassword extends React.Component {
                             Zadajte overovací kód a vytvorte si heslo
                         </div>
                         <p className="text">
-                            Pre zaslanie vzoriek a vytvorenie členstva v klube TerraMia zadajte overovací kód, ktorý sme Vám zaslali na e-mail a vytvorte si heslo.
+                            Pre zaslanie vzoriek a vytvorenie členstva v klube TerraMia zadajte overovací kód, ktorý sme Vám zaslali na e-mail a vytvorte si heslo. Heslo musí byť dlhé aspon 6 znakov a obsahovať aspon jedno číslo a jedno veľké písmeno.
                         </p>
 
                         <div className="form">

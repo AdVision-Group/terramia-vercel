@@ -135,7 +135,7 @@ class Register3 extends React.Component {
                             Vytvorenie hesla
                         </div>
                         <p className="text">
-                            Na e-mail sme Vám poslali overovací kód, ktorý je potrebný na overenie Vašej totožnosti a vytvorenie hesla.
+                            Na e-mail sme Vám poslali overovací kód, ktorý je potrebný na overenie Vašej totožnosti a vytvorenie hesla. Heslo musí byť dlhé aspon 6 znakov a obsahovať aspon jedno číslo a jedno veľké písmeno.
                         </p>
 
                         <div style={{ height: 30 }} />

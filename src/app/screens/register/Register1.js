@@ -65,10 +65,32 @@ class Register1 extends React.Component {
 
             this.props.history.push("/stan-sa-clenom/fakturacne-udaje");
         } else {
-            this.setState({
-                loading: false,
-                message: "Zadaný e-mail neexistuje"
-            });
+            if (call.regStep != null || call.regStep != undefined) {
+                setStorageItem("regUser", {
+                    email: email.trim(),
+                    name: name.trim(),
+                    registeredInDoTerra: registeredInDoTerra
+                });
+
+                if (call.regStep === 0) {
+                    this.props.history.push("/stan-sa-clenom/fakturacne-udaje");
+                } else if (call.regStep === 2) {
+                    const sendCode = await Api.codeRegister({
+                        email: email.trim()
+                    });
+
+                    if (sendCode.error) {
+                        this.props.history.push("/stranka-sa-nenasla");
+                    } else {
+                        this.props.history.push("/stan-sa-clenom/vytvorenie-hesla");
+                    }
+                }
+            } else {
+                this.setState({
+                    loading: false,
+                    message: "Zadaný e-mail neexistuje"
+                });
+            }
         }
     }
 

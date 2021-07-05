@@ -2,14 +2,14 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem, API_URL } from "../config/config";
-import Api from "../config/Api";
+import { setStorageItem, getStorageItem, API_URL } from "../../config/config";
+import Api from "../../config/Api";
 
-import Popup from "../components/Popup";
+import Popup from "../../components/Popup";
 
-import { showTransition, hideTransition } from "../components/Transition";
+import { showTransition, hideTransition } from "../../components/Transition";
 
-import "../styles/register1.css";
+import "../../styles/register1.css";
 
 const samplesByPriority = [
     "Deep Blue (1ml)",
@@ -44,7 +44,12 @@ class RegisterSamples extends React.Component {
     async componentDidMount() {
         showTransition();
 
-        await this.checkUserStage();
+        const query = new URLSearchParams(this.props.location.search);
+        const email = query.get("te");
+
+        if (!email) {
+            this.props.history.push("/stranka-sa-nenasla");
+        }
 
         const filters = {
             filters: {
@@ -104,10 +109,17 @@ class RegisterSamples extends React.Component {
         return resultSamples;
     }
 
-    continue() {
-        const registerData = getStorageItem("register");
+    async continue() {
+        this.setState({ popup: true, loading: true });
 
-        if (this.state.sampleId === "") {
+        const { sampleId } = this.state;
+
+        const query = new URLSearchParams(this.props.location.search);
+        const email = query.get("te");
+
+        console.log(email);
+
+        if (sampleId === "") {
             this.setState({
                 popup: true,
                 loading: false,
@@ -117,12 +129,30 @@ class RegisterSamples extends React.Component {
             return;
         }
 
-        setStorageItem("register", {
-            ...registerData,
-            sampleId: this.state.sampleId
-        });
+        const call = await Api.preRegister({ email: email, registeredInDoTerra: false });
 
-        this.props.history.push("/fakturacne-udaje");
+        if (call.regStep != null || call.regStep != undefined) {
+            setStorageItem("register", {
+                email: email,
+                sampleId: sampleId
+            });
+
+            if (call.regStep === 0) this.props.history.push("/vzorka-zadarmo/fakturacne-udaje");
+
+            if (call.regStep === 2) {
+                const sendCode = await Api.codeRegister({ email: email.trim() });
+
+                if (!sendCode.error) {
+                    this.props.history.push("/vzorka-zadarmo/vytvorenie-hesla");
+                } else {
+                    this.props.history.push("/stranka-sa-nenasla");
+                }
+            }
+
+            if (call.regStep === 3) this.props.history.push("/vzorka-zadarmo/prihlasenie");
+        } else {
+            this.props.history.push("/stranka-sa-nenasla");
+        }
     }
 
     async checkUserStage() {
@@ -135,7 +165,11 @@ class RegisterSamples extends React.Component {
                 email: email
             });
 
-            await Api.preRegister({ email: email, registeredInDoTerra: false });
+            const call = await Api.preRegister({ email: email, registeredInDoTerra: false });
+
+            if (call.regStep) return call.regStep;
+
+            return null;
         } else {
             this.props.history.push("/stranka-sa-nenasla");
         }
@@ -161,7 +195,7 @@ class RegisterSamples extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">
@@ -169,7 +203,7 @@ class RegisterSamples extends React.Component {
                             Vyberte si vzorku
                         </div>
                         <p className="text">
-                            Vyplňte Vaše fakturačné údaje a vzorka bude o chvíľu na ceste!
+                            Ako poďakovanie za účasť v súťaži by sme Vám chceli darovať vzorku esenciálneho oleja zadarmo.
                         </p>
 
                         <div className="heading">Aký problém Vás trápi?</div>

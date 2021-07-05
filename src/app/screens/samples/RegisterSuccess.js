@@ -2,14 +2,11 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
-import Api from "../config/Api";
+import { setStorageItem, getStorageItem, removeStorageItem } from "../../config/config";
 
-import Popup from "../components/Popup";
+import { showTransition, hideTransition } from "../../components/Transition";
 
-import { showTransition, hideTransition } from "../components/Transition";
-
-import "../styles/register1.css";
+import "../../styles/register1.css";
 
 class RegisterSuccess extends React.Component {
 
@@ -49,16 +46,21 @@ class RegisterSuccess extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">
                         <div className="title">
-                            Vitajte v klube TerraMia
+                            Vzorka úspešne objednaná
                         </div>
+
+                        <div style={{ height: 30 }} />
+
                         <p className="text">
-                            Vitajte v klube TerraMia! Vaša vzorka Vám bude zaslaná na zadanú adresu v priebehu niekoľkých dní.
+                            Ďakujeme Vám za objednanie si vzorky esenciálnych olejov. Dúfame, že Vám bude po chuti
                         </p>
+
+                        <div style={{ height: 20 }} />
 
                         <div className="button-filled" onClick={() => this.props.history.push("/")}>Domov</div>
                     </div>

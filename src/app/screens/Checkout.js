@@ -76,6 +76,41 @@ class Checkout extends React.Component {
             return;
         }
 
+        if (name.length < 6) {
+            this.setState({ loading: false, message: "Meno musí byť dlhšie ako 6 znakov" });
+            return;
+        }
+
+        if (email.length < 6) {
+            this.setState({ loading: false, message: "Email musí byť dlhší ako 6 znakov" });
+            return;
+        }
+
+        if (phone.length < 6) {
+            this.setState({ loading: false, message: "Telefónne číslo musí byť dlhšie ako 6 znakov" });
+            return;
+        }
+
+        if (address.length < 6) {
+            this.setState({ loading: false, message: "Adresa musí byť dlhšia ako 6 znakov" });
+            return;
+        }
+
+        if (psc.length < 6) {
+            this.setState({ loading: false, message: "PSČ musí byť dlhšie ako 6 znakov" });
+            return;
+        }
+
+        if (city.length < 6) {
+            this.setState({ loading: false, message: "Mesto musí byť dlhšie ako 6 znakov" });
+            return;
+        }
+
+        if (country.length < 6) {
+            this.setState({ loading: false, message: "Krajina musí byť dlhšia ako 6 znakov" });
+            return;
+        }
+
         if (company && (companyData.name.trim() === "" || companyData.ico.trim() === "" || companyData.dic.trim() === "" || companyData.icdph.trim() === "" || companyData.address.trim() === "" || companyData.psc.trim() === "" || companyData.city.trim() === "" || companyData.country.trim() === "")) {
             this.setState({
                 loading: false,

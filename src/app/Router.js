@@ -46,11 +46,17 @@ import Login from "./screens/Login";
 
 import Register from "./screens/Register";
 
-import RegisterContest from "./screens/RegisterContest";
-import RegisterSamples from "./screens/RegisterSamples";
-import RegisterContact from "./screens/RegisterContact";
-import RegisterPassword from "./screens/RegisterPassword";
-import RegisterSuccess from "./screens/RegisterSuccess";
+import Register1 from "./screens/register/Register1";
+import Register2 from "./screens/register/Register2";
+import Register3 from "./screens/register/Register3";
+import Register4 from "./screens/register/Register4";
+
+import RegisterContest from "./screens/samples/RegisterContest";
+import RegisterSamples from "./screens/samples/RegisterSamples";
+import RegisterContact from "./screens/samples/RegisterContact";
+import RegisterPassword from "./screens/samples/RegisterPassword";
+import RegisterLogin from "./screens/samples/RegisterLogin";
+import RegisterSuccess from "./screens/samples/RegisterSuccess";
 
 import Profile from "./screens/Profile";
 import Reset from "./screens/Reset";
@@ -99,14 +105,23 @@ export default class Router extends React.Component {
 
                         <Route exact path="/registracna-sutaz"><RegisterContest /></Route>
                         <Route exact path="/vzorka-zadarmo"><RegisterSamples /></Route>
-                        <Route exact path="/fakturacne-udaje"><RegisterContact /></Route>
-                        <Route exact path="/vytvorenie-hesla"><RegisterPassword /></Route>
-                        <Route exact path="/suhrn-clenstva"><RegisterSuccess /></Route>
+                        <Route exact path="/vzorka-zadarmo/fakturacne-udaje"><RegisterContact /></Route>
+                        <Route exact path="/vzorka-zadarmo/vytvorenie-hesla"><RegisterPassword /></Route>
+                        <Route exact path="/vzorka-zadarmo/prihlasenie"><RegisterLogin /></Route>
+                        <Route exact path="/vzorka-zadarmo/suhrn-clenstva"><RegisterSuccess /></Route>
 
+                        <Route exact path="/stan-sa-clenom"><Register1 /></Route>
+                        <Route exact path="/stan-sa-clenom/fakturacne-udaje"><Register2 /></Route>
+                        <Route exact path="/stan-sa-clenom/vytvorenie-hesla"><Register3 /></Route>
+                        <Route exact path="/stan-sa-clenom/vitajte"><Register4 /></Route>
+
+                        {/*
                         <Route exact path="/registracia-vzorky-zadarmo"><Register stage={1} /></Route>
                         <Route exact path="/registracia-fakturacne-udaje"><Register stage={2} /></Route>
                         <Route exact path="/registracia-vytvorit-ucet"><Register stage={3} /></Route>
                         <Route exact path="/registracia-suhrn-objednavky"><Register stage={4} /></Route>
+                        */}
+                            
                         <Route exact path="/profil"><Profile /></Route>
 
                         <Route exact path="/admin/analytika"><AdminAnalytics /></Route>

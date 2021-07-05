@@ -3,13 +3,13 @@ import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
 
-import Api from "../config/Api";
+import Api from "../../config/Api";
 
-import Popup from "../components/Popup";
+import Popup from "../../components/Popup";
 
-import { showTransition, hideTransition } from "../components/Transition";
+import { showTransition, hideTransition } from "../../components/Transition";
 
-import "../styles/register1.css";
+import "../../styles/register1.css";
 
 class RegisterContest extends React.Component {
 
@@ -139,7 +139,7 @@ class RegisterContest extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">

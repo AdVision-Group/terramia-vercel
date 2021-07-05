@@ -2,14 +2,14 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem } from "../config/config";
-import Api from "../config/Api";
+import { setStorageItem, getStorageItem } from "../../config/config";
+import Api from "../../config/Api";
 
-import Popup from "../components/Popup";
+import Popup from "../../components/Popup";
 
-import { showTransition, hideTransition } from "../components/Transition";
+import { showTransition, hideTransition } from "../../components/Transition";
 
-import "../styles/register1.css";
+import "../../styles/register1.css";
 
 class RegisterPassword extends React.Component {
 
@@ -110,7 +110,7 @@ class RegisterPassword extends React.Component {
             const pay = await Api.skipPayment({ orderId: order.orderId });
 
             if (pay.message === "Payment skipped successfully") {
-                this.props.history.push("/suhrn-clenstva");
+                this.props.history.push("/vzorka-zadarmo/suhrn-clenstva");
             } else if (pay.message === "Tento použivateľ nemá nárok na vzorku zadarmo") {
                 this.setState({
                     loading: false,
@@ -145,7 +145,7 @@ class RegisterPassword extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">
@@ -153,7 +153,7 @@ class RegisterPassword extends React.Component {
                             Zadajte overovací kód a vytvorte si heslo
                         </div>
                         <p className="text">
-                            Zadajte overovací kód, ktorý Vám prišiel na Váš e-mail a vytvorte si heslo. Po vytvorení hesla bude Vaše členstvo v klube TerraMia už skoro vytvorené.
+                            Pre zaslanie vzoriek a vytvorenie členstva v klube TerraMia zadajte overovací kód, ktorý sme Vám zaslali na e-mail a vytvorte si heslo.
                         </p>
 
                         <div className="form">

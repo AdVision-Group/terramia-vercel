@@ -136,7 +136,7 @@ class Login extends React.Component {
                         
                         <div className="button-filled" onClick={() => this.login()}>Prihlásiť sa</div>
 
-                        <div className="text" style={{ margin: "30px 0 0 0" }}>Nie ste ešte členom klubu TerraMia? Staňte sa členom <span onClick={() => this.props.history.push("/registracia-vzorky-zadarmo")} style={{ fontWeight: "700", color: "#A161B3", cursor: "pointer" }}>tu</span>.</div>
+                        <div className="text" style={{ margin: "30px 0 0 0" }}>Nie ste ešte členom klubu TerraMia? Staňte sa členom <span onClick={() => this.props.history.push("/stan-sa-clenom")} style={{ fontWeight: "700", color: "#A161B3", cursor: "pointer" }}>tu</span>.</div>
                     </div>
                 </div>
             </div>

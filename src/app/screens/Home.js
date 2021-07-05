@@ -87,7 +87,7 @@ export default class Home extends React.Component {
                     <p className="text fade-in-up animate__delay-3s">
                         {getStorageItem("token") ? "Využite cenu pre členov doTERRA v našom e-shope. Zľavu 25% na všetky produkty si môžete uplatniť hneď pri prvom nákupe nad 125€. Radi Vám vysvetlíme, ako to funguje." : "Chcete sa starať o seba a svoju rodinu použitím prírodných riešení čo najvýhodnejšie? Chcete nakupovať a získavať darčeky bezpečne? Esenciálne oleje doTERRA sú 100% prírodné, bezpečné a cenovo výhodné."}
                     </p>
-                    <Link className="button-filled fade-in-up animate__delay-5s" to={getStorageItem("token") ? "/sutaz-o-vstupny-balicek" : "/registracia-vzorky-zadarmo"}>
+                    <Link className="button-filled fade-in-up animate__delay-5s" to={getStorageItem("token") ? "/sutaz-o-vstupny-balicek" : "/stan-sa-clenom"}>
                         {getStorageItem("token") ? "Získaj 25% zľavu" : " Staň sa členom klubu"}
                     </Link>
 

@@ -60,7 +60,7 @@ class Header extends React.Component {
                                 <div className="button-filled" onClick={getStorageItem("token") ? () => {
                                     removeStorageItem("token");
                                     window.location.reload();
-                                } : () => this.props.history.push("/registracia-vzorky-zadarmo")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</div>
+                                } : () => this.props.history.push("/stan-sa-clenom")}>{getStorageItem("token") ? "Odhlásiť sa" : "Staň sa členom klubu"}</div>
                             </div>
 
                             <div className="menu-panel">

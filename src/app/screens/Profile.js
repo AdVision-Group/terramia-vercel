@@ -51,23 +51,23 @@ class Profile extends React.Component {
     }
 
     async init() {
-        const token = getStorageItem("token")
+        const token = getStorageItem("token");
         const getUser = await Api.getUser(token);
 
         if (getUser.user) {
-            const user = getUser.user
+            const user = getUser.user;
 
             this.setState({
                 user: user,
 
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                address: user.address,
-                psc: user.psc,
-                city: user.city,
-                country: user.country
-            })
+                name: user.name ?? "",
+                email: user.email ?? "",
+                phone: user.phone ?? "",
+                address: user.address ?? "",
+                psc: user.psc ?? "",
+                city: user.city ?? "",
+                country: user.country ?? ""
+            });
         } else {
             removeStorageItem("token");
             this.props.history.push("/prihlasenie");
@@ -160,7 +160,7 @@ class Profile extends React.Component {
         const token = getStorageItem("token");
 
         if (!token) {
-            this.props.history.push("/prihlasenie")
+            this.props.history.push("/prihlasenie");
         } else {
             await this.init();
         }
@@ -169,7 +169,7 @@ class Profile extends React.Component {
     }
 
     render() {
-        const user = this.state.user
+        const user = this.state.user;
 
         return(
             <div className="screen" id="profile">
@@ -198,16 +198,16 @@ class Profile extends React.Component {
                         <div style={{ flex: 1 }}></div>
 
                         <div className="button-panel">
-                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
-                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
-                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
-                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
-                            {user && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}
+                            {user != null && user != undefined && user.admin != null && user.admin != undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
+                            {user != null && user != undefined && user.admin != null && user.admin != undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
+                            {user != null && user != undefined && user.admin != null && user.admin != undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
+                            {user != null && user != undefined && user.admin != null && user.admin != undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
+                            {user != null && user != undefined && user.admin != null && user.admin != undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}
                             <div className="button-filled" onClick={() => this.logout()}>Odhlásiť sa</div>
                         </div>
                     </div>
 
-                    {!this.state.user ? <Loading /> : (
+                    {this.state.user === null ? <Loading /> : (
                     <div className="content" style={{ padding: 0 }}>
                         <div className="section">Detaily o účte</div>
                         <p className="text">

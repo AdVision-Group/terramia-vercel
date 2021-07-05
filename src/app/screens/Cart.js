@@ -12,7 +12,6 @@ import Summary from "../components/Summary";
 import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/cart.css";
-import { get, timers } from "jquery";
 
 class Cart extends React.Component {
 

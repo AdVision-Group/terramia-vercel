@@ -2,17 +2,17 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem } from "../config/config";
-import Api from "../config/Api";
+import { setStorageItem, getStorageItem } from "../../config/config";
+import Api from "../../config/Api";
 
-import Popup from "../components/Popup";
+import Popup from "../../components/Popup";
 
-import doc1 from "../documents/gdpr.pdf";
-import doc2 from "../documents/obchodne-podmienky.pdf";
+import doc1 from "../../documents/gdpr.pdf";
+import doc2 from "../../documents/obchodne-podmienky.pdf";
 
-import { showTransition, hideTransition } from "../components/Transition";
+import { showTransition, hideTransition } from "../../components/Transition";
 
-import "../styles/register1.css";
+import "../../styles/register1.css";
 
 class RegisterContact extends React.Component {
 
@@ -95,7 +95,7 @@ class RegisterContact extends React.Component {
             const sendCode = await Api.codeRegister({ email: email.trim() });
 
             if (!sendCode.error) {
-                this.props.history.push("/vytvorenie-hesla");
+                this.props.history.push("/vzorka-zadarmo/vytvorenie-hesla");
             } else {
                 this.setState({
                     loading: false,
@@ -132,7 +132,7 @@ class RegisterContact extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
                     </div>
 
                     <div className="right-panel">
@@ -140,7 +140,7 @@ class RegisterContact extends React.Component {
                             Fakturačné údaje
                         </div>
                         <p className="text">
-                            Vyplňte Vaše fakturačné údaje a vzorka bude o chvíľu na ceste!
+                            Zadajte fakturačné údaje pre korektné doručenie vzorky.
                         </p>
 
                         <div className="form">

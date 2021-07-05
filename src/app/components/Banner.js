@@ -16,7 +16,7 @@ export default function Banner(props) {
                     <div style={{ flex: 1 }}></div>
 
                     {props.business ? <Link className="button-filled" to="/prihlasenie">Prihlásiť sa</Link> : null}
-                    {props.url ? <a href={props.url} className="button-filled">{props.button}</a> : <Link className="button-filled" to={props.location ? props.location : "/registracia-vzorky-zadarmo"} style={{ marginTop: 10 }}>{props.button}</Link>}
+                    {props.url ? <a href={props.url} className="button-filled">{props.button}</a> : <Link className="button-filled" to={props.location ? props.location : "/stan-sa-clenom"} style={{ marginTop: 10 }}>{props.button}</Link>}
                 </div>
 
                 <div className="image-panel">

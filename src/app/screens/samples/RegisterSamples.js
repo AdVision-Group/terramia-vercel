@@ -136,7 +136,7 @@ class RegisterSamples extends React.Component {
 
         if (call.regStep != null || call.regStep != undefined) {
             setStorageItem("register", {
-                email: email,
+                email: email.trim(),
                 sampleId: sampleId
             });
 

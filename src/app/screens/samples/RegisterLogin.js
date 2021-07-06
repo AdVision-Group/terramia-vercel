@@ -20,6 +20,8 @@ class RegisterLogin extends React.Component {
         popup: false,
         message: "",
         loading: false,
+
+        forgot: false
     }
 
     constructor() {
@@ -93,7 +95,7 @@ class RegisterLogin extends React.Component {
             const call = await Api.getUser(token);
 
             if (call.user) {
-                if (call.user.email === registerData.email) {
+                if (call.user.email.trim() === registerData.email.trim()) {
                     const order = await Api.createOrder({
                         products: [ registerData.sampleId ],
                         applyDiscount: false
@@ -114,6 +116,7 @@ class RegisterLogin extends React.Component {
                         this.props.history.push("/vzorka-zadarmo/suhrn-clenstva");
                     } else if (pay.message === "Tento použivateľ už vzorky obdržal") {
                         this.setState({
+                            popup: true,
                             loading: false,
                             message: pay.message
                         });
@@ -143,6 +146,15 @@ class RegisterLogin extends React.Component {
                     />
                 ) : null}
 
+                {this.state.forgot ? (
+                    <Popup
+                        type="forgot"
+                        title={this.state.message}
+                        loading={this.state.loading}
+                        onClick={() => this.setState({ forgot: false })}
+                    />
+                ) : null}
+
                 <div className="content">
                     <div className="left-panel">
                         <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
@@ -151,7 +163,7 @@ class RegisterLogin extends React.Component {
                     <div className="right-panel">
                         <div className="title">Prihlásiť sa</div>
                         <p className="text">
-                            Po prihlásení budete môcť využívať benefity klubu TerraMia. Ak máte vlastný účet doTERRA, vzorky zadarmo už nepotrebujte. Ak ešte nemáte vlastný účet doTERRA, môžete si ho vytvoriť <a style={{ textDecoration: "none", fontWeight: "700", color: "#A161B3" }} href="https://www.mydoterra.com/Application/index.cfm?EnrollerID=756332">na tomto linku</a> a využívať výhody členstva.
+                            Po prihlásení do Vášho účtu obdržíte vzorky zadarmo. Ak ste zabudli svoje heslo, môžete si ho obnoviť <span onClick={() => this.setState({ forgot: true })} style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold", cursor: "pointer" }}>tu</span>.
                         </p>
 
                         <input className="field" onKeyPress={this.handleKeyPress} type="text" value={this.state.email} placeholder="E-mail" onChange={(event) => this.setState({ email: event.target.value})} />

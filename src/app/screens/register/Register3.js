@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 import Popup from "../../components/Popup";
 import { hideTransition, showTransition } from "../../components/Transition";
-import { API_URL, getStorageItem, setStorageItem } from "../../config/config";
+import { getStorageItem, setStorageItem } from "../../config/config";
 
 import "../../styles/register-new.css";
 import Api from "../../config/Api";
@@ -97,6 +97,11 @@ class Register3 extends React.Component {
                 this.setState({
                     loading: false,
                     message: "Overovací kód je neplatný"
+                });
+            } else if (call.error === "format") {
+                this.setState({
+                    loading: false,
+                    message: "Heslo musí byť dlhé aspon 6 znakov a obsahovať aspon jedno číslo a jedno veľké písmeno."
                 });
             } else {
                 this.setState({

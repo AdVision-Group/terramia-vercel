@@ -2,8 +2,6 @@ import React from "react";
 import { withRouter } from "react-router";
 
 import { getStorageItem } from "../config/config";
-import Banner from "../components/Banner";
-import Api from "../config/Api";
 
 import "../styles/summary.css";
 

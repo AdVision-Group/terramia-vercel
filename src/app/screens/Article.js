@@ -2,13 +2,10 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { addToCart, API_URL, shop, formatDate, getStorageItem } from "../config/config";
+import { API_URL, formatDate, getStorageItem } from "../config/config";
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Loading from "../components/Loading";
-import Categories from "../components/Categories";
 
 import { showTransition, hideTransition } from "../components/Transition";
 

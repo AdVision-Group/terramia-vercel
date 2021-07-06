@@ -1,9 +1,6 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
-import ReactGA from "react-ga";
-import ReactPixel from "react-facebook-pixel";
 
 import { evaluateRegister, evaluateLogin, removeStorageItem, setStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";

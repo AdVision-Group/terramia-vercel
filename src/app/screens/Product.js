@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { isLogged, addToCart, API_URL, getStorageItem, createURLName } from "../config/config";
+import { addToCart, API_URL, getStorageItem } from "../config/config";
 import Api from "../config/Api";
 
 import Header from "../components/Header";

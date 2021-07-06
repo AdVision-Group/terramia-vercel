@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet";
 
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Title from "../components/Title";
 import Popup from "../components/Popup";
 

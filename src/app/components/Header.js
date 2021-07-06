@@ -1,14 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { getStorageItem, removeStorageItem, setStorageItem } from "../config/config";
+import { getStorageItem, removeStorageItem } from "../config/config";
 import { showCookies } from "../components/Cookies";
 
 import MenuButton from "./MenuButton";
-import Dropdown from "./Dropdown";
-import Api from "../config/Api";
-
-import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/header.css";
 

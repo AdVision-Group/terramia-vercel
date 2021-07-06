@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Calendar from "react-calendar";
@@ -10,8 +10,6 @@ import SmoothScroll from "../config/SmoothScroll";
 import Loading from "../components/Loading";
 
 import { showTransition, hideTransition } from "../components/Transition";
-
-import Order from "../components/Order";
 
 import "../styles/admin.css";
 
@@ -122,7 +120,7 @@ class AdminAnalytics extends React.Component {
     }
 
     getActiveDays(date) {
-        const { day1, day2 } = this.state;
+        // sgag
     }
 
     render() {

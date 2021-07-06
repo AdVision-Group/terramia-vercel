@@ -1,18 +1,13 @@
-import React, { useImperativeHandle } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from "react";
+import { withRouter } from "react-router-dom";
 import {Helmet} from "react-helmet";
 
-import { API_URL, isLogged, getStorageItem, removeStorageItem, setStorageItem, shop, API } from "../config/config";
+import { isLogged, getStorageItem } from "../config/config";
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Popup from "../components/Popup";
-import Loading from "../components/Loading";
 
 import { showTransition, hideTransition } from "../components/Transition";
-
-import Order from "../components/Order";
 
 import "../styles/admin.css";
 

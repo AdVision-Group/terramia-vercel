@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 import { animate } from "../config/Animation";
 
-import { getStorageItem, ebooks, ebooksMain } from "../config/config";
+import { getStorageItem, ebooksMain } from "../config/config";
 import Api from "../config/Api";
 
 import SmoothScroll from "../config/SmoothScroll";

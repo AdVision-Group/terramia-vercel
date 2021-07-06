@@ -7,9 +7,6 @@ import Api from "../../config/Api";
 
 import Popup from "../../components/Popup";
 
-import doc1 from "../../documents/gdpr.pdf";
-import doc2 from "../../documents/obchodne-podmienky.pdf";
-
 import { showTransition, hideTransition } from "../../components/Transition";
 
 import "../../styles/login.css";
@@ -52,22 +49,34 @@ class RegisterLogin extends React.Component {
                 applyDiscount: false
             }, login.token);
 
+            if (order.error) {
+                this.setState({
+                    loading: false,
+                    message: "Nastala serverová chyba, skúste neskôr znovu prosím"
+                });
+
+                return;
+            }
+
             const pay = await Api.skipPayment({ orderId: order.orderId });
 
             if (pay.message === "Payment skipped successfully") {
                 this.props.history.push("/vzorka-zadarmo/suhrn-clenstva");
-            } else if (pay.message === "Tento použivateľ nemá nárok na vzorku zadarmo") {
+            } else if (pay.message === "Tento použivateľ už vzorky obdržal") {
                 this.setState({
                     loading: false,
                     message: pay.message
                 });
             }
         } else {
-            this.props.history.push("/stranka-sa-nenasla");
+            this.setState({
+                loading: false,
+                message: "Nesprávne heslo"
+            });
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         showTransition();
 
         const registerData = getStorageItem("register");
@@ -76,6 +85,41 @@ class RegisterLogin extends React.Component {
             this.props.history.push("/stranka-sa-nenasla");
         } else {
             this.setState({ email: registerData.email });
+        }
+
+        const token = getStorageItem("token");
+
+        if (token) {
+            const call = await Api.getUser(token);
+
+            if (call.user) {
+                if (call.user.email === registerData.email) {
+                    const order = await Api.createOrder({
+                        products: [ registerData.sampleId ],
+                        applyDiscount: false
+                    }, token);
+
+                    if (order.error) {
+                        this.setState({
+                            loading: false,
+                            message: "Nastala serverová chyba, skúste neskôr znovu prosím"
+                        });
+
+                        return;
+                    }
+        
+                    const pay = await Api.skipPayment({ orderId: order.orderId });
+        
+                    if (pay.message === "Payment skipped successfully") {
+                        this.props.history.push("/vzorka-zadarmo/suhrn-clenstva");
+                    } else if (pay.message === "Tento použivateľ už vzorky obdržal") {
+                        this.setState({
+                            loading: false,
+                            message: pay.message
+                        });
+                    }
+                }
+            }
         }
 
         hideTransition();
@@ -101,7 +145,7 @@ class RegisterLogin extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
                     </div>
 
                     <div className="right-panel">

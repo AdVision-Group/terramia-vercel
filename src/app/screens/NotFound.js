@@ -23,7 +23,7 @@ export default class NotFound extends React.Component {
                 </Helmet>
 
                 <div className="image-panel">
-                    <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" />
+                    <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" alt="Not found" />
                 </div>
 
                 <div className="text-panel">

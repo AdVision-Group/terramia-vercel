@@ -2,15 +2,10 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { isLogged, setStorageItem, removeStorageItem, getStorageItem, API_URL } from "../config/config";
+import { setStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";
 
-import CheckoutForm from "../components/CheckoutForm";
-
-import Banner from "../components/Banner";
-import Loading from "../components/Loading";
 import Popup from "../components/Popup";
-import Summary from "../components/Summary";
 
 import { showTransition, hideTransition } from "../components/Transition";
 

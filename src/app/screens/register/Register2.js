@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 import Popup from "../../components/Popup";
 import { hideTransition, showTransition } from "../../components/Transition";
-import { API_URL, getStorageItem, setStorageItem } from "../../config/config";
+import { getStorageItem, setStorageItem } from "../../config/config";
 
 import doc1 from "../../documents/gdpr.pdf";
 import doc2 from "../../documents/obchodne-podmienky.pdf";

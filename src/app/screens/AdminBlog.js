@@ -1,15 +1,13 @@
-import React, { useImperativeHandle } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from "react";
+import { withRouter } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import { Quill } from "react-quill";
 import { Helmet } from "react-helmet";
 import 'react-quill/dist/quill.snow.css';
 
-import { isLogged, getStorageItem, removeStorageItem, setStorageItem, shop, createURLName, API_URL } from "../config/config";
+import { isLogged, getStorageItem, createURLName, API_URL } from "../config/config";
 import Api from "../config/Api";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 
 import { showTransition, hideTransition } from "../components/Transition";

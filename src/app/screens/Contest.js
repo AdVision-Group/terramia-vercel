@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactPlayer from "react-player";
 import { Helmet } from "react-helmet";
 
 import Title from "../components/Title";
 import Api from "../config/Api";
 import Popup from "../components/Popup";
-import SmoothScroll from "../config/SmoothScroll";
 
 import { showTransition, hideTransition } from "../components/Transition";
 

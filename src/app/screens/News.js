@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { formatDate, API_URL, getStorageItem, ebooks, setStorageItem } from "../config/config";
+import { formatDate, API_URL, getStorageItem, ebooks } from "../config/config";
 import Api from "../config/Api";
 
 import Title from "../components/Title";
@@ -12,7 +12,6 @@ import Banner from "../components/Banner";
 import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/news.css";
-import { get } from "jquery";
 
 class News extends React.Component {
 
@@ -176,7 +175,7 @@ function Article(props) {
 
     return(
         <div className="article" onClick={article.locked ? (getStorageItem("token") ? () => props.history.push("/blog/" + article.link) : () => props.showBanner()) : () => props.history.push("/blog/" + article.link)}>
-            <img className="image" src={src} loading="lazy" />
+            <img className="image" src={src} loading="lazy" alt="Article" />
             <h3 className="title">{article.name}</h3>
             <div className="date">{formatDate(article.date)}</div>
             <p className="text">{article.description}</p>
@@ -191,7 +190,7 @@ function EBook(props) {
 
     return(
         <div className="article">
-            <img className="image" src={ebook.image} loading="lazy" />
+            <img className="image" src={ebook.image} loading="lazy" alt="Ebook" />
             <h3 className="title">{ebook.name}</h3>
             <div className="date">{ebook.date}</div>
             <p className="ebook-text">{ebook.description}</p>

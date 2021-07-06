@@ -2,14 +2,9 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { isLogged, setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
-import Api from "../config/Api";
-
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { setStorageItem, removeStorageItem } from "../config/config";
 
 import "../styles/success.css";
-import { showCookies } from "../components/Cookies";
 import { hideTransition, showTransition } from "../components/Transition";
 
 class Success extends React.Component {

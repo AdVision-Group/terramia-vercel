@@ -1,10 +1,6 @@
 import React from "react";
 
-import { getStorageItem, API_URL, formatDate } from "../config/config";
-
-import Loading from "../components/Loading";
-
-import Api from "../config/Api";
+import { API_URL, formatDate } from "../config/config";
 
 import "../styles/order.css";
 

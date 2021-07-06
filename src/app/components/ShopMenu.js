@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 import { shop } from "../config/config";
-import Shop from "../screens/Shop";
 
 import "../styles/shopmenu.css";
 
@@ -100,6 +99,7 @@ class ShopMenu extends React.Component {
                                     categoryOpened={this.props.category}
                                     setCategory={this.setCategory}
                                     history={this.props.history}
+                                    key={index}
                                 />
                     })}
 
@@ -158,6 +158,7 @@ function MenuItem(props) {
                         selected={index === parseInt(props.getQuery("kategoria"))}
                         onClick={() => props.setQuery([[ "kategoria", index ]])}
                         icon={false}
+                        key={index}
 
                         style={{ paddingLeft: 50 }}
                     />

@@ -139,7 +139,7 @@ class RegisterContest extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
                     </div>
 
                     <div className="right-panel">

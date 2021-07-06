@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { addToCart, API, API_URL, getStorageItem, shop, createURLName, setStorageItem } from "../config/config";
+import { API_URL, shop } from "../config/config";
 import Api from "../config/Api";
 
 import Loading from "../components/Loading";
@@ -188,7 +188,7 @@ class Shop extends React.Component {
                             <div>
                                 {count > 0 ? (
                                     <div className="products">
-                                        {products.map((product) => <Product product={product} parent={this} /> )}
+                                        {products.map((product, index) => <Product product={product} parent={this} key={index} /> )}
                                     </div>
                                 ) : (
                                     <div className="empty-message">Nenašli sa žiadne výsledky</div>

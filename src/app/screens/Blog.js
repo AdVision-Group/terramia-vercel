@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { formatDate, API_URL, getStorageItem, createURLName } from "../config/config";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Title from "../components/Title";
 import Loading from "../components/Loading";
 import Banner from "../components/Banner";

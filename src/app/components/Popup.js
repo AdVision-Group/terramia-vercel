@@ -9,10 +9,6 @@ export default class Popup extends React.Component {
         message: ""
     }
 
-    constructor() {
-        super();
-    }
-
     render() {
         if (this.props.type === "forgot") {
             return (

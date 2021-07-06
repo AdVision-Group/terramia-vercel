@@ -76,10 +76,22 @@ class RegisterPassword extends React.Component {
                 
                 this.order();
             } else {
-                this.setState({
-                    loading: false,
-                    message: "Nastala serverová chyba, skúste to znovu neskôr prosím"
-                });
+                if (call.error === "invalid-code") {
+                    this.setState({
+                        loading: false,
+                        message: "Overovací kód je neplatný"
+                    });
+                } else if (call.error === "format") {
+                    this.setState({
+                        loading: false,
+                        message: "Heslo musí byť dlhé aspon 6 znakov a obsahovať aspon jedno číslo a jedno veľké písmeno."
+                    });
+                } else {
+                    this.setState({
+                        loading: false,
+                        message: "Nastala serverová chyba, skúste znovu neskôr prosím"
+                    });
+                }
             }
         } else {
             this.setState({ loading: false, message: "Heslá sa nezhodujú" })
@@ -145,7 +157,7 @@ class RegisterPassword extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
                     </div>
 
                     <div className="right-panel">

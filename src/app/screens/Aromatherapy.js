@@ -5,8 +5,6 @@ import { Helmet } from "react-helmet";
 import { animate } from "../config/Animation";
 import SmoothScroll from "../config/SmoothScroll";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Title from "../components/Title";
 
 import { showTransition, hideTransition } from "../components/Transition";

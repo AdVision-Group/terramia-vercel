@@ -1,5 +1,3 @@
-import React from "react";
-
 // default API URL
 
 //export const API_URL = "https://coronashop.store:8443"; // REAL
@@ -225,7 +223,6 @@ export function addToCart(productId, points, amount, parent) {
 // show and hide mobile menu
 export function changeMenu() {
     var menu = document.getElementById("mobile-menu");
-    var header = document.getElementById("header");
 
     var style = window.getComputedStyle(menu);
     var display = style.getPropertyValue("display");
@@ -239,10 +236,6 @@ export function changeMenu() {
         document.getElementById("menu-line-1").style.width = "90%";
         document.getElementById("menu-line-2").style.width = "70%";
         document.getElementById("menu-line-3").style.width = "50%";
-
-        //document.getElementById("menu-line-1").style.backgroundColor = "#A161B3";
-        //document.getElementById("menu-line-2").style.backgroundColor = "#A161B3";
-        //document.getElementById("menu-line-3").style.backgroundColor = "#A161B3";
     } else  {
         menu.style.opacity = 0;
         setTimeout(() => {
@@ -252,10 +245,6 @@ export function changeMenu() {
         document.getElementById("menu-line-1").style.width = "100%";
         document.getElementById("menu-line-2").style.width = "100%";
         document.getElementById("menu-line-3").style.width = "100%";
-
-        //document.getElementById("menu-line-1").style.backgroundColor = "#383838";
-        //document.getElementById("menu-line-2").style.backgroundColor = "#383838";
-        //document.getElementById("menu-line-3").style.backgroundColor = "#383838";
     }
 }
 

@@ -10,28 +10,11 @@ import doc2 from "../documents/obchodne-podmienky.pdf";
 import "../styles/footer.css";
 
 function Footer(props) {
-
-    function redirect(type, category) {
-        if (props.location.pathname.includes("e-shop")) {
-            props.history.push("/");
-            props.history.push({ pathname: "/e-shop", type: type, category: category})
-        } else {
-            props.history.push({ pathname: "/e-shop", type: type, category: category})
-        }
-    }
-
     return(
         <div id="footer">
-            {/*
-            <div className="button-panel">
-                <div className="button-filled">Kontaktuje nás</div>
-                <div className="button-outline">Ponuka olejov</div>
-            </div>
-            */}
-
             <div className="wrapper">
                 <div className="logo-panel">
-                    <Link to="/"><img className="logo" src={require("../assets/logo.png")} loading="lazy" /></Link>
+                    <Link to="/"><img className="logo" src={require("../assets/logo.png")} loading="lazy" alt="Footer" /></Link>
                 </div>
 
                 <div className="top-panel">

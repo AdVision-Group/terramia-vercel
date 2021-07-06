@@ -1,19 +1,13 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import { Helmet } from "react-helmet";
 
-import { isLogged, setStorageItem, getStorageItem, removeStorageItem } from "../config/config";
+import { setStorageItem, getStorageItem } from "../config/config";
 import Api from "../config/Api";
 
-import Banner from "../components/Banner";
-
-import Loading from "../components/Loading";
-import CheckoutForm from "../components/CheckoutForm";
-
 import "../styles/checkout.css";
-import { timers } from "jquery";
+
 import Popup from "../components/Popup";
 import Summary from "../components/Summary";
 

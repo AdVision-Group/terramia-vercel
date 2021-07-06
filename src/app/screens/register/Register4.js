@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 import Popup from "../../components/Popup";
 import { hideTransition, showTransition } from "../../components/Transition";
-import { API_URL, getStorageItem, removeStorageItem, setStorageItem } from "../../config/config";
+import { getStorageItem, removeStorageItem, setStorageItem } from "../../config/config";
 import Api from "../../config/Api";
 
 import "../../styles/register-new.css";

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem, removeStorageItem } from "../../config/config";
+import { removeStorageItem } from "../../config/config";
 
 import { showTransition, hideTransition } from "../../components/Transition";
 
@@ -46,7 +46,7 @@ class RegisterSuccess extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
                     </div>
 
                     <div className="right-panel">

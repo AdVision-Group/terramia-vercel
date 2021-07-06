@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { isLogged, setStorageItem, getStorageItem, API_URL } from "../config/config";
+import { setStorageItem, getStorageItem, API_URL } from "../config/config";
 import Api from "../config/Api";
 import Banner from "../components/Banner";
 import Popup from "../components/Popup";

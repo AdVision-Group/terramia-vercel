@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
-import { setStorageItem, getStorageItem } from "../config/config";
+import { setStorageItem } from "../config/config";
 import { API_URL } from "../config/config";
-
-import Api from "../config/Api";
 
 import "../styles/checkoutform.css";
 
@@ -17,27 +15,6 @@ export default function CheckoutForm(props) {
     const [clientSecret, setClientSecret] = useState('');
     const stripe = useStripe();
     const elements = useElements();
-
-    /*
-    useEffect(async () => {
-        const oId = await props.createOrder();
-
-        // Create PaymentIntent as soon as the page loads
-        window.fetch(API_URL + "/api/payments/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ orderId: oId })
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            setClientSecret(data.clientSecret);
-        });
-    }, []);
-    */
 
     const pay = async () => {
         const orderId = await props.createOrder();

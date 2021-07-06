@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { animate } from "../config/Animation";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Title from "../components/Title";
 import Banner from "../components/Banner";
 
@@ -58,7 +56,7 @@ class Business extends React.Component {
                 <div className="content">
                     <div className="section">
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" />
+                            <img className="image" src={require("../assets/family-business-1.png")} loading="lazy" alt="Business" />
                         </div>
 
                         <div className="divider"></div>
@@ -90,13 +88,13 @@ class Business extends React.Component {
                         <div className="divider"></div>
 
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-2.png")} loading="lazy" />
+                            <img className="image" src={require("../assets/family-business-2.png")} loading="lazy" alt="Business" />
                         </div>
                     </div>
 
                     <div className="section">
                         <div className="image-panel fade-in">
-                            <img className="image" src={require("../assets/family-business-3.png")} loading="lazy" />
+                            <img className="image" src={require("../assets/family-business-3.png")} loading="lazy" alt="Business" />
                         </div>
 
                         <div className="divider"></div>
@@ -129,7 +127,7 @@ class Business extends React.Component {
                             </div>
                         </div>
 
-                        <img className="photo" src={require("../assets/zackovci.jpg")} loading="lazy" />
+                        <img className="photo" src={require("../assets/zackovci.jpg")} loading="lazy" alt="Business" />
                     </div>
                 </div>
 

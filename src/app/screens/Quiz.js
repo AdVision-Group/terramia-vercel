@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { formatDate, API_URL, getStorageItem, createURLName } from "../config/config";
+import { API_URL } from "../config/config";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";

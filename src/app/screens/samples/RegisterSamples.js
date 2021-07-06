@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { setStorageItem, getStorageItem, API_URL } from "../../config/config";
+import { setStorageItem, API_URL } from "../../config/config";
 import Api from "../../config/Api";
 
 import Popup from "../../components/Popup";
@@ -198,7 +198,7 @@ class RegisterSamples extends React.Component {
 
                 <div className="content">
                     <div className="left-panel">
-                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" />
+                        <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
                     </div>
 
                     <div className="right-panel">

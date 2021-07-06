@@ -2,8 +2,8 @@ import React from "react";
 
 // default API URL
 
-export const API_URL = "https://coronashop.store:8443"; // REAL
-//export const API_URL = "https://coronashop.store:8844"; // TESTING
+//export const API_URL = "https://coronashop.store:8443"; // REAL
+export const API_URL = "https://coronashop.store:8844"; // TESTING
 
 export const shop = [
     {

@@ -96,11 +96,6 @@ class Checkout extends React.Component {
             return;
         }
 
-        if (psc.length < 6) {
-            this.setState({ loading: false, message: "PSČ musí byť dlhšie ako 6 znakov" });
-            return;
-        }
-
         if (city.length < 6) {
             this.setState({ loading: false, message: "Mesto musí byť dlhšie ako 6 znakov" });
             return;

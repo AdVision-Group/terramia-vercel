@@ -21,10 +21,12 @@ class AppContaner extends React.Component {
         let query = new URLSearchParams(this.props.location.search);
         if (query.get("te")) this.track(query.get("te"), this.props.location.pathname);
 
+        /*
         this.unlisten = this.props.history.listen((location, action) => {
             let query = new URLSearchParams(location.search);
             if (query.get("te")) this.track(query.get("te"), location.pathname);
         });
+        */
     }
 
     async track(email, url) {
@@ -41,7 +43,7 @@ class AppContaner extends React.Component {
     }
 
     componentWillUnmount() {
-        this.unlisten();
+        //this.unlisten();
     }
 
     render() {

@@ -49,6 +49,11 @@ class RegisterSamples extends React.Component {
 
         if (!email) {
             this.props.history.push("/stranka-sa-nenasla");
+        } else {
+            await Api.track({
+                email: email,
+                url: "/vzorka-zadarmo"
+            });
         }
 
         const filters = {
@@ -116,8 +121,6 @@ class RegisterSamples extends React.Component {
 
         const query = new URLSearchParams(this.props.location.search);
         const email = query.get("te");
-
-        console.log(email);
 
         if (sampleId === "") {
             this.setState({

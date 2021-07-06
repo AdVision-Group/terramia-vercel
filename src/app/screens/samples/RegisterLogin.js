@@ -81,14 +81,6 @@ class RegisterLogin extends React.Component {
         hideTransition();
     }
 
-    componentDidUpdate() {
-        const token = getStorageItem("token");
-
-        if (token) {
-            this.props.history.push("/profil")
-        }
-    }
-
     render() {
         return(
             <div className="screen" id="login">

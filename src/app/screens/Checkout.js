@@ -70,33 +70,18 @@ class Checkout extends React.Component {
             return;
         }
 
-        if (name.length < 6) {
-            this.setState({ loading: false, message: "Meno musí byť dlhšie ako 6 znakov" });
-            return;
-        }
-
-        if (email.length < 6) {
+        if (email.trim().length < 6) {
             this.setState({ loading: false, message: "Email musí byť dlhší ako 6 znakov" });
             return;
         }
 
-        if (phone.length < 6) {
+        if (phone.trim().replace(/\s/g,'').length < 6) {
             this.setState({ loading: false, message: "Telefónne číslo musí byť dlhšie ako 6 znakov" });
             return;
         }
 
-        if (address.length < 6) {
-            this.setState({ loading: false, message: "Adresa musí byť dlhšia ako 6 znakov" });
-            return;
-        }
-
-        if (city.length < 6) {
-            this.setState({ loading: false, message: "Mesto musí byť dlhšie ako 6 znakov" });
-            return;
-        }
-
-        if (country.length < 6) {
-            this.setState({ loading: false, message: "Krajina musí byť dlhšia ako 6 znakov" });
+        if (psc.trim().replace(/\s/g,'').length !== 5) {
+            this.setState({ loading: false, message: "PSČ musí obsahovať 5 číslic" });
             return;
         }
 
@@ -109,15 +94,20 @@ class Checkout extends React.Component {
             return;
         }
 
+        if (company && companyData.psc.trim().replace(/\s/g,'').length !== 5) {
+            this.setState({ loading: false, message: "PSČ musí obsahovať 5 číslic" });
+            return;
+        }
+
         const token = getStorageItem("token");
 
         if (token) {
             var data = {
                 name: name.trim(),
                 email: email.trim(),
-                phone: phone.trim(),
+                phone: phone.trim().replace(/\s/g,''),
                 address: address.trim(),
-                psc: psc.trim(),
+                psc: psc.trim().replace(/\s/g,''),
                 city: city.trim(),
                 country: country.trim()
             }

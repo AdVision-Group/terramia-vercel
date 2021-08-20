@@ -1,9 +1,11 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import $ from "jquery";
 
 import { API_URL, formatDate, getStorageItem } from "../config/config";
 import Api from "../config/Api";
+import SmoothScroll from "../config/SmoothScroll";
 
 import Loading from "../components/Loading";
 
@@ -40,10 +42,12 @@ class Article extends React.Component {
         });
 
         if (call.blogs) {
+            console.log(call.blogs[0]);
+
             this.setState({
                 loading: false,
                 article: call.blogs[0]
-            });
+            }, () => this.loadScroll());
         }
     }
 
@@ -52,7 +56,10 @@ class Article extends React.Component {
 
         if (token) {
             const user = await Api.getUser(token);
-            this.setState({ admin: user.user.admin })
+
+            if (user.user && user.user.admin) {
+                this.setState({ admin: user.user.admin });
+            }
         }
     }
 
@@ -63,6 +70,20 @@ class Article extends React.Component {
         await this.loadUser();
 
         hideTransition();
+    }
+
+    loadScroll() {
+        const query = new URLSearchParams(this.props.location.search);
+
+        const param = query.get("scrollTo");
+
+        if (param != null) {
+            $("html, body").animate({
+                scrollTop: $("#" + param).offset().top - document.getElementById("header").clientHeight + 1 - 50
+            }, 0, () => {
+                //window.location.hash = hash;
+            });
+        }
     }
 
     render() {

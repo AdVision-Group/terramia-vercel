@@ -149,14 +149,14 @@ class Register2 extends React.Component {
                         <div style={{ height: 40 }} />
 
                         <div className="checkbox" onClick={() => this.setState((state) => ({ agree1: !state.agree1 }))}>
-                                <div className="bullet" style={this.state.agree1 ? { backgroundColor: "#A161B3" } : null}></div>
-                                <div className="title">Súhlasím s <a href={doc2} target="_blank" style={{ textDecoration: "none", fontWeight: 700, color: "#383838" }}>obchodnými podmienkami</a></div>
-                            </div>
+                            <div className="bullet" style={this.state.agree1 ? { backgroundColor: "#A161B3" } : null}></div>
+                            <div className="title">Súhlasím s <a href={doc2} target="_blank" style={{ textDecoration: "none", fontWeight: 700, color: "#383838" }}>obchodnými podmienkami</a></div>
+                        </div>
 
-                            <div className="checkbox" onClick={() => this.setState((state) => ({ agree2: !state.agree2 }))}>
-                                <div className="bullet" style={this.state.agree2 ? { backgroundColor: "#A161B3" } : null}></div>
-                                <div className="title">Súhlasím so <a href={doc1} target="_blank" style={{ textDecoration: "none", fontWeight: 700, color: "#383838" }}>spracovaním osobných údajov</a></div>
-                            </div>
+                        <div className="checkbox" onClick={() => this.setState((state) => ({ agree2: !state.agree2 }))}>
+                            <div className="bullet" style={this.state.agree2 ? { backgroundColor: "#A161B3" } : null}></div>
+                            <div className="title">Súhlasím so <a href={doc1} target="_blank" style={{ textDecoration: "none", fontWeight: 700, color: "#383838" }}>spracovaním osobných údajov</a></div>
+                        </div>
 
                         <div style={{ height: 60 }} />
 

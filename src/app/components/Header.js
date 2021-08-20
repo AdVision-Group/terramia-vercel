@@ -35,6 +35,12 @@ class Header extends React.Component {
     render() {
         return(
             <div id="header">
+                <div className="top-panel">
+                    <p className="text">
+                        Chcete nakúpiť, čo najvýhodnejšie a získať hodnotné darčeky od nás? Neviete ako na to? <Link to="/kontakt" style={{ color: "white" }}>Kontaktujte nás, radi Vám pomôžeme.</Link>
+                    </p>
+                </div>
+
                 <div className="border-panel">
                     <div className="border" />
 
@@ -66,6 +72,8 @@ class Header extends React.Component {
                                 <div className="divider" />
                                 <Link to="/podnikanie" className="item">Podnikanie</Link>
                                 <div className="divider" />
+                                <Link to="/webinare" className="item">Webináre</Link>
+                                <div className="divider" />
                                 <Link className="item" to="/novinky">Novinky</Link>
                                 <div className="divider" />
                                 <Link to="/blog" className="item">Blog</Link>
@@ -74,9 +82,9 @@ class Header extends React.Component {
                                 <div className="divider" />
                                 <Link to="/kontakt" className="item">Kontakt</Link>
                                 <div className="divider" />
-                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>Košík{getStorageItem("cart") && getStorageItem("cart").length > 0 ? <div className="count">{getStorageItem("cart").length}</div> : null}</Link>
+                                <Link to="/kosik" className="item"><ion-icon name="cart"></ion-icon>{/*Košík*/}{getStorageItem("cart") && getStorageItem("cart").length > 0 && <div className="count">{getStorageItem("cart").length}</div>}</Link>
                                 <div className="divider" />
-                                <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>{getStorageItem("token") ? getStorageItem("username") : "Prihlásenie"}</Link>
+                                <Link to={getStorageItem("token") ? "/profil" : "/prihlasenie"} className="item"><ion-icon name="person"></ion-icon>{/*getStorageItem("token") ? getStorageItem("username") : "Prihlásenie"*/}</Link>
                             </div>
                         </div>
 

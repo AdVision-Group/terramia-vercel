@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import Archive from "./screens/Archive";
+import Video from "./screens/Video";
 
 import AppContainer from "./AppContainer";
 
@@ -18,6 +20,8 @@ import AdminEmails from "./screens/AdminEmails";
 import AdminOrders from "./screens/AdminOrders";
 import AdminShop from "./screens/AdminShop";
 import AdminBlog from "./screens/AdminBlog";
+import AdminArchive from "./screens/AdminArchive";
+import AdminVideo from "./screens/AdminVideo";
 
 import AutoLogin from "./screens/AutoLogin";
 
@@ -83,6 +87,9 @@ export default class Router extends React.Component {
                     <Switch>
                         <Route exact path="/"><Home /></Route>
 
+                        <Route exact path="/webinare"><Archive /></Route>
+                        <Route exact path="/webinare/:link"><Video /></Route>
+
                         <Route exact path="/kde-kupit-esencialne-oleje"><Contest /></Route>
                         <Route exact path="/kviz"><Quiz /></Route>
 
@@ -125,6 +132,9 @@ export default class Router extends React.Component {
                         <Route exact path="/profil"><Profile /></Route>
 
                         <Route exact path="/admin/analytika"><AdminAnalytics /></Route>
+                        <Route exact path="/admin/archiv-webinarov"><AdminArchive /></Route>
+                        <Route exact path="/admin/pridat-video"><AdminVideo /></Route>
+                        <Route exact path="/admin/upravit-video/:id"><AdminVideo /></Route>
                         <Route exact path="/admin/registracia-novych-clenov"><AdminEmails /></Route>
                         <Route exact path="/admin/objednavky"><AdminOrders /></Route>
                         <Route exact path="/admin/pridat-produkt"><AdminShop /></Route>

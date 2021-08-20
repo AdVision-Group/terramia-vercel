@@ -85,7 +85,7 @@ class RegisterContact extends React.Component {
             email: email.trim(),
             name: name.trim(),
             address: address.trim(),
-            psc: psc.trim(),
+            psc: psc.trim().replace(/\s/g,''),
             city: city.trim(),
             country: country.trim(),
             phone: phone.trim().replace(/\s/g,'')

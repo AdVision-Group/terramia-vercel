@@ -17,6 +17,8 @@ class RegisterContest extends React.Component {
        email: "",
        answer: "",
 
+       agree: false,
+
        popup: false,
        message: "",
        loading: false,
@@ -35,7 +37,16 @@ class RegisterContest extends React.Component {
     async sendAnswer() {
         this.setState({ popup: true, loading: true });
 
-        const { email, answer } = this.state;
+        const { email, answer, agree } = this.state;
+
+        if (!agree) {
+            this.setState({
+                loading: false,
+                message: "Musíte ptvrdiť, že nemáte otvorený účet v doTERRA"
+            });
+
+            return;
+        }
 
         if (email.trim() === "" || answer.trim() === "") {
             this.setState({
@@ -150,23 +161,9 @@ class RegisterContest extends React.Component {
 
                         <div style={{ height: 20 }} />
 
-                        <p className="heading">Viete vymenovať 3 esenciálne oleje, ktoré produkuje strom pomarančovníka?</p>
+                        <p className="heading">Viete vymenovať 3 esenciálne oleje, ktoré produkuje strom pomarančovníka? Pomôcka je v našom videu</p>
                         
                         <div style={{ height: 30 }} />
-
-                        <div className="form">
-                            <input className="field" type="text" value={this.state.email} onChange={(event) => this.setState({ email: event.target.value })} placeholder="Váš súťažný e-mail" />
-                            <input className="field" type="text" value={this.state.answer} onChange={(event) => this.setState({ answer: event.target.value })} placeholder="Váša odpoveď" />
-                            <div className="button-filled" onClick={() => this.sendAnswer()}>Odoslať</div>
-                        </div>
-
-                        <div style={{ height: 30 }} />
-
-                        <p className="text">
-                            Víťaza vyhlasujeme vždy prvý deň v mesiaci na našom <a href="https://www.facebook.com/TerraMia-150670722157317" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Facebooku</a> a <a href="https://www.instagram.com/terramia.sk/" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Instagrame</a>. Ak nevyhráte, nezúfajte, pre všetkých zúčastnených máme pripravený <b style={{ color: "#383838" }}>esenciálny darček :)</b>
-                        </p>
-
-                        <div style={{ height: 0 }} />
 
                         <ReactPlayer
                             url="https://www.youtube.com/watch?v=d2DroL2ok8o"
@@ -174,6 +171,30 @@ class RegisterContest extends React.Component {
                             width={this.state.videoWidth}
                             height={this.state.videoHeight}
                         />
+
+                        <div style={{ height: 30 }} />
+
+                        <div className="form">
+                            <input className="field" type="text" value={this.state.email} onChange={(event) => this.setState({ email: event.target.value })} placeholder="Váš súťažný e-mail" />
+                            <input className="field" type="text" value={this.state.answer} onChange={(event) => this.setState({ answer: event.target.value })} placeholder="Váša odpoveď" />
+
+                            <div style={{ height: 10 }} />
+
+                            <div className="checkbox" onClick={() => this.setState((state) => ({ agree: !state.agree }))}>
+                                <div className="bullet" style={this.state.agree ? { backgroundColor: "#A161B3" } : null}></div>
+                                <div className="item-title">Potvrdzujem, že nemám účet v doTERRA</div>
+                            </div>
+
+                            <div style={{ height: 10 }} />
+
+                            <div className="button-filled" onClick={() => this.sendAnswer()}>Odoslať</div>
+                        </div>
+
+                        <div style={{ height: 30 }} />
+
+                        <p className="text">
+                            Víťaza vyhlasujeme vždy prvý deň v mesiaci na našom <a href="https://www.facebook.com/TerraMia-150670722157317" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Facebooku</a> a <a href="https://www.instagram.com/terramia.sk/" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Instagrame</a>. Ak nevyhráte, nezúfajte, pre všetkých zúčastnených máme pripravený <b style={{ color: "#383838" }}>esenciálny darček :)</b>
+                        </p>                        
                     </div>
                 </div>
             </div>

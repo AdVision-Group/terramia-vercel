@@ -98,6 +98,12 @@ class Cart extends React.Component {
             products: products,
             totalPoints: totalPoints
         });
+
+        if (productsType !== "terramia") {
+            setTimeout(() => {
+                this.setState({ banner: true });
+            }, 2000);
+        }
     }
 
     async evaluateCoupon() {
@@ -181,10 +187,6 @@ class Cart extends React.Component {
         await this.loadData();
 
         hideTransition();
-
-        setTimeout(() => {
-            this.setState({ banner: true });
-        }, 2000);
     }
 
     closeBanner() {
@@ -245,20 +247,18 @@ class Cart extends React.Component {
                 </div>
 
                 {this.state.banner ? (
-                    /*<Banner
-                        title={this.state.totalPoints > 100 ? "Získaj zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov" : "Nakúp ešte za " + (100 - this.state.totalPoints) + " bodov a získaj 25% zľavu"}
-                        text={this.state.totalPoints > 100 ? "Otvorte si účet v doTERRA a získajte 25% zľavu na celý nákup." : "Ak nakúpite produkty ešte za " + (100 - this.state.totalPoints) + " bodov, získate možnosť OTVORENIA ÚČTU v doTERRA a dostanete 25% zľavu na Váš nákup"}
-                        button={this.state.totalPoints > 100 ? "Zisti viac" : "Nakupovať"}
-                        location={this.state.totalPoints > 100 ? "/sutaz-o-vstupny-balicek" : "/e-shop"}
-                        image={this.state.totalPoints > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}
-                        closeBanner={this.closeBanner}
-                    />*/
-
                     <Banner
-                        title={this.state.totalPoints < 100 ? "Nakúpte ešte za " + (100 - this.state.totalPoints) + " bodov a získajte 25% zľavu. Nakúpte ešte za " + (200 - this.state.totalPoints) + " bodov a získajte 4 doTERRA produkty v hodnote 100€" : this.state.totalPoints >= 100 && this.state.totalPoints < 200 ? "Získajte zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov. Ešte Vám chýba " + (200 - this.state.totalPoints) + " bodov na získanie 4 doTERRA produktov v hodnote 100€." : "Vďaka Vášmu nákupu nad 200 bodov môžete získať zľavu 25% na celý nákup a 4 doTERRA produkty v hodnote 100€"}
+                        title={
+                            this.state.totalPoints < 100 ?
+                            "Nakúpte ešte za " + (100 - this.state.totalPoints) + " bodov a získajte 25% zľavu. Kúpte si jeden zo zvýhodnených balíkov a k zľave 25% získate ešte 4 darčeky."
+                            :
+                            this.state.totalPoints >= 100 && this.state.totalPoints < 200 ?
+                            "Získajte zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov. Ak máte v košíku jeden zo zvýhodnených balíkov, tak automaticky získavate k zľave 25% ešte 4 darčeky."
+                            :
+                            "Vďaka Vášmu nákupu nad 200 bodov môžete získať zľavu 25% na celý nákup a 4 doTERRA produkty v hodnote 100€"}
                         text=""
                         button={this.state.totalPoints > 100 ? "Zisti viac" : "Nakupovať"}
-                        location={this.state.totalPoints > 100 ? "/sutaz-o-vstupny-balicek" : "/e-shop"}
+                        location={this.state.totalPoints > 100 ? "/kde-kupit-esencialne-oleje" : "/e-shop"}
                         image={this.state.totalPoints > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}
                         closeBanner={this.closeBanner}
                     />

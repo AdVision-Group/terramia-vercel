@@ -197,6 +197,7 @@ class Profile extends React.Component {
 
                         <div className="button-panel">
                             {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
+                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/archiv-webinarov" style={{ marginRight: 20 }}>Archív</Link> : null}
                             {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
                             {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
                             {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}

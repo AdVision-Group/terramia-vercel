@@ -80,6 +80,7 @@ export default class Home extends React.Component {
                     <meta name="keywords" content="doterra, esenciálne oleje, doterra oleje, esencialne oleje, doterra sk, oleje doterra, doterra slovensko, esenciálne oleje doterra, doterra esenciálne oleje, doterra eshop, kde kupit esencialne oleje, prírodné esenciálne oleje, esencialne oleje doterra"></meta>
                 </Helmet>
 
+                {/*
                 <div className="slideshow">
                     <h2 className="title fade-in-up animate__delay-1s">
                         {getStorageItem("token") ? "Vyberte si zo širokej ponuky esenciálnych olejov v našom e-shope" : "Klub TerraMia, cesta ku špičkovej starostlivosti"}
@@ -91,7 +92,26 @@ export default class Home extends React.Component {
                         {getStorageItem("token") ? "Získaj 25% zľavu" : " Staň sa členom klubu"}
                     </Link>
 
-                    <div onClick={() => SmoothScroll.scroll("#oils")}><img className="arrow" src={require("../assets/arrow.png")} onClick={() => {/*this.scrollDown()*/}} loading="lazy" /></div>
+                    <div onClick={() => SmoothScroll.scroll("#oils")}><img className="arrow" src={require("../assets/arrow.png")} loading="lazy" /></div>
+                </div>
+                */}
+
+                <div className="slideshow">
+                    <h2 className="title fade-in-up animate__delay-1s">
+                    Využite zľavu 10% na Veľký balík nevyhnutností pre domácnosť a Balík techniky Aromatouch. Akcia platí len do konca mesiaca.
+                    </h2>
+
+                    <div className="banner-buttons fade-in-up animate__delay-5s">
+                        <Link className="button-filled" to="/e-shop/1-velky-balik-nevyhnutnosti-pre-domacnost">
+                            Veľký balík
+                        </Link>
+
+                        <Link className="button-filled" to="/e-shop/3-balik-techniky-aromatouch">
+                            Balík Aromatouch
+                        </Link>
+                    </div>
+
+                    <div onClick={() => SmoothScroll.scroll("#oils")}><img className="arrow" src={require("../assets/arrow.png")} loading="lazy" /></div>
                 </div>
 
                 <div className="oils" id="oils" style={{ position: "relative" }}>
@@ -172,7 +192,7 @@ export default class Home extends React.Component {
                             text="Otvorte si vlastný účet doTERRA a získavajte pravidelné výhody podľa vášho výberu a nakupujte produkty doTERRA oveľa výhodnejšie!"
                             button="Zisti viac"
                             image={require("../assets/popup-rodinka.png")}
-                            location="/sutaz-o-vstupny-balicek"
+                            location="/kde-kupit-esencialne-oleje"
                             closeBanner={this.closeBanner}
                         />
                     :

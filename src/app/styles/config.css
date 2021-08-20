@@ -11,6 +11,10 @@
     font-family: "Nunito", sans-serif;
 }
 
+html {
+    scroll-behavior: initial;
+}
+
 body {
     overflow-x: hidden;
 }

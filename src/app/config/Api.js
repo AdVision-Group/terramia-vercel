@@ -8,6 +8,261 @@ export default class Api extends React.Component {
         super();
     }
 
+    // VIDEO ARCHIVE
+
+    static async addVideo(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/video", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async editVideo(data, id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "PUT",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/video/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async removeVideo(id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "DELETE",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/video/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getVideos(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        if (token != null) headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/video/filter", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getVideo(link, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+       
+        if (token != null) headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/video?filters.link=" + link, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getVideoById(id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+       
+        if (token != null) headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/video/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async addImageToVideo(id, image, token) {
+        var headers = new Headers();
+        headers.append("auth-token", token);
+
+        var formdata = new FormData();
+        formdata.append("image", image, "image.png");
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: formdata,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/video/" + id + "/image", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getConfig() {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/config", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async updateConfig(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/config", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getAccess(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/access", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async retrieveAccess(token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/access", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    //////////
+
     static async getCoupon(code) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");

@@ -81,6 +81,8 @@ class Confirm extends React.Component {
             }
         }
 
+        setStorageItem("order-user-data", JSON.stringify(user));
+
         this.setState({
             user: user,
             order: order,

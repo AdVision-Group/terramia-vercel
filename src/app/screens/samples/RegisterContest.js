@@ -187,7 +187,7 @@ class RegisterContest extends React.Component {
 
                             <div style={{ height: 10 }} />
 
-                            <div className="button-filled" onClick={() => this.sendAnswer()}>Odoslať</div>
+                            <div className="button-filled" id="RegSutaz" onClick={() => this.sendAnswer()}>Odoslať</div>
                         </div>
 
                         <div style={{ height: 30 }} />

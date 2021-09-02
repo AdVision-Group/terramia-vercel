@@ -61,7 +61,7 @@ export default class ArchivePopup extends React.Component {
                 <div className="popup">
                     <div className="title">Odomknúť webináre</div>
                     <div className="text">
-                        Vyberte si jeden z časových úsekov, na ktorú si chcete webináre odomknúť
+                        Vyberte si prosím dĺžku odomknutia webinárov. Počas tejto zakúpenej doby si budete môcť všetky webináre bez obmedzení prehrávať.
                     </div>
 
                     <div className="chooser">

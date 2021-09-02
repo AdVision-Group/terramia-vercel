@@ -98,7 +98,7 @@ export default class Home extends React.Component {
 
                 <div className="slideshow">
                     <h2 className="title fade-in-up animate__delay-1s">
-                    Využite zľavu 10% na Veľký balík nevyhnutností pre domácnosť a Balík techniky Aromatouch. Akcia platí len do konca mesiaca.
+                        Získajte pri kúpe Veľkého balíka nevyhnutností pre domácnosť 8 esenciálnych darčekov. Akcia platí do konca septembra.
                     </h2>
 
                     <div className="banner-buttons fade-in-up animate__delay-5s">
@@ -106,8 +106,8 @@ export default class Home extends React.Component {
                             Veľký balík
                         </Link>
 
-                        <Link className="button-filled" to="/e-shop/3-balik-techniky-aromatouch">
-                            Balík Aromatouch
+                        <Link className="button-filled" to="/blog/8-darcekov-k-nakupu-v-septembri">
+                            Viac informácií
                         </Link>
                     </div>
 

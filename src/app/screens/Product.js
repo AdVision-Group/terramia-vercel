@@ -195,7 +195,7 @@ class Product extends React.Component {
                         text="Otvorte si vlastný účet doTERRA a získavajte pravidelné výhody podľa vášho výberu a nakupujte produkty doTERRA oveľa výhodnejšie!"
                         button="Zisti viac"
                         image={require("../assets/popup-rodinka.png")}
-                        location="/sutaz-o-vstupny-balicek"
+                        location="/kde-kupit-esencialne-oleje"
                         closeBanner={this.closeBanner}
                     />
                 ) : null}

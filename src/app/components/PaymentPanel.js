@@ -42,7 +42,7 @@ class PaymentPanel extends React.Component {
 
                 {order.paymentType &&
                     order.paymentType.value === "cash" ?
-                        <div className="button" onClick={this.props.onClick}>Objednať</div>
+                        <div className="button" id="PotvredenieObj" onClick={this.props.onClick}>Objednať</div>
                     :
                         <Elements stripe={promise} style={{ width: "100%" }}>
                             <CheckoutForm createOrder={this.props.createOrder} redirect={this.redirect} />

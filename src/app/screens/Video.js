@@ -128,13 +128,13 @@ class Video extends React.Component {
 
                     {status === 1 ?
                         <div className="status-banner">
-                            Pre odomknutie webinárov a tohoto videa sa musíte prihlásiť a zakúpiť si odber na webináre.
+                            Prihláste sa a odomknite si všetky webináre vrátane tohto videa ich zakúpením.
 
                             <div className="button-filled" onClick={() => this.props.history.push("/prihlasenie")}>Prihlásiť sa</div>
                         </div>
                     : status === 2 ?
                         <div className="status-banner">
-                            Pre odomknutie webinárov a tohoto videa si ich musíte zakúpiť.
+                            Odomknite si všetky webináre vrátane tohto videa ich zakúpením.
 
                             <div className="button-filled" onClick={() => this.setState({ banner: true })}>Zakúpiť</div>
                         </div>
@@ -143,6 +143,8 @@ class Video extends React.Component {
                             Webináre máte zakúpené a odomknuté (zostáva {daysLeft} dní)
                         </div>
                     }
+
+                    <p className="charity-message">100% z vami zaplatenej sumy posielame na internetovú linku dôvery pre mladých ľudí - IPčko.sk . Sme radi, že pomáhate spolu s nami.</p>
                 </div>
 
                 {status === 3 && daysLeft > 0 && video.vimeoId &&

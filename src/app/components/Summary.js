@@ -77,14 +77,14 @@ class Summary extends React.Component {
 
                 {(order.applyDiscount == null || order.applyDiscount === false) && order.totalPoints != null && order.totalPoints >= 100 &&
                     <div className="item">
-                        <div className="label">Možnosť zľavy 25% <ion-icon name="help-circle-outline" onClick={() => this.props.history.push("/sutaz-o-vstupny-balicek")}></ion-icon></div>
+                        <div className="label">Možnosť zľavy 25% <ion-icon name="help-circle-outline" onClick={() => this.props.history.push("/kde-kupit-esencialne-oleje")}></ion-icon></div>
                         <div className="value">Áno</div>
                     </div>
                 }
 
                 {order.applyDiscount != null && order.applyDiscount === true &&
                     <div className="item">
-                        <div className="label">Zľava 25% <ion-icon name="help-circle-outline" onClick={() => this.props.history.push("/sutaz-o-vstupny-balicek")}></ion-icon></div>
+                        <div className="label">Zľava 25% <ion-icon name="help-circle-outline" onClick={() => this.props.history.push("/kde-kupit-esencialne-oleje")}></ion-icon></div>
                         <div className="value">{(order.totalDiscount / 100).toFixed(2)}€</div>
                     </div>
                 }

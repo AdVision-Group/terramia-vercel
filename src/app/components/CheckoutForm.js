@@ -92,7 +92,7 @@ export default function CheckoutForm(props) {
                 disabled={processing || disabled || succeeded}
                 id="submit"
             >
-                <span id="button-text">
+                <span id="button-text" id="PotvredenieObj">
                 {processing ? (
                     <div className="spinner" id="spinner"></div>
                 ) : (

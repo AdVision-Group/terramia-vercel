@@ -253,12 +253,13 @@ class Cart extends React.Component {
                             "Nakúpte ešte za " + (100 - this.state.totalPoints) + " bodov a získajte 25% zľavu. Kúpte si jeden zo zvýhodnených balíkov a k zľave 25% získate ešte 4 darčeky."
                             :
                             this.state.totalPoints >= 100 && this.state.totalPoints < 200 ?
-                            "Získajte zľavu 25% na celý nákup vďaka tvojmu nákupu nad 100 bodov. Ak máte v košíku jeden zo zvýhodnených balíkov, tak automaticky získavate k zľave 25% ešte 4 darčeky."
+                            "Získajte zľavu 25% na celý nákup vďaka Vášmu nákupu nad 100 bodov. K ďalším 8 darčekom Vám chýba nakúpiť za " + (200 - this.state.totalPoints) + " bodov."
                             :
-                            "Vďaka Vášmu nákupu nad 200 bodov môžete získať zľavu 25% na celý nákup a 4 doTERRA produkty v hodnote 100€"}
+                            "Gratulujeme, okrem zľavy 25% získavate aj 8 esenciálnych darčekov."
+                        }
                         text=""
-                        button={this.state.totalPoints > 100 ? "Zisti viac" : "Nakupovať"}
-                        location={this.state.totalPoints > 100 ? "/kde-kupit-esencialne-oleje" : "/e-shop"}
+                        button={this.state.totalPoints < 100 ? "Nakupovať" : "Zisti viac"}
+                        location={this.state.totalPoints < 100 ? "/e-shop" : "/blog/8-darcekov-k-nakupu-v-septembri"}
                         image={this.state.totalPoints > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}
                         closeBanner={this.closeBanner}
                     />

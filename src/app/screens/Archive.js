@@ -226,7 +226,7 @@ class Archive extends React.Component {
                 <div className="content">
                     <h2 className="title">Archív webinárov</h2>
                     <p className="text">
-                        Pozrite si záznamy všetkých našich webinárov v pohodlí Vášho domova a dozveďte sa viac o našom klube TerraMia.
+                        Nájdete tu všetky vzdelávacie webináre od TerraMia, ktorých záznamy si môžete pozrieť po zakúpení kedykoľvek a kdekoľvek.
                     </p>
 
                     <div className="filters">
@@ -251,13 +251,13 @@ class Archive extends React.Component {
 
                     {status === 1 ?
                         <div className="status-banner">
-                            Pre odomknutie webinárov sa musíte prihlásiť a zakúpiť si odber na webináre.
+                            Prihláste sa a odomknite si všetky webináre ich zakúpením.
 
                             <div className="button-filled" onClick={() => this.props.history.push("/prihlasenie")}>Prihlásiť sa</div>
                         </div>
                     : status === 2 ?
                         <div className="status-banner">
-                            Pre odomknutie webinárov si ich musíte zakúpiť.
+                            Odomknite si všetky webináre ich zakúpením.
 
                             <div className="button-filled" onClick={() => this.setState({ banner: true })}>Zakúpiť</div>
                         </div>
@@ -266,6 +266,8 @@ class Archive extends React.Component {
                             Webináre máte zakúpené a odomknuté (zostáva {daysLeft} dní)
                         </div>
                     }
+
+                    <p className="charity-message">100% z vami zaplatenej sumy posielame na internetovú linku dôvery pre mladých ľudí - IPčko.sk . Sme radi, že pomáhate spolu s nami.</p>
 
                     {videos.length === 0 ?
                         <div className="message">Žiadne videá</div>

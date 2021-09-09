@@ -10,6 +10,7 @@ import Popup from "../../components/Popup";
 import { showTransition, hideTransition } from "../../components/Transition";
 
 import "../../styles/register1.css";
+import { setStorageItem } from "../../config/config";
 
 class RegisterContest extends React.Component {
 
@@ -42,7 +43,7 @@ class RegisterContest extends React.Component {
         if (!agree) {
             this.setState({
                 loading: false,
-                message: "Musíte ptvrdiť, že nemáte otvorený účet v doTERRA"
+                message: "Musíte potvrdiť, že nemáte otvorený účet v doTERRA"
             });
 
             return;
@@ -62,10 +63,8 @@ class RegisterContest extends React.Component {
         const call = await Api.sendCompetitionAnswer({ email: email });
 
         if (!call.error) {
-            this.setState({
-                loading: false,
-                message: call.message
-            });
+            setStorageItem("order-user-data", JSON.stringify({ email: email }));
+            this.props.history.push("/dakujeme-za-zapojenie-do-sutaze");
         } else {
             this.setState({
                 loading: false,
@@ -161,7 +160,9 @@ class RegisterContest extends React.Component {
 
                         <div style={{ height: 20 }} />
 
-                        <p className="heading">Viete vymenovať 3 esenciálne oleje, ktoré produkuje strom pomarančovníka? Pomôcka je v našom videu</p>
+                        <p className="heading">
+                            Viete povedať, asi koľko rastlín na svete obsahuje esenciálne oleje? Pomôcka je v našom videu
+                        </p>
                         
                         <div style={{ height: 30 }} />
 

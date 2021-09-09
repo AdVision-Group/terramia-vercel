@@ -87,8 +87,10 @@ export default class Router extends React.Component {
                     <Switch>
                         <Route exact path="/"><Home /></Route>
 
+                        
                         <Route exact path="/webinare"><Archive /></Route>
                         <Route exact path="/webinare/:link"><Video /></Route>
+                        
 
                         <Route exact path="/kde-kupit-esencialne-oleje"><Contest /></Route>
                         <Route exact path="/kviz"><Quiz /></Route>
@@ -116,6 +118,7 @@ export default class Router extends React.Component {
                         <Route exact path="/vzorka-zadarmo/vytvorenie-hesla"><RegisterPassword /></Route>
                         <Route exact path="/vzorka-zadarmo/prihlasenie"><RegisterLogin /></Route>
                         <Route exact path="/vzorka-zadarmo/suhrn-clenstva"><RegisterSuccess /></Route>
+                        <Route exact path="/dakujeme-za-zapojenie-do-sutaze"><Success type="contest" /></Route>
 
                         <Route exact path="/stan-sa-clenom"><Register1 /></Route>
                         <Route exact path="/stan-sa-clenom/fakturacne-udaje"><Register2 /></Route>
@@ -133,9 +136,11 @@ export default class Router extends React.Component {
 
                         <Route exact path="/admin/analytika"><AdminAnalytics /></Route>
                         
+                        
                         <Route exact path="/admin/archiv-webinarov"><AdminArchive /></Route>
                         <Route exact path="/admin/pridat-video"><AdminVideo /></Route>
                         <Route exact path="/admin/upravit-video/:id"><AdminVideo /></Route>
+                        
                         
                         <Route exact path="/admin/registracia-novych-clenov"><AdminEmails /></Route>
                         <Route exact path="/admin/objednavky"><AdminOrders /></Route>

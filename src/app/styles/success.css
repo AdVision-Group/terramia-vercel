@@ -41,6 +41,11 @@
     margin-top: 30px;
 }
 
+#success .content p {
+    text-align: center;
+    line-height: 170%;
+}
+
 @media (max-width: 1100px) {
     #success .content {
         padding: 50px;

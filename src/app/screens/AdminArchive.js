@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import { showTransition, hideTransition } from "../components/Transition";
 
 import "../styles/admin.css";
+import CouponPopup from "../components/CouponPopup";
 
 class AdminArchive extends React.Component {
 
@@ -27,7 +28,13 @@ class AdminArchive extends React.Component {
             authors: []
         },
 
+        coupons: [],
+
         videos: [],
+
+        couponPopup: false,
+        couponPopupType: "add",
+        coupon: null,
 
         popup: false,
         title: "",
@@ -40,12 +47,81 @@ class AdminArchive extends React.Component {
 
         this.loadData = this.loadData.bind(this);
 
+        this.addCoupon = this.addCoupon.bind(this);
+        this.editCoupon = this.editCoupon.bind(this);
+        this.deleteCoupon = this.deleteCoupon.bind(this);
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
         this.addTopic = this.addTopic.bind(this);
         this.removeTopic = this.removeTopic.bind(this);
         this.addAuthor = this.addAuthor.bind(this);
         this.removeAuthor = this.removeAuthor.bind(this);
+    }
+
+    async addCoupon(data) {
+        this.setState({ couponPopup: false, popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.addNewCoupon(data, token);
+
+        if (!call.error) {
+            this.setState({
+                loading: false,
+                title: "Kupón úspešne pridaný",
+                onPopupClose: () => this.setState({ popup: false }, () => window.location.reload())
+            });
+        } else {
+            this.setState({
+                loading: false,
+                title: "Nepodarilo sa pridať kupón",
+                onPopupClose: () => this.setState({ popup: false, couponPopup: true })
+            });
+        }
+    }
+
+    async editCoupon(data) {
+        this.setState({ couponPopup: false, popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.editCoupon(this.state.coupon._id, data, token);
+
+        if (!call.error) {
+            this.setState({
+                loading: false,
+                title: "Kupón úspešne upravený",
+                onPopupClose: () => this.setState({ popup: false }, () => window.location.reload())
+            });
+        } else {
+            this.setState({
+                loading: false,
+                title: "Nepodarilo sa upraviť kupón",
+                onPopupClose: () => this.setState({ popup: false, couponPopup: true })
+            });
+        }
+    }
+
+    async deleteCoupon(id) {
+        this.setState({ popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.deleteCoupon(id, token);
+
+        if (!call.error) {
+            this.setState({
+                loading: false,
+                title: "Kupón úspešne vymazaný",
+                onPopupClose: () => this.setState({ popup: false }, () => window.location.reload())
+            });
+        } else {
+            this.setState({
+                loading: false,
+                title: "Nepodarilo sa vymazať kupón",
+                onPopupClose: () => this.setState({ popup: false, couponPopup: true })
+            });
+        }
     }
 
     async addCategory() {
@@ -249,8 +325,13 @@ class AdminArchive extends React.Component {
         const getVideos = await Api.getVideos({ filters: {} }, token);
 
         if (getVideos.videos) {
-            console.log(getVideos.videos);
             this.setState({ videos: getVideos.videos });
+        }
+
+        const getCoupons = await Api.getAllCoupons(token);
+
+        if (getCoupons.archiveCoupons) {
+            this.setState({ coupons: getCoupons.archiveCoupons });
         }
     }
 
@@ -264,6 +345,7 @@ class AdminArchive extends React.Component {
 
     render() {
         const { categories, topics, authors } = this.state.config;
+        const { coupons } = this.state;
         const { videos } = this.state;
         
         return(
@@ -282,6 +364,17 @@ class AdminArchive extends React.Component {
                         onClick={this.state.onPopupClose}
                     />
                 ) : null}
+
+                {this.state.couponPopup &&
+                    <CouponPopup
+                        addCoupon={this.addCoupon}
+                        editCoupon={this.editCoupon}
+                        close={() => this.setState({ couponPopup: false })}
+                        type={this.state.couponPopupType}
+                        coupon={this.state.coupon}
+                        videos={this.state.videos}
+                    />
+                }
 
                 <div className="content">
                     <div className="title">Archív webinárov</div>
@@ -351,6 +444,39 @@ class AdminArchive extends React.Component {
                             </div>
                         </div>
                     }
+
+                    <div className="section" style={{ paddingBottom: 10 }}>
+                        Kupóny
+                        <div style={{ flex: 1 }} />
+                        <div className="button-filled" onClick={() => this.setState({ couponPopup: true, couponPopupType: "add" })}>Pridať kupón</div>
+                    </div>
+
+                    <div className="coupons">
+                        {coupons.map((item, index) =>
+                            <div className="coupon">
+                                <div className="label">Kód kupónu:</div>
+                                <div className="value">{item.code}</div>
+
+                                <div className="label">Max. použití:</div>
+                                <div className="value">{item.maxUses}</div>
+
+                                <div className="label">Použitia:</div>
+                                <div className="value">{item.uses}</div>
+
+                                <div className="label">Ostáva:</div>
+                                <div className="value">{item.maxUses - item.uses}</div>
+
+                                <div className="label">Expiruje</div>
+                                <div className="value">{item.domain[0].until.split("/").join(".")}</div>
+
+                                <div style={{ height: 20 }} />
+                                <div style={{ height: 20 }} />
+
+                                <div className="button-filled" onClick={() => this.setState({ couponPopup: true, couponPopupType: "edit", coupon: item })}>Upraviť</div>
+                                <div className="button-outline" onClick={() => this.deleteCoupon(item._id)}>Vymazať</div>
+                            </div>
+                        )}
+                    </div>
 
                     <div className="section" style={{ paddingBottom: 10 }}>
                         Videá

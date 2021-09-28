@@ -31,7 +31,8 @@ const archiveTiers = [
 export default class ArchivePopup extends React.Component {
 
     state = {
-        tier: 2
+        tier: 2,
+        coupon: ""
     }
 
     constructor() {
@@ -54,12 +55,21 @@ export default class ArchivePopup extends React.Component {
     }
 
     render() {
-        const { tier } = this.state;
+        const { tier, coupon } = this.state;
 
         return (
             <div className="archive-popup-screen">
                 <div className="popup">
                     <div className="title">Odomknúť webináre</div>
+                    <div className="text">
+                        Ak máte kupón na odomknutie webinárov, načítajte si ho v textovom poli nižšie.
+                    </div>
+
+                    <div className="coupon-panel">
+                        <input type="text" className="field" value={coupon} onChange={(event) => this.setState({ coupon: event.target.value })} placeholder="Kupón" />
+                        <div className="button-filled" onClick={() => this.props.redeemCoupon(coupon)}>Použiť</div>
+                    </div>
+
                     <div className="text">
                         Vyberte si prosím dĺžku odomknutia webinárov. Počas tejto zakúpenej doby si budete môcť všetky webináre bez obmedzení prehrávať.
                     </div>

@@ -75,7 +75,7 @@ class Header extends React.Component {
                             
                                 <Link to="/webinare" className="item">Webináre</Link>
                                 <div className="divider" />
-                               
+                          
                                 <Link className="item" to="/novinky">Novinky</Link>
                                 <div className="divider" />
                                 <Link to="/blog" className="item">Blog</Link>

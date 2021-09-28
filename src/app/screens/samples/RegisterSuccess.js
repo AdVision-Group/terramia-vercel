@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import { removeStorageItem } from "../../config/config";
+import Api from "../../config/Api";
 
 import { showTransition, hideTransition } from "../../components/Transition";
 
@@ -21,10 +22,42 @@ class RegisterSuccess extends React.Component {
         type: "info",
         message: "",
         loading: false,
+
+        troubleshooting: false
     }
 
     constructor() {
         super();
+
+        this.sendHelp = this.sendHelp.bind(this);
+    }
+
+    async sendHelp(email, message, error, browser) {
+        this.setState({
+            troubleshooting: false,
+            popup: true,
+            loading: true
+        });
+
+        const call = await Api.help({
+            email: email.trim(),
+            message: "Chyba: " + error + ", prehliadač: " + browser + ", správa: " + message,
+
+            name: "Nezadané",
+            phone: "0000000000"
+        });
+
+        if (call.error) {
+            this.setState({
+                loading: false,
+                message: "Zadaný e-mail je nesprávny"
+            });
+        } else {
+            this.setState({
+                loading: false,
+                message: "Správa úspešne odoslaná, čoskoro Vás budeme kontaktovať"
+            });
+        }
     }
 
     async componentDidMount() {
@@ -57,7 +90,7 @@ class RegisterSuccess extends React.Component {
                         <div style={{ height: 30 }} />
 
                         <p className="text">
-                            Ďakujeme Vám za objednanie si vzorky esenciálnych olejov. Dúfame, že Vám bude po chuti
+                            Ďakujeme Vám za objednanie si vzorky esenciálnych olejov. Dúfame, že Vám bude vyhovovať!
                         </p>
 
                         <div style={{ height: 20 }} />

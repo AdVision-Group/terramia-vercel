@@ -25,7 +25,9 @@ class RegisterContest extends React.Component {
        loading: false,
 
        videoWidth: 0,
-       videoHeight: 0
+       videoHeight: 0,
+
+       troubleshooting: false
     }
 
     constructor() {
@@ -33,6 +35,35 @@ class RegisterContest extends React.Component {
 
         this.sendAnswer = this.sendAnswer.bind(this);
         this.handleResize = this.handleResize.bind(this);
+        this.sendHelp = this.sendHelp.bind(this);
+    }
+
+    async sendHelp(email, message, error, browser) {
+        this.setState({
+            troubleshooting: false,
+            popup: true,
+            loading: true
+        });
+
+        const call = await Api.help({
+            email: email.trim(),
+            message: "Chyba: " + error + ", prehliadač: " + browser + ", správa: " + message,
+
+            name: "Nezadané",
+            phone: "0000000000"
+        });
+
+        if (call.error) {
+            this.setState({
+                loading: false,
+                message: "Zadaný e-mail je nesprávny"
+            });
+        } else {
+            this.setState({
+                loading: false,
+                message: "Správa úspešne odoslaná, čoskoro Vás budeme kontaktovať"
+            });
+        }
     }
 
     async sendAnswer() {
@@ -147,6 +178,14 @@ class RegisterContest extends React.Component {
                     />
                 ) : null}
 
+                {this.state.troubleshooting ? (
+                    <Popup
+                        type="troubleshooting"
+                        onClick={this.sendHelp}
+                        close={() => this.setState({ troubleshooting: false })}
+                    />
+                ) : null}
+
                 <div className="content">
                     <div className="left-panel">
                         <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
@@ -195,7 +234,11 @@ class RegisterContest extends React.Component {
 
                         <p className="text">
                             Víťaza vyhlasujeme vždy prvý deň v mesiaci na našom <a href="https://www.facebook.com/TerraMia-150670722157317" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Facebooku</a> a <a href="https://www.instagram.com/terramia.sk/" style={{ textDecoration: "none", color: "#A161B3", fontWeight: "bold" }}>Instagrame</a>. Ak nevyhráte, nezúfajte, pre všetkých zúčastnených máme pripravený <b style={{ color: "#383838" }}>esenciálny darček :)</b>
-                        </p>                        
+                        </p>     
+
+                        <div id="troubleshooting-panel" onClick={() => this.setState({ troubleshooting: true })}>
+                            Nedarí sa Vám zapojiť do súťaže?
+                        </div>                
                     </div>
                 </div>
             </div>

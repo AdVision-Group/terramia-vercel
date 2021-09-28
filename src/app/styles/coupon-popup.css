@@ -1,4 +1,4 @@
-.archive-popup-screen {
+.coupon-popup-screen {
     position: fixed;
     left: 0px;
     top: 0px;
@@ -22,7 +22,7 @@
     z-index: 200;
 }
 
-.archive-popup-screen .popup {
+.coupon-popup-screen .popup {
     position: relative;
 
     display: flex;
@@ -38,7 +38,7 @@
     background-color: white;
 }
 
-.archive-popup-screen .popup .title {
+.coupon-popup-screen .popup .title {
     color: #383838;
     font-size: 25px;
     font-weight: 700;
@@ -48,7 +48,7 @@
     margin-bottom: 15px;
 }
 
-.archive-popup-screen .popup .text {
+.coupon-popup-screen .popup .text {
     color: rgba(0, 0, 0, 0.5);
     font-size: 16px;
     font-weight: 400;
@@ -58,17 +58,7 @@
     margin-bottom: 20px;
 }
 
-.archive-popup-screen .popup .coupon-panel {
-    width: 100%;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    margin-bottom: 30px;
-}
-
-.archive-popup-screen .popup .coupon-panel .field {
+.coupon-popup-screen .popup .field {
     color: black;
     font-size: 15px;
     font-weight: 400;
@@ -77,6 +67,7 @@
 
     margin: 0px;
     margin-right: 10px;
+    margin-bottom: 10px;
 
     flex: 1;
 
@@ -84,11 +75,7 @@
     outline: none;
 }
 
-.archive-popup-screen .popup .coupon-panel .button-filled {
-    margin: 0px;
-}
-
-.archive-popup-screen .popup .chooser {
+.coupon-popup-screen .popup .chooser {
     width: 100%;
 
     display: grid;
@@ -96,7 +83,7 @@
     gap: 20px;
 }
 
-.archive-popup-screen .popup .chooser .item {
+.coupon-popup-screen .popup .chooser .item {
     color: black;
     font-size: 14px;
     font-weight: 600;
@@ -112,15 +99,48 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-.archive-popup-screen .popup .chooser .item:hover {
+.coupon-popup-screen .popup .chooser .item:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.archive-popup-screen .popup .chooser .selected {
+.coupon-popup-screen .popup .chooser .selected {
     color: white;
     background-color: #A161B3;
 }
 
-.archive-popup-screen .popup .chooser .selected:hover {
+.coupon-popup-screen .popup .chooser .selected:hover {
     background-color: #A161B3;
+}
+
+.coupon-popup-screen .popup .button-panel {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 15px;
+}
+
+.coupon-popup-screen .popup .video-panel {
+    width: 100%;
+    margin: -10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    background-color: none;
+    box-shadow: none;
+}
+
+.coupon-popup-screen .popup .video-panel .video-item {
+    padding: 10px;
+    margin: 8px;
+
+    background-color: rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+}
+
+.coupon-popup-screen .popup .video-panel .video-item .name {
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
 }

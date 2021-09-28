@@ -505,6 +505,42 @@
     font-size: 16px;
 }
 
+#admin-archive .coupons {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+#admin-archive .coupons .coupon {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px 20px;
+
+    padding: 20px;
+
+    border-radius: 5px;
+
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#admin-archive .coupons .coupon .label {
+    color: #383838;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+}
+
+#admin-archive .coupons .coupon .value {
+    color: #383838;
+    font-size: 15px;
+    font-weight: 400;   
+    line-height: 15px;
+}
+
 #admin-archive .videos {
     width: 100%;
 

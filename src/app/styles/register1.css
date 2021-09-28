@@ -281,3 +281,29 @@
     margin: 0px;
     margin-top: 10px;
 }
+
+#troubleshooting-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    color: #383838;
+    font-size: 16px;
+    font-weight: 400;
+
+    margin-top: 40px;
+
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #troubleshooting-panel {
+        margin: 0px;
+        margin-top: 20px;
+    }
+}
+
+#troubleshooting-panel:hover {
+    text-decoration: underline;
+}

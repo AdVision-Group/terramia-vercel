@@ -116,7 +116,7 @@ export default class Api extends React.Component {
             redirect: "follow"
         };
 
-        return fetch(API_URL + "/api/archive/video?filters.link=" + link, requestOptions)
+        return fetch(API_URL + "/api/archive/video/" + link, requestOptions)
             .then(response => response.json())
             .then(result => {
                 return result
@@ -252,6 +252,120 @@ export default class Api extends React.Component {
         };
 
         return fetch(API_URL + "/api/archive/access", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async redeemCoupon(code, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify({});
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/archive/coupons/" + code + "/redeem", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getAllCoupons(token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/coupons", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async addNewCoupon(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/coupons", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async editCoupon(id, data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "PUT",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/coupons/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async deleteCoupon(id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "DELETE",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/archive/coupons/" + id, requestOptions)
             .then(response => response.json())
             .then(result => {
                 return result

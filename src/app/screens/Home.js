@@ -202,6 +202,7 @@ export default class Home extends React.Component {
                             button="Zapojiť sa do súťaže"
                             location="/registracna-sutaz"
                             closeBanner={this.closeBanner}
+                            image={require("../assets/kit-banner.png")}
                         />
                 ) : null}
 

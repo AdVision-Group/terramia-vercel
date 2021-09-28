@@ -29,7 +29,9 @@ class RegisterSamples extends React.Component {
         samples: [],
         currentSamples: [],
         problemType: 1,
-        sampleId: ""
+        sampleId: "",
+
+        troubleshooting: false
     }
 
     constructor() {
@@ -39,6 +41,36 @@ class RegisterSamples extends React.Component {
         this.loadSamples = this.loadSamples.bind(this);
         this.getSortedSamples = this.getSortedSamples.bind(this);
         this.continue = this.continue.bind(this);
+
+        this.sendHelp = this.sendHelp.bind(this);
+    }
+
+    async sendHelp(email, message, error, browser) {
+        this.setState({
+            troubleshooting: false,
+            popup: true,
+            loading: true
+        });
+
+        const call = await Api.help({
+            email: email.trim(),
+            message: "Chyba: " + error + ", prehliadač: " + browser + ", správa: " + message,
+
+            name: "Nezadané",
+            phone: "0000000000"
+        });
+
+        if (call.error) {
+            this.setState({
+                loading: false,
+                message: "Zadaný e-mail je nesprávny"
+            });
+        } else {
+            this.setState({
+                loading: false,
+                message: "Správa úspešne odoslaná, čoskoro Vás budeme kontaktovať"
+            });
+        }
     }
 
     async componentDidMount() {
@@ -196,6 +228,14 @@ class RegisterSamples extends React.Component {
                     />
                 ) : null}
 
+                {this.state.troubleshooting ? (
+                    <Popup
+                        type="troubleshooting"
+                        onClick={this.sendHelp}
+                        close={() => this.setState({ troubleshooting: false })}
+                    />
+                ) : null}
+
                 <div className="content">
                     <div className="left-panel">
                         <img className="icon" src={require("../../assets/family-business-1.png")} loading="lazy" alt="Register" />
@@ -238,6 +278,10 @@ class RegisterSamples extends React.Component {
                         </div>
 
                         <div className="button-filled" onClick={() => this.continue   ()}>Pokračovať</div>
+
+                        <div id="troubleshooting-panel" onClick={() => this.setState({ troubleshooting: true })}>
+                            Nedarí sa Vám objednať vzorka?
+                        </div>  
                     </div>
                 </div>
             </div>

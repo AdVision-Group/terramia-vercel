@@ -67,8 +67,11 @@ class Video extends React.Component {
 
         const call = await Api.getVideo(this.props.match.params.link, token);
 
+        console.log("_-------____--__--__");
+        console.log(call);
+
         if (!call.error) {
-            this.setState({ video: call.videos[0] });
+            this.setState({ video: call.video });
         }
     }
 
@@ -101,11 +104,13 @@ class Video extends React.Component {
         const { video, status, banner, popup, daysLeft } = this.state;
         console.log(video, status, daysLeft);
 
+        if (!video) return null;
+
         return(
             <div className="screen" id="video">
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>{video.name ?? "Načítava sa..."} | TerraMia</title>
+                    <title>{video?.name ?? "Načítava sa..."} | TerraMia</title>
                     <meta name="description" content={video ? video.description : ""}></meta>
                 </Helmet>
 
@@ -126,7 +131,12 @@ class Video extends React.Component {
 
                     <p className="text">{video.description}</p>
 
-                    {status === 1 ?
+                    {video.vimeoId && status !== 3 ?
+                        <div className="status-banner">
+                            Tento webinár máte odomknutý
+                        </div>
+                    :
+                    status === 1 ?
                         <div className="status-banner">
                             Prihláste sa a odomknite si všetky webináre vrátane tohto videa ich zakúpením.
 
@@ -147,7 +157,7 @@ class Video extends React.Component {
                     <p className="charity-message">100% z vami zaplatenej sumy posielame na internetovú linku dôvery pre mladých ľudí - IPčko.sk . Sme radi, že pomáhate spolu s nami.</p>
                 </div>
 
-                {status === 3 && daysLeft > 0 && video.vimeoId &&
+                {video.vimeoId &&
                     <div style={{ width: "100%", height: 500 }}>
                     <iframe
                         src={"https://player.vimeo.com/video/" + video.vimeoId + "?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;h=a1186a1c35"}

@@ -54,6 +54,43 @@ class Archive extends React.Component {
 
         this.showError = this.showError.bind(this);
         this.showSuccess = this.showSuccess.bind(this);
+
+        this.redeemCoupon = this.redeemCoupon.bind(this);
+    }
+
+    async redeemCoupon(code) {
+        if (code.length === 0) {
+            return;
+        }
+
+        this.setState({ banner: false, popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.redeemCoupon(code, token);
+
+        if (call.error) {
+            if (call.error === "not-found") {
+                this.setState({
+                    loading: false,
+                    message: "Kupón sa nenašiel",
+                    onPopupClose: () => this.setState({ popup: false, banner: true })
+                });
+            } else {
+                this.setState({
+                    loading: false,
+                    message: "Nastala chyba v načítavaní kupónu",
+                    onPopupClose: () => this.setState({ popup: false, banner: true })
+                });
+            }
+        } else {
+            console.log(call);
+            this.setState({
+                loading: false,
+                message: "Kupón úspešne použitý",
+                onPopupClose: () => this.setState({ popup: false }, () => window.location.reload())
+            });
+        }
     }
 
     showError() {
@@ -191,6 +228,8 @@ class Archive extends React.Component {
         if (token) {
             const call = await Api.retrieveAccess(token);
 
+            console.log(call);
+
             if (call.access) {
                 this.setState({ status: 3, daysLeft: call.access.daysLeft });
             } else {
@@ -292,6 +331,7 @@ class Archive extends React.Component {
                         onClose={() => this.setState({ banner: false })}
                         showError={this.showError}
                         showSuccess={this.showSuccess}
+                        redeemCoupon={this.redeemCoupon}
                     />
                 }
 
@@ -300,7 +340,7 @@ class Archive extends React.Component {
                         type="info"
                         title={this.state.message}
                         loading={this.state.loading}
-                        onClick={() => this.setState({ popup: false })}
+                        onClick={() => this.state.onPopupClose()}
                     />
                 ) : null}
             </div>

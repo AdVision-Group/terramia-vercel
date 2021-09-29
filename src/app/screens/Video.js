@@ -38,6 +38,43 @@ class Video extends React.Component {
 
         this.showError = this.showError.bind(this);
         this.showSuccess = this.showSuccess.bind(this);
+
+        this.redeemCoupon = this.redeemCoupon.bind(this);
+    }
+
+    async redeemCoupon(code) {
+        if (code.length === 0) {
+            return;
+        }
+
+        this.setState({ banner: false, popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.redeemCoupon(code, token);
+
+        if (call.error) {
+            if (call.error === "not-found") {
+                this.setState({
+                    loading: false,
+                    message: "Kupón sa nenašiel",
+                    onPopupClose: () => this.setState({ popup: false, banner: true })
+                });
+            } else {
+                this.setState({
+                    loading: false,
+                    message: "Nastala chyba v načítavaní kupónu",
+                    onPopupClose: () => this.setState({ popup: false, banner: true })
+                });
+            }
+        } else {
+            console.log(call);
+            this.setState({
+                loading: false,
+                message: "Kupón úspešne použitý",
+                onPopupClose: () => this.setState({ popup: false }, () => window.location.reload())
+            });
+        }
     }
 
     showError() {
@@ -175,6 +212,7 @@ class Video extends React.Component {
                         onClose={() => this.setState({ banner: false })}
                         showError={this.showError}
                         showSuccess={this.showSuccess}
+                        redeemCoupon={this.redeemCoupon}
                     />
                 }
 

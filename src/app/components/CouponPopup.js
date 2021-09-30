@@ -21,6 +21,7 @@ export default class CouponPopup extends React.Component {
         this.setMaxUses = this.setMaxUses.bind(this);
         this.save = this.save.bind(this);
         this.selectVideo = this.selectVideo.bind(this);
+        this.formatDate = this.formatDate.bind(this);
     }
 
     selectVideo(id) {
@@ -47,15 +48,29 @@ export default class CouponPopup extends React.Component {
         this.setState({ maxUses: parseInt(value) });
     }
 
+    formatDate(date) {
+        let splitted = date.split(".");
+
+        for (let i = 0; i < splitted.length; i++) {
+            if (splitted[i].length === 1) {
+                splitted[i] = "0" + splitted[i];
+            }
+        }
+
+        return splitted.join("/");
+    }
+
     save() {
         const { code, maxUses, dueDate, selectedVideos } = this.state;
 
         let domain = [];
 
+        const newDueDate = this.formatDate(dueDate);
+
         for (let i = 0; i < selectedVideos.length; i++) {
             domain.push({
                 id: selectedVideos[i],
-                until: dueDate
+                until: newDueDate
             });
         }
 
@@ -92,7 +107,7 @@ export default class CouponPopup extends React.Component {
 
                     <input type="text" className="field" value={code} onChange={(event) => this.setState({ code: event.target.value.trim() })} placeholder="Kód kupónu" />
                     <input type="text" className="field" value={maxUses} onChange={(event) => this.setMaxUses(event.target.value)} placeholder="Počet použití" />
-                    <input type="text" className="field" value={dueDate} onChange={(event) => this.setState({ dueDate: event.target.value.trim() })} placeholder="Dátum expirácie (DD/MM/RRRR)" />
+                    <input type="text" className="field" value={dueDate} onChange={(event) => this.setState({ dueDate: event.target.value.trim() })} placeholder="Dátum expirácie (DD.MM.RRRR)" />
 
                     <div style={{ height: 30 }} />
 

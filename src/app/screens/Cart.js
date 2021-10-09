@@ -259,7 +259,7 @@ class Cart extends React.Component {
                         }
                         text=""
                         button={this.state.totalPoints < 100 ? "Nakupovať" : "Zisti viac"}
-                        location={this.state.totalPoints < 100 ? "/e-shop" : "/blog/8-darcekov-k-nakupu-v-septembri"}
+                        location={this.state.totalPoints < 100 ? "/e-shop" : "/blog/akcia-mesiaca"}
                         image={this.state.totalPoints > 100 ? require("../assets/nakupil-si-za-100-bodov.png") : require("../assets/nakup-este-za-x-bodov.png")}
                         closeBanner={this.closeBanner}
                     />

@@ -107,8 +107,11 @@ class Video extends React.Component {
         console.log("_-------____--__--__");
         console.log(call);
 
-        if (!call.error) {
+        if (call.video) {
             this.setState({ video: call.video });
+        } else {
+            this.props.history.replace("/stranka-sa-nenasla");
+            //this.setState({ popup: true, loading: false, message: "Video sa nepodarilo načítať" });
         }
     }
 

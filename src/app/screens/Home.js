@@ -98,7 +98,7 @@ export default class Home extends React.Component {
 
                 <div className="slideshow">
                     <h2 className="title fade-in-up animate__delay-1s">
-                        Získajte pri kúpe Veľkého balíka nevyhnutností pre domácnosť 8 esenciálnych darčekov. Akcia platí do konca septembra.
+                        Získajte pri kúpe Veľkého balíka alebo nákupu nad 200 členských bodov 8 esenciálnych darčekov v hodnote vyše 100€. Akcia platí do konca októbra.
                     </h2>
 
                     <div className="banner-buttons fade-in-up animate__delay-5s">
@@ -106,7 +106,7 @@ export default class Home extends React.Component {
                             Veľký balík
                         </Link>
 
-                        <Link className="button-filled" to="/blog/8-darcekov-k-nakupu-v-septembri">
+                        <Link className="button-filled" to="/blog/akcia-mesiaca">
                             Viac informácií
                         </Link>
                     </div>

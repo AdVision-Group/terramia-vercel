@@ -136,11 +136,11 @@ export default class Router extends React.Component {
 
                         <Route exact path="/admin/analytika"><AdminAnalytics /></Route>
                         
-                        {/*
+                        
                         <Route exact path="/admin/archiv-webinarov"><AdminArchive /></Route>
                         <Route exact path="/admin/pridat-video"><AdminVideo /></Route>
-                        <Route exact path="/admin/upravit-video/:id"><AdminVideo /></Route>
-                        */}
+                        <Route exact path="/admin/upravit-video/:link"><AdminVideo /></Route>
+                        
 
                         <Route exact path="/admin/registracia-novych-clenov"><AdminEmails /></Route>
                         <Route exact path="/admin/objednavky"><AdminOrders /></Route>

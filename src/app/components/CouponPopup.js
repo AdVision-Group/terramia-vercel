@@ -21,7 +21,19 @@ export default class CouponPopup extends React.Component {
         this.setMaxUses = this.setMaxUses.bind(this);
         this.save = this.save.bind(this);
         this.selectVideo = this.selectVideo.bind(this);
+        this.selectAll = this.selectAll.bind(this);
+        this.deselectAll = this.deselectAll.bind(this);
         this.formatDate = this.formatDate.bind(this);
+    }
+
+    selectAll() {
+        const selected = this.props.videos.map(item => item._id);
+
+        this.setState({ selectedVideos: selected });
+    }
+
+    deselectAll() {
+        this.setState({ selectedVideos: [] });
     }
 
     selectVideo(id) {
@@ -118,6 +130,10 @@ export default class CouponPopup extends React.Component {
                             </div>
                         )}
                     </div>
+
+                    <a className="select-all-button" onClick={() => this.state.selectedVideos.length === 0 ? this.selectAll() : this-this.deselectAll()}>
+                        {this.state.selectedVideos.length === 0 ? "Vybrať všetky" : "Resetovať výber"}
+                    </a>
 
                     <div style={{ height: 50 }} />
 

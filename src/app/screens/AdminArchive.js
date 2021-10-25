@@ -330,6 +330,8 @@ class AdminArchive extends React.Component {
 
         const getCoupons = await Api.getAllCoupons(token);
 
+        console.log(getCoupons);
+
         if (getCoupons.archiveCoupons) {
             this.setState({ coupons: getCoupons.archiveCoupons });
         }
@@ -467,7 +469,7 @@ class AdminArchive extends React.Component {
                                 <div className="value">{item.maxUses - item.uses}</div>
 
                                 <div className="label">Expiruje</div>
-                                <div className="value">{item.domain[0].until.split("/").join(".")}</div>
+                                <div className="value">{item.domain && item.domain.length > 0 ? item.domain[0].until.split("/").join(".") : "Neznáme"}</div>
 
                                 <div style={{ height: 20 }} />
                                 <div style={{ height: 20 }} />
@@ -487,7 +489,7 @@ class AdminArchive extends React.Component {
                     <div className="videos">
                         {videos.length === 0 ? <div className="message">Žiadne videá</div> :
                             videos.map((item, index) =>
-                                <Link className="video" to={"/admin/upravit-video/" + item._id}>
+                                <Link className="video" to={"/admin/upravit-video/" + item.link}>
                                     <img className="image" src={API_URL + "/uploads/resized/" + item.imagePath} />
                                     <div className="info">
                                         <div className="name">{item.name}</div>

@@ -242,10 +242,12 @@ class AdminVideo extends React.Component {
         await this.loadData();
 
         if (this.props.location.pathname.includes("upravit-video")) {
-            const id = this.props.match.params.id;
+            const link = this.props.match.params.link;
             const token = getStorageItem("token");
 
-            const call = await Api.getVideoById(id, token);
+            const call = await Api.getVideo(link, token);
+
+            console.log(call);
 
             if (call.video) {
                 const video = call.video;

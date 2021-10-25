@@ -144,3 +144,19 @@
     font-size: 15px;
     font-weight: 600;
 }
+
+.coupon-popup-screen .popup .select-all-button {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 26px;
+
+    margin-top: 30px;
+
+    cursor: pointer;
+}
+
+.coupon-popup-screen .popup .select-all-button:hover {
+    text-decoration: underline;
+}

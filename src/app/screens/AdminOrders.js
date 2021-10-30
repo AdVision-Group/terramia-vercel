@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import axios from "axios";
+import fileDownload from "js-file-download";
 
 import { API_URL, isLogged, getStorageItem } from "../config/config";
 import Api from "../config/Api";
@@ -45,6 +47,79 @@ class AdminOrders extends React.Component {
         this.sendSelected = this.sendSelected.bind(this);
         this.forwardSelected = this.forwardSelected.bind(this);
         this.handleScrollLoading = this.handleScrollLoading.bind(this);
+        this.exportPohodaXML = this.exportPohodaXML.bind(this);
+    }
+
+    async exportPohodaXML() {
+        this.setState({ popup: true, loading: true });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.createPohodaExport(token);
+
+        if (!call.error) {
+            if (call.code === 200) {
+                const url = API_URL + "/api/admin/pohoda/" + call.data.pohodaExport._id + "/xml";
+                window.location.href = url;
+
+                this.setState({
+                    loading: false,
+                    title: "Pohoda export úspešne stiahnutý"
+                });
+
+                /*
+                const handleDownload = (url, filename) => {
+                    axios.get(url, {
+                        responseType: "blob"
+                    }).then((res) => {
+                        fileDownload(res.data, filename)
+                    })
+                }
+                */
+
+                //handleDownload(url, "pohoda-export")
+
+                /*
+                const viewFile = async (url) => {
+                    fetch(url, {
+                        headers: {
+                            "auth-token": getStorageItem("token")
+                        }
+                    })
+                    .then((response) => response.blob())
+                    .then((blob) => {
+                        var _url = window.URL.createObjectURL(blob);
+                        window.open(_url, "_blank").focus(); // window.open + focus
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                };
+
+                await viewFile(url);
+                */
+
+                //alert("hello")
+                //window.open(API_URL + "/api/admin/pohoda/" + call.data.pohodaExport._id + "/xml", "_newtab");
+                
+                /*
+                var link = document.createElement("a");
+                const pathname = API_URL + "/api/admin/pohoda/" + call.data.pohodaExport._id + "/xml";
+                link.href = pathname;
+                link.download = "pohoda export";
+                link.dispatchEvent(new MouseEvent("click"));
+                */
+            } else if (call.code === 400) {
+                this.setState({
+                    loading: false,
+                    title: "Niesú žiadne nové dáta na Pohoda export"
+                });
+            }
+        } else {
+            this.setState({
+                loading: false,
+                title: "Nastala serverová chyba"
+            });
+        }
     }
 
     clearSelection(event) {
@@ -351,7 +426,7 @@ class AdminOrders extends React.Component {
                         title={this.state.title}
                         onClick={() => {
                             this.setState({ popup: false })
-                            this.props.history.push("/profil")
+                            //this.props.history.push("/profil")
                         }}
                         loading={this.state.loading}
                     />
@@ -359,6 +434,8 @@ class AdminOrders extends React.Component {
 
                 <div className="content">
                     <div className="title">Administrácia objednávok</div>
+
+                    <div className="button-filled" style={{ margin: "20px 0px" }} onClick={() => this.exportPohodaXML()}>Pohoda export</div>
 
                     <div className="menu">
                         <div className={"item" + (this.state.loading ? " faded" : "")} style={this.state.status === "pending" ? { backgroundColor: "#A161B3", color: "white" } : null} onClick={() => this.state.loading ? {} : this.changeCategory("pending")}>Čaká sa na zaplatenie</div>
@@ -394,7 +471,22 @@ class AdminOrders extends React.Component {
                     </div>
 
                     <div className="orders" id="orders-panel">
-                        {this.state.orders.map((order) => <Order order={order} fulfill={this.fulfillOrder} send={this.sendOrder} cancel={this.cancelOrder} selectOrder={this.selectOrder} isSelected={this.state.selectedOrders.includes(order.order._id)} />)}
+                        {this.state.orders.map((order) =>
+                            <Order
+                                order={order}
+                                fulfill={this.fulfillOrder}
+                                send={this.sendOrder}
+                                cancel={this.cancelOrder}
+                                selectOrder={this.selectOrder}
+                                isSelected={this.state.selectedOrders.includes(order.order._id)}
+                                invocieDoesntExist={() => {
+                                    this.setState({
+                                        popup: true,
+                                        title: "Faktúra ku danej objednávke neexistuje"
+                                    });
+                                }}
+                            />
+                        )}
                     </div>
 
                     {this.state.loading && <Loading />}

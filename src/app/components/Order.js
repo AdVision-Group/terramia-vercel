@@ -1,6 +1,8 @@
 import React from "react";
 
-import { API_URL, formatDate } from "../config/config";
+import { API_URL, formatDate, getStorageItem } from "../config/config";
+
+import Api from "../config/Api";
 
 import "../styles/order.css";
 
@@ -24,22 +26,21 @@ export default class Order extends React.Component {
 
         this.loadData = this.loadData.bind(this);
         this.filter = this.filter.bind(this);
+
+        this.getInvoice = this.getInvoice.bind(this);
     }
 
-    showDropdown(category) {
-        if (this.state.dropdown) {
-            if (this.state.category === category) {
-                this.hideDropdown();
-            } else {
-                this.setState({ category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
-            }
+    async getInvoice() {
+        console.log(this.props.order);
+
+        const token = getStorageItem("token");
+
+        if (this.props.order.order.foreignInvoiceId) {
+            window.open(API_URL + "/api/admin/invoices/" + this.props.order.order.foreignInvoiceId + "/pdf", "_newtab");
         } else {
-            this.setState({ dropdown: true, category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
+            //alert("Faktúra pre danú objednávku neexistuje");
+            this.props.invocieDoesntExist();
         }
-    }
-
-    hideDropdown() {
-        this.setState({ dropdown: false }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "none");
     }
 
     async loadData() {
@@ -48,37 +49,6 @@ export default class Order extends React.Component {
             client: this.props.order.client,
             date: formatDate(this.props.order.date)
         });
-
-        /*
-        const token = getStorageItem("token");
-        const order = this.props.order;
-
-        // LOAD PRODUCTS
-        var ids = this.filter(order.products);
-        var products = [];
-
-        for (let i = 0; i < ids.length; i++) {
-            const id = ids[i]
-            
-            const product = await Api.getProduct(id.id);
-            
-            products.push({
-                ...product.product,
-                amount: id.amount
-            });
-        }
-
-        this.setState({ products: products })
-
-        // LOAD CLIENT
-        const clientId = order.orderedBy;
-        const client = await Api.getClient(clientId, token);
-
-        this.setState({ client: client.user });
-
-        // LOAD DATE
-        this.setState({ date: formatDate(order.date) });
-        */
     }
 
     filter(ids) {
@@ -115,6 +85,22 @@ export default class Order extends React.Component {
         return products;
     }
 
+    showDropdown(category) {
+        if (this.state.dropdown) {
+            if (this.state.category === category) {
+                this.hideDropdown();
+            } else {
+                this.setState({ category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
+            }
+        } else {
+            this.setState({ dropdown: true, category: category }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "flex");
+        }
+    }
+
+    hideDropdown() {
+        this.setState({ dropdown: false }, () => document.getElementById("dropdown-" + this.props.order.order._id).style.display = "none");
+    }
+
     componentDidMount() {
         this.loadData();
     }
@@ -137,6 +123,7 @@ export default class Order extends React.Component {
                     <div style={{ flex: 1 }} />
 
                     <div className="button-panel">
+                        <div className="button-filled item" onClick={() => this.getInvoice()}>Faktúra</div>
                         {order.status === "ordered" ? <div className="button-filled item" onClick={() => this.props.fulfill(order._id)}>Do spracovaných</div> : null}
                         {order.status === "fulfilled" ? <div className="button-filled item" onClick={() => this.props.send(order._id)}>Do odoslaných</div> : null}
                         {order.status !== "cancelled" && order.status !== "sent" ? <div className="button-outline item" onClick={() => this.props.cancel(order._id)}>Zrušiť</div> : null}

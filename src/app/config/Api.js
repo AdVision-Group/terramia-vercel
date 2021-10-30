@@ -8,6 +8,100 @@ export default class Api extends React.Component {
         super();
     }
 
+    // INVOICES
+
+    static async getInvoice(id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/invoices/" + id, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async createInvoice(data, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify(data);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/invoices", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    static async getInvoicePdf(id, token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var requestOptions = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/invoices/" + id + "/pdf", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
+    // POHODA EXPORTS
+
+    static async createPohodaExport(token) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("auth-token", token);
+
+        var raw = JSON.stringify({});
+
+        var requestOptions = {
+            method: "POST",
+            headers: headers,
+            body: raw,
+            redirect: "follow"
+        };
+
+        return fetch(API_URL + "/api/admin/pohoda", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                return result
+            })
+            .catch(error => {
+                return error
+            });
+    }
+
     // VIDEO ARCHIVE
 
     static async addVideo(data, token) {

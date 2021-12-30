@@ -38,6 +38,21 @@
     background-color: white;
 }
 
+.archive-popup-screen .popup .field {
+    color: black;
+    font-size: 15px;
+    font-weight: 400;
+
+    padding: 8px;
+
+    margin-bottom: 10px;
+
+    width: 100%;
+
+    border: 1px solid lightgray;
+    outline: none;
+}
+
 .archive-popup-screen .popup .title {
     color: #383838;
     font-size: 25px;

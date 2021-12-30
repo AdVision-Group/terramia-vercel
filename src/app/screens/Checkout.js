@@ -70,6 +70,11 @@ class Checkout extends React.Component {
             return;
         }
 
+        if (name.trim().length < 6) {
+            this.setState({ loading: false, message: "Meno musí byť dlhšie ako 6 znakov" });
+            return;
+        }
+
         if (email.trim().length < 6) {
             this.setState({ loading: false, message: "Email musí byť dlhší ako 6 znakov" });
             return;

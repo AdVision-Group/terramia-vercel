@@ -24,7 +24,7 @@ const archiveTiers = [
     {
        tier: 3,
        days: 365,
-       price: 6900,
+       price: 7900,
     },
  ];
 
@@ -32,7 +32,10 @@ export default class ArchivePopup extends React.Component {
 
     state = {
         tier: 2,
-        coupon: ""
+        coupon: "",
+
+        email: "",
+        password: "",
     }
 
     constructor() {
@@ -50,17 +53,33 @@ export default class ArchivePopup extends React.Component {
         const token = getStorageItem("token");
         
         const call = await Api.getAccess({ pendingTier: tier }, token);
-
-        console.log(call);
     }
 
     render() {
         const { tier, coupon } = this.state;
+        const { loggedIn } = this.props;
 
         return (
             <div className="archive-popup-screen">
+                {!loggedIn &&
+                    <div className="popup">
+                        <div className="title">Na odomknutie webinárov sa musíte prihlásiť</div>
+                        <div style={{ height: 20 }} />
+                        <input className="field" type="text" value={this.state.email} placeholder="E-mail" onChange={(event) => this.setState({ email: event.target.value})} />
+                        <input className="field" type="password" value={this.state.password} placeholder="Heslo" onChange={(event) => this.setState({ password: event.target.value})} />
+                        <div style={{ height: 30 }} />
+
+                        <div style={{ display: "grid", gridTemplateColumns: "auto auto", gap: 10 }}>
+                            <div className="button-filled" onClick={() => this.props.login(this.state.email, this.state.password)}>Prihlásiť sa</div>
+                            <div className="button-outline" onClick={() => this.props.onClose()}>Zrušiť</div>
+                        </div>
+                    </div>
+                }
+
+                {loggedIn &&
                 <div className="popup">
                     <div className="title">Odomknúť webináre</div>
+
                     <div className="text">
                         Ak máte kupón na odomknutie webinárov, načítajte si ho v textovom poli nižšie.
                     </div>
@@ -82,7 +101,7 @@ export default class ArchivePopup extends React.Component {
                             3 mesiace | 25.00€
                         </div>
                         <div className={"item" + (tier === 3 ? " selected" : "")} onClick={() => this.setState({ tier: 3 })}>
-                            12 mesiacov | 69.00€
+                            12 mesiacov | 79.00€
                         </div>
                     </div>
 
@@ -96,6 +115,7 @@ export default class ArchivePopup extends React.Component {
 
                     <div className="button-filled" onClick={this.props.onClose}>Zavrieť</div>
                 </div>
+                }
             </div>
         )
     }

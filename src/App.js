@@ -8,7 +8,7 @@ import Api from "./app/config/Api";
 export default class App extends React.Component {
 
   state = {
-    maintenance: false,
+    maintenance: true,
     loading: false
   }
 
@@ -21,6 +21,10 @@ export default class App extends React.Component {
   async componentDidMount() {
     this.setState({ loading: true });
     this.loadLocalStorage();
+
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
 
     const call = await Api.getStatus();
 

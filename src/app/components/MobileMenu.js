@@ -24,7 +24,7 @@ export default function MobileMenu() {
             <Link className="link" onClick={() => changeMenu()} to="/blog" style={location.includes("blog") ? { color: "#A161B3" } : null}>Blog</Link>
             <Link className="link" onClick={() => changeMenu()} to="/o-nas" style={location.includes("o-nas") ? { color: "#A161B3" } : null}>O nás</Link>
             <Link className="link" onClick={() => changeMenu()} to="/kontakt" style={location.includes("kontakt") ? { color: "#A161B3" } : null}>Kontakt</Link>
-            <Link className="link" onClick={() => changeMenu()} to="/kosik" style={location.includes("kosik") ? { color: "#A161B3" } : null}>Kontakt</Link>
+            <Link className="link" onClick={() => changeMenu()} to="/kosik" style={location.includes("kosik") ? { color: "#A161B3" } : null}>Košík</Link>
             <Link className="link" onClick={() => changeMenu()} to="/prihlasenie" style={location.includes("prihlasenie") || location.includes("registracia") || location.includes("profil") || location.includes("admin") ? { color: "#A161B3" } : null}>Profil</Link>
         </div>
     )

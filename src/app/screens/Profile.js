@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { getStorageItem, removeStorageItem } from "../config/config";
+import { API_URL, getStorageItem, removeStorageItem } from "../config/config";
 import Api from "../config/Api";
 
 import Popup from "../components/Popup";
@@ -46,6 +46,45 @@ class Profile extends React.Component {
         this.savePersonalInfo = this.savePersonalInfo.bind(this);
         this.saveOrderInfo = this.saveOrderInfo.bind(this);
         this.savePasswordInfo = this.savePasswordInfo.bind(this);
+        this.downloadContracts = this.downloadContracts.bind(this);
+    }
+
+    async downloadContracts() {
+        this.setState({
+            popup: true,
+            loading: true
+        });
+
+        const token = getStorageItem("token");
+
+        const call = await Api.createContract({}, token);
+
+        if (call.code === 400) {
+            this.setState({
+                loading: false,
+                message: call.message.sk
+            });
+        } else if (call.data) {
+            this.setState({
+                popup: false
+            });
+            
+            window.open(API_URL + "/api/admin/contracts/" + call.data.contract._id + "/zip", "_newtab");
+        } else {
+            this.setState({
+                loading: false,
+                message: "Nastala neočakávaná chyba"
+            });
+        }
+
+        /*
+        if (this.props.order.order.foreignInvoiceId) {
+            window.open(API_URL + "/api/admin/invoices/" + this.props.order.order.foreignInvoiceId + "/pdf", "_newtab");
+        } else {
+            //alert("Faktúra pre danú objednávku neexistuje");
+            this.props.invocieDoesntExist();
+        }
+        */
     }
 
     async init() {
@@ -192,18 +231,18 @@ class Profile extends React.Component {
                 <div className="content">
                     <div className="header">
                         <div className="title">Môj profil</div>
+                    </div>
 
-                        <div style={{ flex: 1 }}></div>
-
-                        <div className="button-panel">
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/archiv-webinarov" style={{ marginRight: 20 }}>Archív</Link> : null}
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
-                            {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}
-                            <div className="button-filled" onClick={() => this.logout()}>Odhlásiť sa</div>
-                        </div>
+                    <div className="button-panel">
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/analytika" style={{ marginRight: 20 }}>Analytika</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/archiv-webinarov" style={{ marginRight: 20 }}>Archív</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/registracia-novych-clenov" style={{ marginRight: 20 }}>Emaily</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/objednavky" style={{ marginRight: 20 }}>Objednávky</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-produkt" style={{ marginRight: 20 }}>Pridať produkt</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" to="/admin/pridat-prispevok" style={{ marginRight: 20 }}>Pridať príspevok</Link> : null}
+                        {user !== null && user !== undefined && user.admin !== null && user.admin !== undefined && user.admin === 1 ? <Link className="button-filled" onClick={() => this.downloadContracts()} style={{ marginRight: 20 }}>Stiahnuť zmluvy</Link> : null}
+                        <div style={{ flex: 1 }} />
+                        <div className="button-filled" onClick={() => this.logout()}>Odhlásiť sa</div>
                     </div>
 
                     {this.state.user === null ? <Loading /> : (

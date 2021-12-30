@@ -145,6 +145,8 @@ class AdminVideo extends React.Component {
         const token = getStorageItem("token");
         const { link, name, description, id, category, topics, authors, image, imagePath } = this.state;
 
+        console.log(this.state);
+
         if (link.trim() === "" || name.trim() === "" || description.trim() === "" || id.trim() === "" || topics.length === 0 || authors.length === 0 || imagePath === "") {
             this.setState({
                 loading: false,
@@ -163,7 +165,7 @@ class AdminVideo extends React.Component {
             topics: topics,
             authors: authors,
             link: link
-        }, this.props.match.params.id, token);
+        }, this.state.mongoId, token);
 
         if (call.video) {
             if (image !== null) {
@@ -247,8 +249,6 @@ class AdminVideo extends React.Component {
 
             const call = await Api.getVideo(link, token);
 
-            console.log(call);
-
             if (call.video) {
                 const video = call.video;
 
@@ -264,6 +264,8 @@ class AdminVideo extends React.Component {
                     link: video.link ?? "",
 
                     imagePath: API_URL + "/uploads/" + video.imagePath,
+
+                    mongoId: video._id
                 });
             } else {
                 this.props.history.push("/stranka-sa-nenasla");

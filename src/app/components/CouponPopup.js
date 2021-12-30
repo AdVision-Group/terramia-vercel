@@ -124,11 +124,13 @@ export default class CouponPopup extends React.Component {
                     <div style={{ height: 30 }} />
 
                     <div className="video-panel">
-                        {this.props.videos.map((item, index) =>
-                            <div className="video-item" style={this.state.selectedVideos.includes(item._id) ? { backgroundColor: "#A161B3" } : null} onClick={() => this.selectVideo(item._id)}>
-                                <div className="name" style={this.state.selectedVideos.includes(item._id) ? { color: "white" } : null}>{item.name}</div>
-                            </div>
-                        )}
+                        <div className="wrapper">
+                            {this.props.videos.map((item, index) =>
+                                <div className="video-item" style={this.state.selectedVideos.includes(item._id) ? { backgroundColor: "#A161B3" } : null} onClick={() => this.selectVideo(item._id)}>
+                                    <div className="name" style={this.state.selectedVideos.includes(item._id) ? { color: "white" } : null}>{item.name}</div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     <a className="select-all-button" onClick={() => this.state.selectedVideos.length === 0 ? this.selectAll() : this-this.deselectAll()}>

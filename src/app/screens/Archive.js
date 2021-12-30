@@ -2,13 +2,14 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import { formatDate, API_URL, getStorageItem, createURLName } from "../config/config";
+import { formatDate, API_URL, getStorageItem, createURLName, setStorageItem } from "../config/config";
 import ArchivePopup from "../components/ArchivePopup";
 import Popup from "../components/Popup";
 import Title from "../components/Title";
 import Loading from "../components/Loading";
 import Banner from "../components/Banner";
 
+import { evaluateLogin } from "../config/config";
 import { showTransition, hideTransition } from "../components/Transition";
 
 import Api from "../config/Api";
@@ -39,6 +40,10 @@ class Archive extends React.Component {
 
         videos: [],
 
+        availableVideos: [],
+        lockedVideos: [],
+
+        loggedIn: false
     }
 
     constructor() {
@@ -56,6 +61,25 @@ class Archive extends React.Component {
         this.showSuccess = this.showSuccess.bind(this);
 
         this.redeemCoupon = this.redeemCoupon.bind(this);
+
+        this.login = this.login.bind(this);
+    }
+
+    async login(email, password) {
+        this.setState({ banner: false, popup: true, loading: true });
+
+        const login = await Api.login({
+            email: email.trim(),
+            password: password
+        })
+
+        if (login.token) {
+            setStorageItem("token", login.token);
+           this.setState({ popup: false, loading: false, loggedIn: true, banner: true });
+        } else {
+            const message = evaluateLogin(login.message);
+            this.setState({ loading: false, message: message, onPopupClose: () => this.setState({ popup: false, banner: true }) });
+        }
     }
 
     async redeemCoupon(code) {
@@ -184,6 +208,8 @@ class Archive extends React.Component {
     async loadData() {
         this.setState({ loading: true });
 
+        const token = getStorageItem("token");
+
         const { categories, topics, authors } = this.state;
 
         let data = {
@@ -194,19 +220,37 @@ class Archive extends React.Component {
         if (topics.length > 0) data.filters["topics"] = topics;
         if (authors.length > 0) data.filters["authors"] = authors;
 
-        console.log(data);
-
         const getVideos = await Api.getVideos(data, null);
 
         if (getVideos.videos) {
-            this.setState({
-                videos: getVideos.videos,
-                loading: false
-            });
+            if (token) {
+                let availableVideos = [];
+                let lockedVideos = [];
+
+                for (let i = 0; i < getVideos.videos.length; i++) {
+                    const call = await Api.getVideo(getVideos.videos[i].link, token);
+
+                    if (!call.error) {
+                        if (call.video.vimeoId) {
+                            availableVideos.push(call.video);
+                        } else {
+                            lockedVideos.push(call.video);
+                        }
+                    }
+                }
+
+                this.setState({ videos: availableVideos.concat(lockedVideos) });
+            } else {
+                this.setState({
+                    videos: getVideos.videos,
+                });
+            }
         }
     }
 
     async loadInitialData() {
+        const token = getStorageItem("token");
+
         const getConfig = await Api.getConfig();
 
         if (getConfig.config) {
@@ -216,9 +260,28 @@ class Archive extends React.Component {
         const getVideos = await Api.getVideos({ filters: {} }, null);
 
         if (getVideos.videos) {
-            this.setState({
-                videos: getVideos.videos,
-            });
+            if (token) {
+                let availableVideos = [];
+                let lockedVideos = [];
+
+                for (let i = 0; i < getVideos.videos.length; i++) {
+                    const call = await Api.getVideo(getVideos.videos[i].link, token);
+
+                    if (!call.error) {
+                        if (call.video.vimeoId) {
+                            availableVideos.push(call.video);
+                        } else {
+                            lockedVideos.push(call.video);
+                        }
+                    }
+                }
+
+                this.setState({ videos: availableVideos.concat(lockedVideos) });
+            } else {
+                this.setState({
+                    videos: getVideos.videos,
+                });
+            }
         }
     }
 
@@ -227,8 +290,6 @@ class Archive extends React.Component {
 
         if (token) {
             const call = await Api.retrieveAccess(token);
-
-            console.log(call);
 
             if (call.access) {
                 this.setState({ status: 3, daysLeft: call.access.daysLeft });
@@ -245,6 +306,12 @@ class Archive extends React.Component {
         
         await this.loadInitialData();
         await this.getUserStatus();
+
+        if (getStorageItem("token")) {
+            this.setState({ loggedIn: true });
+        } else {
+            this.setState({ loggedIn: false });
+        }
 
         hideTransition();
     }
@@ -269,32 +336,35 @@ class Archive extends React.Component {
                     </p>
 
                     <div className="filters">
-                        {config.categories.map((item, index) =>
-                            <div className={"item" + (categories.includes(item) ? " selected" : "")} onClick={() => this.addCategory(item)}>
-                                {item}
-                            </div>
-                        )}
+                        <div className="heading">Typ webináru</div>
+                        <div className="grid">
+                            {config.categories.map((item, index) =>
+                                <div className={"item" + (categories.includes(item) ? " selected" : "")} onClick={() => this.addCategory(item)}>
+                                    {item}
+                                </div>
+                            )}
+                        </div>
 
-                        {config.topics.map((item, index) =>
-                            <div className={"item" + (topics.includes(item) ? " selected" : "")} onClick={() => this.addTopic(item)}>
-                                {item}
-                            </div>
-                        )}
+                        <div className="heading">Téma webináru</div>
+                        <div className="grid">
+                            {config.topics.map((item, index) =>
+                                <div className={"item" + (topics.includes(item) ? " selected" : "")} onClick={() => this.addTopic(item)}>
+                                    {item}
+                                </div>
+                            )}
+                        </div>
 
-                        {config.authors.map((item, index) =>
-                            <div className={"item" + (authors.includes(item) ? " selected" : "")} onClick={() => this.addAuthor(item)}>
-                                {item}
-                            </div>
-                        )}
+                        <div className="heading">Autor webináru</div>
+                        <div className="grid">
+                            {config.authors.map((item, index) =>
+                                <div className={"item" + (authors.includes(item) ? " selected" : "")} onClick={() => this.addAuthor(item)}>
+                                    {item}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
-                    {status === 1 ?
-                        <div className="status-banner">
-                            Prihláste sa a odomknite si všetky webináre ich zakúpením.
-
-                            <div className="button-filled" onClick={() => this.props.history.push("/prihlasenie")}>Prihlásiť sa</div>
-                        </div>
-                    : status === 2 ?
+                    {status === 1 || status === 2 ?
                         <div className="status-banner">
                             Odomknite si všetky webináre ich zakúpením.
 
@@ -313,14 +383,32 @@ class Archive extends React.Component {
                     :
                         <div className="videos">
                             {videos.map((item, index) =>
-                                <Link className="video" to={"/webinare/" + item.link}>
-                                    <img className="image" src={API_URL + "/uploads/resized/" + item.imagePath} />
-                                    <div className="info">
-                                        <div className="name">{item.name}</div>
-                                        <div className="data">{item.category} | {item.authors[0]} | {item.topics[0]}</div>
-                                        <p className="description">{item.description}</p>
+                                item.vimeoId ?
+                                    <Link className="video" to={"/webinare/" + item.link}>
+                                        <div className="image-panel">
+                                            <img className="image" src={API_URL + "/uploads/resized/" + item.imagePath} />
+                                            {!item.vimeoId && <div className="overlay" />}
+                                            {!item.vimeoId && <ion-icon name="lock-closed"></ion-icon>}
+                                        </div>
+                                        <div className="info">
+                                            <div className="name">{item.name}</div>
+                                            <div className="data">{item.category} | {item.authors[0]} | {item.topics[0]}</div>
+                                            <p className="description">{item.description}</p>
+                                        </div>
+                                    </Link>
+                                :
+                                    <div className="video" onClick={() => this.setState({ banner: true })}>
+                                        <div className="image-panel">
+                                            <img className="image" src={API_URL + "/uploads/resized/" + item.imagePath} />
+                                            {!item.vimeoId && <div className="overlay" />}
+                                            {!item.vimeoId && <ion-icon name="lock-closed"></ion-icon>}
+                                        </div>
+                                        <div className="info">
+                                            <div className="name">{item.name}</div>
+                                            <div className="data">{item.category} | {item.authors[0]} | {item.topics[0]}</div>
+                                            <p className="description">{item.description}</p>
+                                        </div>
                                     </div>
-                                </Link>
                             )}
                         </div>
                     }
@@ -332,6 +420,8 @@ class Archive extends React.Component {
                         showError={this.showError}
                         showSuccess={this.showSuccess}
                         redeemCoupon={this.redeemCoupon}
+                        loggedIn={this.state.loggedIn}
+                        login={this.login}
                     />
                 }
 

@@ -10,9 +10,12 @@ export default function Maintenance() {
             </div>
 
             <div className="info-panel">
-                <div className="title">Stránka je momentálne pod údržbou</div>
+                {/*<div className="title">Stránka je momentálne pod údržbou</div>*/}
+                <div className="title">
+                    Od 29.12. zaznamenávame výpadok webu. Na odstránení pracujeme. Prosíme o trpezlivosť.
+                </div>
                 <div className="text">
-                    Stránka TerraMia momentálne nie je dostupná. Pridávame na ňu nové funckie a vylepšenia, aby ste sa na nej cítili čo najlepšie. Vráťte sa neskôr prosím.
+                    Stránka TerraMia momentálne nie je dostupná. Opravujeme jej chyby a pridávame na ňu nové funckie a vylepšenia, aby ste sa na nej cítili čo najlepšie. Vráťte sa neskôr prosím.
                 </div>
             </div>
         </div>

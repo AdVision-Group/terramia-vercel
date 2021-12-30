@@ -255,7 +255,7 @@ class Cart extends React.Component {
                             this.state.totalPoints >= 100 && this.state.totalPoints < 200 ?
                             "Získajte zľavu 25% na celý nákup vďaka Vášmu nákupu nad 100 bodov. K ďalším 8 darčekom Vám chýba nakúpiť za " + (200 - this.state.totalPoints) + " bodov."
                             :
-                            "Gratulujeme, okrem zľavy 25% získavate aj 8 esenciálnych darčekov."
+                            "Gratulujeme, okrem zľavy -25% získavate niekoľko esenciálnych darčekov."
                         }
                         text=""
                         button={this.state.totalPoints < 100 ? "Nakupovať" : "Zisti viac"}

@@ -73,6 +73,22 @@
 
 #archive .content .filters {
     width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+#archive .content .filters .heading {
+    color: #383838;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#archive .content .filters .grid {
+    width: 100%;
     max-width: 900px;
 
     display: flex;
@@ -80,7 +96,7 @@
     flex-wrap: wrap;
     justify-content: center;
 
-    margin-bottom: 20px;
+    margin: 15px 0px 30px 0px;
 }
 
 #archive .content .filters .item {
@@ -151,6 +167,8 @@
 
     margin: 0px;
 
+    position: relative;
+
     background-color: white;
     box-shadow: 0px 0px 20px -10px gray;
 
@@ -159,24 +177,58 @@
     transition: all 200ms;
 
     text-decoration: none;
+
+    cursor: pointer;
 }
 
 #archive .content .videos .video:hover {
     box-shadow: 0px 0px 30px -15px gray;
 }
 
-#archive .content .videos .video .image {
+#archive .content .videos .video .image-panel {
     width: 100%;
     height: 170px;
-
-    object-fit: cover;
 
     margin: 0px;
     padding: 0px;
 
-    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
 
-    background-color: rgba(0, 0, 0, 0.05);
+    position: relative;
+
+    border-radius: 5px 5px 0px 0px;
+}
+
+#archive .content .videos .video .image {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+#archive .content .videos .video .overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#archive .content .videos .video .image-panel ion-icon {
+    color: white;
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    left: calc(50% - 15px);
+    top: calc(50% - 15px);
 }
 
 #archive .content .videos .video .info {
@@ -195,7 +247,6 @@
     color: #383838;
     font-size: 16px;
     font-weight: 700;
-    line-height: 16px;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -208,7 +259,6 @@
     color: #A161B3;
     font-size: 13px;
     font-weight: 600;
-    line-height: 13px;
 
     margin-top: 7px;
 

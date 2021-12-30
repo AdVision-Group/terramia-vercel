@@ -98,7 +98,7 @@ export default class Home extends React.Component {
 
                 <div className="slideshow">
                     <h2 className="title fade-in-up animate__delay-1s">
-                        Získajte pri kúpe Veľkého balíka alebo nákupu nad 200 členských bodov 8 esenciálnych darčekov v hodnote vyše 100€. Akcia platí do konca októbra.
+                        4 darčeky + esenciálny olej Frankincense 15 ml v hodnote 96€ ZADARMO. Získajte ich pri kúpe Veľkého balíka alebo nákupe nad 200 bodov len do konca decembra.
                     </h2>
 
                     <div className="banner-buttons fade-in-up animate__delay-5s">

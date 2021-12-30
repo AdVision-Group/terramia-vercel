@@ -6,7 +6,7 @@ import TagManager from "react-gtm-module";
 import ReactPixel from "react-facebook-pixel";
 import Api from "./config/Api";
 
-class AppContaner extends React.Component {
+class AppContainer extends React.Component {
 
     constructor() {
         super();
@@ -53,4 +53,4 @@ class AppContaner extends React.Component {
     }
 }
 
-export default withRouter(AppContaner);
+export default withRouter(AppContainer);

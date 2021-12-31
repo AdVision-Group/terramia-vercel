@@ -1,6 +1,6 @@
 // default API URL
 
-export const API_URL = "https://api.looplabs.sk:8443"; // REAL
+export const API_URL = "https://terramia-api-nxyu2tdyfa-ew.a.run.app"; // REAL
 //export const API_URL = "https://coronashop.store:8844"; // TESTING
 
 export const shop = [

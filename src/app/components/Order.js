@@ -6,6 +6,12 @@ import Api from "../config/Api";
 
 import "../styles/order.css";
 
+const paymentTypeMap = {
+    "cash" : "Hotovosť",
+    "card" : "Platobná karta",
+    "transfer" : "Bankový prevod"
+}
+
 export default class Order extends React.Component {
 
     state = {
@@ -172,7 +178,7 @@ export default class Order extends React.Component {
                                 <div className="info">{order.shouldDeliver ? "Doručenie kuriérom" : "Osobný odber"}</div>
 
                                 <div className="heading">Platba</div>
-                                <div className="info">{order.paidOnline ? "Kartou" : "Hotovosť"}</div>
+                                <div className="info">{paymentTypeMap[order.paymentType] ?? "Neuvedené"}</div>
 
                                 <div className="heading">Na firmu</div>
                                 <div className="info">{order.buyingAsCompany ? "ÁNO" : "NIE"}</div>

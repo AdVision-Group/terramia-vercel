@@ -7,7 +7,7 @@ import CheckoutForm from "../components/CheckoutForm";
 
 import "../styles/paymentpanel.css";
 
-const promise = loadStripe("pk_live_51HrnXkAeUp0KWc2H8PIYeKHCbVq9oOQttDTGoMmHWgYLnnaZRMl16RHnHTohmfHCnFibyyP8y0DKkx5HxcEnw5iI006IZDTVLh");
+const promise = loadStripe("pk_test_51HrnXkAeUp0KWc2HvJw1jpEaFBUm3x7N716z5a6gZ0a9RCN3mwyfXdJPjXOgsbQde3zNgpAf5bu0yrcwr1nChFbK00XAC0DUnO");
 
 class PaymentPanel extends React.Component {
 

@@ -13,7 +13,7 @@ import Summary from "../components/Summary";
 
 import { showTransition, hideTransition } from "../components/Transition";
 
-const promise = loadStripe("pk_test_51Hc5rMFGDIXHKcdbAeI9FeG5b2rAXAu6ATFBsoxB3bBCA7ajJ8UhroPzGVq3eOBDtKqRxVNMr4wKPFnP9zP8Zkts00jnc80SNN");
+const promise = loadStripe("pk_test_51HrnXkAeUp0KWc2HvJw1jpEaFBUm3x7N716z5a6gZ0a9RCN3mwyfXdJPjXOgsbQde3zNgpAf5bu0yrcwr1nChFbK00XAC0DUnO");
 
 class Checkout extends React.Component {
 

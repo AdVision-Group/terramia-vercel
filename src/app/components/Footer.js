@@ -59,7 +59,7 @@ function Footer(props) {
                 </div>
 
                 <div className="bottom-panel">
-                    <div className="text">© 2020 terramia.sk | Designed and created by <a href="https://advision.sk" style={{ color: "#A161B3", fontWeight: "bold", textDecoration: "none" }}>AdVision Digital Marketing</a></div>
+                    <div className="text">© 2020 terramia.sk | Designed and created by <a href="https://looplabs.sk" style={{ color: "#A161B3", fontWeight: "bold", textDecoration: "none" }}>LoopLabs</a></div>
                 </div>
             </div>
         </div>
